@@ -6,26 +6,7 @@
 #include <string>
 #include <sstream>
 
-#define ASSERT(x) if (!(x)) __debugbreak();
-#define GLCall(x) GLClearError();\
-	x;\
-	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
-
-static void GLClearError()
-{
-	while (glGetError() != GL_NO_ERROR);
-}
-
-static bool GLLogCall(const char* function, const char* file, int line)
-{
-	bool gl_Func_correctly_ended = true;
-	while (GLenum error = glGetError())
-	{
-		std::cout << "[OpenGL Error] (" << error << "): " << function << " " << file << ":" << line << std::endl;
-		gl_Func_correctly_ended = false;
-	}
-	return gl_Func_correctly_ended;
-}
+#include "Utility.h"
 
 struct ShaderProgramSource
 {
