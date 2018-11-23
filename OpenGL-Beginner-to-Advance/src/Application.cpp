@@ -9,6 +9,7 @@
 #include "Utility.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "VertexArray.h"
 
 struct ShaderProgramSource
 {
@@ -139,17 +140,14 @@ int main(void)
 	};
 
 	{	// make a scope to force delete a VertexBuffer before context windows get distroyed
-		unsigned int vao;
-		GLCall(glGenVertexArrays(1, &vao));
-		GLCall(glBindVertexArray(vao));
+		VertexArray va;
 
-		VertexBuffer buffer(positions, 4 * (2 + 3) * sizeof(float));
+		VertexBuffer vb(positions, 4 * (2 + 3) * sizeof(float));
 
-		GLCall(glEnableVertexAttribArray(0));
-		GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, (2 + 3) * sizeof(float), (void*)0));
-
-		GLCall(glEnableVertexAttribArray(1));
-		GLCall(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, (2 + 3) * sizeof(float), (void*)(2 * sizeof(float))));
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		layout.Push<float>(3);
+		va.AddBuffer(vb, layout);
 
 		IndexBuffer ibo(indices, 6);
 
@@ -167,9 +165,9 @@ int main(void)
 		GLCall(glUniform4f(location, 0.3f, 0.3f, 0.8f, 1.0f));
 
 		GLCall(glUseProgram(0));
-		GLCall(glBindVertexArray(0));
-		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
-		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+		va.Unbind();
+		vb.Unbind();
+		ibo.Unbind();
 
 		float r = 0.0f;
 		float increment = 0.05f;
@@ -183,8 +181,7 @@ int main(void)
 			GLCall(glUseProgram(shader));
 			GLCall(glUniform4f(location, r, r, r, 1.0f));
 
-			GLCall(glBindVertexArray(vao));
-
+			va.Bind();
 			ibo.Bind();
 
 			GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
