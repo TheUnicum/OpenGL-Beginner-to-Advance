@@ -8,6 +8,7 @@
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 #include "Shader.h"
+#include "Renderer.h"
 
 int main(void)
 {
@@ -62,7 +63,7 @@ int main(void)
 		layout.Push<float>(3);
 		va.AddBuffer(vb, layout);
 
-		IndexBuffer ibo(indices, 6);
+		IndexBuffer ib(indices, 6);
 
 		Shader shader("res/shaders/Basic.shader");
 		shader.Bind();
@@ -71,7 +72,9 @@ int main(void)
 		shader.Unbind();
 		va.Unbind();
 		vb.Unbind();
-		ibo.Unbind();
+		ib.Unbind();
+
+		Renderer renderer;
 
 		float r = 0.0f;
 		float increment = 0.05f;
@@ -80,15 +83,12 @@ int main(void)
 		while (!glfwWindowShouldClose(window))
 		{
 			/* Render here */
-			GLCall(glClear(GL_COLOR_BUFFER_BIT));
+			renderer.Clear();
 
 			shader.Bind();
 			shader.SetUniform4f("u_Color", r, r, r, 1.0f);
 
-			va.Bind();
-			ibo.Bind();
-
-			GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+			renderer.Draw(va, ib, shader);
 
 			if (r > 1.0f)
 				increment = -0.05f;
@@ -97,10 +97,10 @@ int main(void)
 			r += increment;
 
 			/* Swap front and back buffers */
-			GLCall(glfwSwapBuffers(window));
+			glfwSwapBuffers(window);
 
 			/* Poll for and process events */
-			GLCall(glfwPollEvents());
+			glfwPollEvents();
 		}
 	}
 
