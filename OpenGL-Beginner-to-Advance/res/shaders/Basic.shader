@@ -8,9 +8,11 @@ layout(location = 2) in vec2 vs_texCoord;
 out vec4 v_color;
 out vec2 v_texCoord;
 
+uniform mat4 u_MVP;
+
 void main()
 {
-	gl_Position = vs_position;
+	gl_Position = u_MVP * vs_position;
 	v_color = vs_color;
 	v_texCoord = vs_texCoord;
 };
