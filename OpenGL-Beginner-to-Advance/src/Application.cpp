@@ -28,7 +28,7 @@ int main(void)
 	//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(960, 540, "Hello World", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -72,12 +72,23 @@ int main(void)
 
 		IndexBuffer ib(indices, 6);
 
-		glm::mat4 proj = glm::ortho(-2.0f, +2.0f, -1.5f, +1.5f, -1.0f, +1.0f); // Ratio4:3
+		glm::mat4 proj = glm::ortho(+0.0f, +960.0f, 0.0f, +540.0f, -1.0f, +1.0f); // Ratio4:3
+		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f));
+
+		// ---Model Matrix = T * R * S
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(+1.0f, +0.0f, +0.0f));
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(+0.0f, +1.0f, +0.0f));
+		model = glm::rotate(model, glm::radians(45.0f), glm::vec3(+0.0f, +0.0f, +1.0f));
+		model = glm::scale(model, glm::vec3(200.0f));
+
+		// ------------MVP-------------- // Model/ View/ Projection
+		glm::mat4 mvp = proj * view * model;
 
 		Shader shader("res/shaders/Basic.shader");
 		shader.Bind();
 		shader.SetUniform4f("u_Color", 0.3f, 0.3f, 0.8f, 1.0f);
-		shader.SetUniformMat4f("u_MVP", proj);
+		shader.SetUniformMat4f("u_MVP", mvp);
 
 		Texture texture("res/textures/ChernoLogo.png");
 		texture.Bind(0);
