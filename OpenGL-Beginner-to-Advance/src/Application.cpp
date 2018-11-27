@@ -79,13 +79,11 @@ int main(void)
 		glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f));
 
 		Shader shader("res/shaders/Basic.shader");
-		shader.Bind();
-		shader.SetUniform4f("u_Color", 0.3f, 0.3f, 0.8f, 1.0f);
-		//shader.SetUniformMat4f("u_MVP", mvp);
 
-		Texture texture("res/textures/grass.png"); //Chernologo
-		texture.Bind(0);
-		shader.SetUniform1i("u_Texture", 0);
+		Texture texture_A("res/textures/grass.png");
+		Texture texture_B("res/textures/blending_transparent_window.png");
+		texture_A.Bind(0);
+		texture_B.Bind(1);
 
 		shader.Unbind();
 		va.Unbind();
@@ -94,13 +92,19 @@ int main(void)
 
 		Renderer renderer;
 
+
 		ImGui::CreateContext();
 		ImGui_ImplGlfwGL3_Init(window, true);
 		ImGui::StyleColorsDark();
 
-		glm::vec3 translation(200, 200, 0);
-		float rotationZ = 0;
-		float scaleRatio = 1;
+		glm::vec3 translation_A(+200.0f, 200, 0);
+		glm::vec3 translation_B(+400.0, 200, 0);
+		float rotation_A_Z = 0;
+		float rotation_B_Z = 0;
+		glm::vec3 scaleRatio_A(1.0f);
+		glm::vec3 scaleRatio_B(1.0f);
+
+		bool flashing_color = false;
 
 		float r = 0.0f;
 		float increment = 0.05f;
@@ -113,21 +117,45 @@ int main(void)
 
 			ImGui_ImplGlfwGL3_NewFrame();
 			
-			// ---Model Matrix = T * R * S
-			glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
-			model = glm::rotate(model, glm::radians(0.0f), glm::vec3(+1.0f, +0.0f, +0.0f));
-			model = glm::rotate(model, glm::radians(0.0f), glm::vec3(+0.0f, +1.0f, +0.0f));
-			model = glm::rotate(model, glm::radians(rotationZ), glm::vec3(+0.0f, +0.0f, +1.0f));
-			model = glm::scale(model, glm::vec3(200.0f * scaleRatio));
+			{
+				// ---Model Matrix = T * R * S
+				glm::mat4 model = glm::translate(glm::mat4(1.0f), translation_A);
+				model = glm::rotate(model, glm::radians(0.0f), glm::vec3(+1.0f, +0.0f, +0.0f));
+				model = glm::rotate(model, glm::radians(0.0f), glm::vec3(+0.0f, +1.0f, +0.0f));
+				model = glm::rotate(model, glm::radians(rotation_A_Z), glm::vec3(+0.0f, +0.0f, +1.0f));
+				model = glm::scale(model, glm::vec3(1.f * 200));
+				model = glm::scale(model, scaleRatio_A);
+				// ------------MVP-------------- // Model/ View/ Projection
+				glm::mat4 mvp = proj * view * model;
 
-			// ------------MVP-------------- // Model/ View/ Projection
-			glm::mat4 mvp = proj * view * model;
+				shader.Bind();
+				shader.SetUniform1i("u_flashing_color", flashing_color);
+				shader.SetUniform4f("u_Color", r, r, r, 1.0f);
+				shader.SetUniform1i("u_Texture", 0);
+				shader.SetUniformMat4f("u_MVP", mvp);
 
-			shader.Bind();
-			shader.SetUniform4f("u_Color", r, r, r, 1.0f);
-			shader.SetUniformMat4f("u_MVP", mvp);
+				renderer.Draw(va, ib, shader);
+			}
 
-			renderer.Draw(va, ib, shader);
+			{
+				// ---Model Matrix = T * R * S
+				glm::mat4 model = glm::translate(glm::mat4(1.0f), translation_B);
+				model = glm::rotate(model, glm::radians(0.0f), glm::vec3(+1.0f, +0.0f, +0.0f));
+				model = glm::rotate(model, glm::radians(0.0f), glm::vec3(+0.0f, +1.0f, +0.0f));
+				model = glm::rotate(model, glm::radians(rotation_B_Z), glm::vec3(+0.0f, +0.0f, +1.0f));
+				model = glm::scale(model, glm::vec3(1.f * 200));
+				model = glm::scale(model, scaleRatio_B);
+				// ------------MVP-------------- // Model/ View/ Projection
+				glm::mat4 mvp = proj * view * model;
+
+				shader.Bind();
+				shader.SetUniform1i("u_flashing_color", flashing_color);
+				shader.SetUniform4f("u_Color", r, r, r, 1.0f);
+				shader.SetUniform1i("u_Texture", 1);
+				shader.SetUniformMat4f("u_MVP", mvp);
+
+				renderer.Draw(va, ib, shader);
+			}
 
 			if (r > 1.0f)
 				increment = -0.05f;
@@ -136,10 +164,18 @@ int main(void)
 			r += increment;
 
 			{
-				ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 960.0f); 
-				ImGui::SliderFloat("Rotation Z", &rotationZ, 0.0f, 360.0f);
-				ImGui::SliderFloat("Scale", &scaleRatio, 0.1f, 2.0f);
-				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+				ImGui::SliderFloat3("Translation_A", &translation_A.x, 0.0f, 960.0f); 
+				ImGui::SliderFloat("Rotation_A AxisZ", &rotation_A_Z, 0.0f, 360.0f);
+				ImGui::SliderFloat3("Scale_A", &scaleRatio_A.x, 0.1f, 3.0f);
+
+				ImGui::SliderFloat3("Translation_B", &translation_B.x, 0.0f, 960.0f);
+				ImGui::SliderFloat("RotationB AxisZ", &rotation_B_Z, 0.0f, 360.0f);
+				ImGui::SliderFloat3("Scale_B", &scaleRatio_B.x, 0.1f, 3.0f);
+
+				ImGui::Checkbox("Flashing Color", &flashing_color);
+
+				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
+					1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			}
 
 			ImGui::Render();
@@ -157,3 +193,4 @@ int main(void)
 	glfwTerminate();
 	return 0;
 }
+

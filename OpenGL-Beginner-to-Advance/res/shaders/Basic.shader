@@ -25,11 +25,12 @@ layout(location = 0) out vec4 fs_color;
 in vec4 v_color;
 in vec2 v_texCoord;
 
+uniform int u_flashing_color;
 uniform vec4 u_Color;
 uniform sampler2D u_Texture;
 
 void main()
 {
 	vec4 texColor = texture(u_Texture, v_texCoord);
-	fs_color = texColor + vec4(u_Color.xyz, 0.0f);
+	fs_color = texColor + vec4(u_Color.xyz , 0.0f) * u_flashing_color;
 };
