@@ -57,6 +57,12 @@
     <ClCompile Include="src\vendor\imgui\imgui_impl_glfw_gl3.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\Test.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\TestClearColor.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1221,6 +1227,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\vendor\imgui\stb_truetype.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\Test.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\TestClearColor.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
