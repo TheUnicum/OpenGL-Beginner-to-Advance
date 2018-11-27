@@ -44,8 +44,6 @@ int main(void)
 	glfwMakeContextCurrent(window);
 
 	glfwSwapInterval(1);	// active or deactive syncronize frame rate to 60Hz
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	if (glewInit() != GLEW_OK)
 		std::cout << "Error!" << std::endl;
@@ -53,24 +51,44 @@ int main(void)
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
 	{	// make a scope to force delete a VertexBuffer before context windows get distroyed
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		Renderer renderer;
 
 		ImGui::CreateContext();
 		ImGui_ImplGlfwGL3_Init(window, true);
 		ImGui::StyleColorsDark();
 
-		test::TestClearColor test;
+		test::Test* currentTest = nullptr;
+		test::TestMenu* testMenu = new test::TestMenu(currentTest);
+		currentTest = testMenu;
+
+		testMenu->RegisterTest<test::TestClearColor>("Clear Color");
+		testMenu->RegisterTest<test::TestClearColor>("Clear Color 02");
+		testMenu->RegisterTest<test::TestClearColor>("Clear Color 03");
+		testMenu->RegisterTest<test::TestClearColor>("Clear Color 04");
 
 		while (!glfwWindowShouldClose(window))
 		{
+			GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
 			renderer.Clear();
-
-			test.OnUpdate(0.0f);
 
 			ImGui_ImplGlfwGL3_NewFrame();
 
-			test.OnImGuiRender();
-			test.OnRender();
+			if (currentTest)
+			{
+				currentTest->OnUpdate(0.0f);
+				currentTest->OnRender();
+				ImGui::Begin("Test");
+				if (currentTest != testMenu && ImGui::Button("<-"))
+				{
+					delete currentTest;
+					currentTest = testMenu;
+				}
+				currentTest->OnImGuiRender();
+				ImGui::End();
+			}
 
 			ImGui::Render();
 			ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
@@ -79,10 +97,12 @@ int main(void)
 
 			glfwPollEvents();
 		}
+		delete currentTest;
+		if (currentTest != testMenu)
+			delete testMenu;
 	}
 	ImGui_ImplGlfwGL3_Shutdown();
 	ImGui::DestroyContext();
 	glfwTerminate();
 	return 0;
 }
-
