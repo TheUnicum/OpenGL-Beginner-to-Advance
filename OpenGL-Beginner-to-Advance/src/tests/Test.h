@@ -24,7 +24,7 @@ namespace test {
 	class TestMenu : public Test
 	{
 	public:
-		TestMenu(Test*& currentTestPointer);
+		TestMenu(Test*& currentTestPointer, const std::string& name = "MAIN TESTS:");
 
 		void OnImGuiRender() override;
 
@@ -32,10 +32,32 @@ namespace test {
 		void RegisterTest(const std::string name)
 		{
 			std::cout << "Registering test: " << name << std::endl;
-			m_Tests.push_back(std::make_pair(name, []() {return new T(); }));
+			m_Tests.push_back(std::make_pair("-> " + name, []() {return new T(); }));
 		}
+
+
+		void RegisterMenu(TestMenu& menu)
+		{
+			m_Tests.push_back(std::make_pair("[" + menu.m_MenuName + "]", [&]() {
+				menu.setParentTest(this);
+				return &menu; 
+			}));
+		}
+
+		void setParentTest(Test* parent)
+		{
+			m_parentTest = parent;
+		}
+
+		Test* getParentTest()
+		{
+			return m_parentTest;
+		}
+
 	private:
 		Test*& m_CurrentTest;
+		Test* m_parentTest = nullptr;
+		std::string m_MenuName;
 		std::vector<std::pair<std::string, std::function<Test*()>>> m_Tests;
 	};
 }

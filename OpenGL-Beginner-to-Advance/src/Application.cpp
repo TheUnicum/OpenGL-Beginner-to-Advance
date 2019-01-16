@@ -64,10 +64,27 @@ int main(void)
 		test::TestMenu* testMenu = new test::TestMenu(currentTest);
 		currentTest = testMenu;
 
+		test::TestMenu* subtestMenu_A = new test::TestMenu(currentTest, "SUBMENU_Prova_A");
+		subtestMenu_A->RegisterTest<test::TestClearColor>("Clear Color SUB");
+
+		test::TestMenu* subtestMenu_B = new test::TestMenu(currentTest, "SUBMENU_Prova_B");
+		subtestMenu_B->RegisterTest<test::TestClearColor>("Clear Color SUB");
+
+
 		testMenu->RegisterTest<test::TestClearColor>("Clear Color");
 		testMenu->RegisterTest<test::TestClearColor>("Clear Color 02");
 		testMenu->RegisterTest<test::TestClearColor>("Clear Color 03");
+		testMenu->RegisterMenu(*subtestMenu_A);
 		testMenu->RegisterTest<test::TestClearColor>("Clear Color 04");
+		testMenu->RegisterMenu(*subtestMenu_B);
+
+		test::TestMenu* subLevel1 = new test::TestMenu(currentTest, "Level1");
+		test::TestMenu* subLevel2 = new test::TestMenu(currentTest, "Level2");
+		test::TestMenu* subLevel3 = new test::TestMenu(currentTest, "Level3");
+		testMenu->RegisterMenu(*subLevel1);
+		subLevel1->RegisterMenu(*subLevel2);
+		subLevel2->RegisterTest<test::TestClearColor>("Clear Color In LEVEL2");
+		subLevel2->RegisterMenu(*subLevel3);
 
 		while (!glfwWindowShouldClose(window))
 		{
@@ -83,8 +100,13 @@ int main(void)
 				ImGui::Begin("Test");
 				if (currentTest != testMenu && ImGui::Button("<-"))
 				{
-					delete currentTest;
-					currentTest = testMenu;
+					if (dynamic_cast<test::TestMenu*>(currentTest) == nullptr)
+					{
+						delete currentTest;
+						currentTest = testMenu;
+					}
+					else
+						currentTest = dynamic_cast<test::TestMenu*>(currentTest)->getParentTest();
 				}
 				currentTest->OnImGuiRender();
 				ImGui::End();
