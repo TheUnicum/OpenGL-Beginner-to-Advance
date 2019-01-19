@@ -63,6 +63,15 @@
     <ClCompile Include="src\tests\TestClearColor.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\01_Getting_started\05_Shader\T05_Shader_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\01_Getting_started\05_Shader\T05_Shader_02_More_Attributes.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -459,6 +468,9 @@
     <None Include="src\vendor\glm\gtx\wrap.inl">
       <Filter>File di intestazione</Filter>
     </None>
+    <None Include="src\tests\01_Getting_started\04_HelloTriangle\S04_HelloTriangle.Shader" />
+    <None Include="src\tests\01_Getting_started\05_Shader\S05_Shader_01.Shader" />
+    <None Include="src\tests\01_Getting_started\05_Shader\S05_Shader_02_More_Attributes.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1233,6 +1245,15 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\TestClearColor.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\05_Shader\T05_Shader_02_More_Attributes.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\05_Shader\T05_Shader_01.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,7 +17,13 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw_gl3.h"
 
+// include tests
 #include "tests/TestClearColor.h"
+
+#include "tests/01_Getting_started/04_HelloTriangle/T04_HelloTriangle.h"
+
+#include "tests/01_Getting_started/05_Shader/T05_Shader_01.h"
+#include "tests/01_Getting_started/05_Shader/T05_Shader_02_More_Attributes.h"
 
 int main(void)
 {
@@ -64,27 +70,23 @@ int main(void)
 		test::TestMenu* testMenu = new test::TestMenu(currentTest);
 		currentTest = testMenu;
 
-		test::TestMenu* subtestMenu_A = new test::TestMenu(currentTest, "SUBMENU_Prova_A");
-		subtestMenu_A->RegisterTest<test::TestClearColor>("Clear Color SUB");
+		// 01_Getting_started
+		test::TestMenu* TM_01_Getting_started = new test::TestMenu(currentTest, "Getting started");
+		TM_01_Getting_started->RegisterTest<test::TestClearColor>("Clear Color test");
 
-		test::TestMenu* subtestMenu_B = new test::TestMenu(currentTest, "SUBMENU_Prova_B");
-		subtestMenu_B->RegisterTest<test::TestClearColor>("Clear Color SUB");
+		// 04 Hello Triangle
+		test::TestMenu* TM_04_Hello_Triangle = new test::TestMenu(currentTest, "Hello Triangle");
+		TM_04_Hello_Triangle->RegisterTest<test::T04_HelloTriangle>("Hello Triangle");
+		TM_01_Getting_started->RegisterMenu(*TM_04_Hello_Triangle);
 
+		// 05 Shader
+		test::TestMenu* TM_05_Shader = new test::TestMenu(currentTest, "Shader");
+		TM_05_Shader->RegisterTest<test::T05_Shader_01>("Shader 01 Base");
+		TM_05_Shader->RegisterTest<test::T05_Shader_02_More_Attributes>("Shader 02 More attributes");
+		TM_01_Getting_started->RegisterMenu(*TM_05_Shader);
 
-		testMenu->RegisterTest<test::TestClearColor>("Clear Color");
-		testMenu->RegisterTest<test::TestClearColor>("Clear Color 02");
-		testMenu->RegisterTest<test::TestClearColor>("Clear Color 03");
-		testMenu->RegisterMenu(*subtestMenu_A);
-		testMenu->RegisterTest<test::TestClearColor>("Clear Color 04");
-		testMenu->RegisterMenu(*subtestMenu_B);
-
-		test::TestMenu* subLevel1 = new test::TestMenu(currentTest, "Level1");
-		test::TestMenu* subLevel2 = new test::TestMenu(currentTest, "Level2");
-		test::TestMenu* subLevel3 = new test::TestMenu(currentTest, "Level3");
-		testMenu->RegisterMenu(*subLevel1);
-		subLevel1->RegisterMenu(*subLevel2);
-		subLevel2->RegisterTest<test::TestClearColor>("Clear Color In LEVEL2");
-		subLevel2->RegisterMenu(*subLevel3);
+		// Main Menu
+		testMenu->RegisterMenu(*TM_01_Getting_started);
 
 		while (!glfwWindowShouldClose(window))
 		{

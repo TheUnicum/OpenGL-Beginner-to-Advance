@@ -32,9 +32,8 @@ namespace test {
 		void RegisterTest(const std::string name)
 		{
 			std::cout << "Registering test: " << name << std::endl;
-			m_Tests.push_back(std::make_pair("-> " + name, []() {return new T(); }));
+			m_Tests.push_back(std::make_pair("-> " + name, []() { return new T(); }));
 		}
-
 
 		void RegisterMenu(TestMenu& menu)
 		{
@@ -44,15 +43,8 @@ namespace test {
 			}));
 		}
 
-		void setParentTest(Test* parent)
-		{
-			m_parentTest = parent;
-		}
-
-		Test* getParentTest()
-		{
-			return m_parentTest;
-		}
+		inline void setParentTest(Test* parent) { m_parentTest = parent; }
+		inline Test* getParentTest() { return m_parentTest; }
 
 	private:
 		Test*& m_CurrentTest;
