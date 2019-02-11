@@ -72,6 +72,9 @@
     <ClCompile Include="src\tests\01_Getting_started\05_Shader\T05_Shader_02_More_Attributes.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\01_Getting_started\06_Textures\T06_Textures_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -471,6 +474,7 @@
     <None Include="src\tests\01_Getting_started\04_HelloTriangle\S04_HelloTriangle.Shader" />
     <None Include="src\tests\01_Getting_started\05_Shader\S05_Shader_01.Shader" />
     <None Include="src\tests\01_Getting_started\05_Shader\S05_Shader_02_More_Attributes.Shader" />
+    <None Include="src\tests\01_Getting_started\06_Textures\S06_Textures_01.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1254,6 +1258,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\01_Getting_started\05_Shader\T05_Shader_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\06_Textures\T06_Textures_01.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

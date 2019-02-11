@@ -157,6 +157,7 @@
     <ClCompile Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.cpp" />
     <ClCompile Include="src\tests\01_Getting_started\05_Shader\T05_Shader_01.cpp" />
     <ClCompile Include="src\tests\01_Getting_started\05_Shader\T05_Shader_02_More_Attributes.cpp" />
+    <ClCompile Include="src\tests\01_Getting_started\06_Textures\T06_Textures_01.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -175,6 +176,7 @@
     <None Include="src\tests\01_Getting_started\04_HelloTriangle\S04_HelloTriangle.Shader" />
     <None Include="src\tests\01_Getting_started\05_Shader\S05_Shader_01.Shader" />
     <None Include="src\tests\01_Getting_started\05_Shader\S05_Shader_02_More_Attributes.Shader" />
+    <None Include="src\tests\01_Getting_started\06_Textures\S06_Textures_01.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -314,6 +316,7 @@
     <ClInclude Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.h" />
     <ClInclude Include="src\tests\01_Getting_started\05_Shader\T05_Shader_01.h" />
     <ClInclude Include="src\tests\01_Getting_started\05_Shader\T05_Shader_02_More_Attributes.h" />
+    <ClInclude Include="src\tests\01_Getting_started\06_Textures\T06_Textures_01.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

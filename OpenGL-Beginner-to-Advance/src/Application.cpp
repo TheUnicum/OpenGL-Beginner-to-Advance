@@ -25,6 +25,8 @@
 #include "tests/01_Getting_started/05_Shader/T05_Shader_01.h"
 #include "tests/01_Getting_started/05_Shader/T05_Shader_02_More_Attributes.h"
 
+#include "tests/01_Getting_started/06_Textures/T06_Textures_01.h"
+
 int main(void)
 {
 	GLFWwindow* window;
@@ -84,6 +86,11 @@ int main(void)
 		TM_05_Shader->RegisterTest<test::T05_Shader_01>("Shader 01 Base");
 		TM_05_Shader->RegisterTest<test::T05_Shader_02_More_Attributes>("Shader 02 More attributes");
 		TM_01_Getting_started->RegisterMenu(*TM_05_Shader);
+
+		// 06 Texture
+		test::TestMenu* TM_06_Textures = new test::TestMenu(currentTest, "Textures");
+		TM_06_Textures->RegisterTest<test::T06_Textures_01>("Textures 01 Base");
+		TM_01_Getting_started->RegisterMenu(*TM_06_Textures);
 
 		// Main Menu
 		testMenu->RegisterMenu(*TM_01_Getting_started);
