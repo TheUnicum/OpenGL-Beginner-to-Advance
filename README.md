@@ -9,3 +9,6 @@ Rendering Multiple Objects.
 
 Setting up a Test Framework.
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v03.png)
+
+Setting up New* tests:menus, example "Menu::Transformations".
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v04.png)

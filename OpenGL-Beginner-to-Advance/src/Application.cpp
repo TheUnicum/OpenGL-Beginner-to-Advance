@@ -26,6 +26,10 @@
 #include "tests/01_Getting_started/05_Shader/T05_Shader_02_More_Attributes.h"
 
 #include "tests/01_Getting_started/06_Textures/T06_Textures_01.h"
+#include "tests/01_Getting_started/06_Textures/T06_Textures_02.h"
+#include "tests/01_Getting_started/06_Textures/T06_Textures_03.h"
+
+#include "tests/01_Getting_started/07_Transformations/T07_Transformations_01.h"
 
 int main(void)
 {
@@ -90,7 +94,14 @@ int main(void)
 		// 06 Texture
 		test::TestMenu* TM_06_Textures = new test::TestMenu(currentTest, "Textures");
 		TM_06_Textures->RegisterTest<test::T06_Textures_01>("Textures 01 Base");
+		TM_06_Textures->RegisterTest<test::T06_Textures_02>("Textures 02 Wrap");
+		TM_06_Textures->RegisterTest<test::T06_Textures_03>("Textures 03 Multi Texture Mixing");
 		TM_01_Getting_started->RegisterMenu(*TM_06_Textures);
+
+		// 07 Transformations
+		test::TestMenu* TM_07_Transformations = new test::TestMenu(currentTest, "Transformations");
+		TM_07_Transformations->RegisterTest<test::T07_Transformations_01>("Transformations 01 Basic");
+		TM_01_Getting_started->RegisterMenu(*TM_07_Transformations);
 
 		// Main Menu
 		testMenu->RegisterMenu(*TM_01_Getting_started);
