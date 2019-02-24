@@ -54,6 +54,10 @@ namespace test {
 
 	void T07_Transformations_01::OnRender()
 	{
+		//  MODEL MATRIX Correct order
+		// - translation
+		// - rotation
+		// - scale
 		{
 			glm::mat4 trans(1.0f);
 			trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));

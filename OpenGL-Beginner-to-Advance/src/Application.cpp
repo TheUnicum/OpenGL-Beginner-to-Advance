@@ -30,6 +30,8 @@
 #include "tests/01_Getting_started/06_Textures/T06_Textures_03.h"
 
 #include "tests/01_Getting_started/07_Transformations/T07_Transformations_01.h"
+#include "tests/01_Getting_started/07_Transformations/T07_Transformations_02.h"
+
 
 int main(void)
 {
@@ -100,7 +102,8 @@ int main(void)
 
 		// 07 Transformations
 		test::TestMenu* TM_07_Transformations = new test::TestMenu(currentTest, "Transformations");
-		TM_07_Transformations->RegisterTest<test::T07_Transformations_01>("Transformations 01 Basic");
+		TM_07_Transformations->RegisterTest<test::T07_Transformations_01>("Transformations 01 - Basic");
+		TM_07_Transformations->RegisterTest<test::T07_Transformations_02>("Transformations 02 - Projector");
 		TM_01_Getting_started->RegisterMenu(*TM_07_Transformations);
 
 		// Main Menu
