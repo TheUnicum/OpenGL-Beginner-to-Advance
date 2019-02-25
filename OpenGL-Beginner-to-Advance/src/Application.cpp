@@ -31,6 +31,7 @@
 
 #include "tests/01_Getting_started/07_Transformations/T07_Transformations_01.h"
 #include "tests/01_Getting_started/07_Transformations/T07_Transformations_02.h"
+#include "tests/01_Getting_started/07_Transformations/T07_Transformations_03_First3D.h"
 
 
 int main(void)
@@ -104,6 +105,7 @@ int main(void)
 		test::TestMenu* TM_07_Transformations = new test::TestMenu(currentTest, "Transformations");
 		TM_07_Transformations->RegisterTest<test::T07_Transformations_01>("Transformations 01 - Basic");
 		TM_07_Transformations->RegisterTest<test::T07_Transformations_02>("Transformations 02 - Projector");
+		TM_07_Transformations->RegisterTest<test::T07_Transformations_03_First3D>("Transformation 03 - First 3D Model");
 		TM_01_Getting_started->RegisterMenu(*TM_07_Transformations);
 
 		// Main Menu

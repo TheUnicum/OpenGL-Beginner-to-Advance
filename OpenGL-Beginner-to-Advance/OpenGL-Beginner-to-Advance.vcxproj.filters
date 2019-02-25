@@ -87,6 +87,9 @@
     <ClCompile Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_02.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_03_First3D.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -491,6 +494,7 @@
     <None Include="src\tests\01_Getting_started\06_Textures\S06_Textures_03.Shader" />
     <None Include="src\tests\01_Getting_started\07_Transformations\S07_Transformations_01.Shader" />
     <None Include="src\tests\01_Getting_started\07_Transformations\S07_Transformations_02.Shader" />
+    <None Include="src\tests\01_Getting_started\07_Transformations\S07_Transformations_03_First3D.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1289,6 +1293,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_02.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_03_First3D.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\07_Transformations\E00_cube_vertices.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
