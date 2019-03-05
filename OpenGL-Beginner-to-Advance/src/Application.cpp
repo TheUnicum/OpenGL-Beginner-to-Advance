@@ -28,6 +28,7 @@
 #include "tests/01_Getting_started/06_Textures/T06_Textures_01.h"
 #include "tests/01_Getting_started/06_Textures/T06_Textures_02.h"
 #include "tests/01_Getting_started/06_Textures/T06_Textures_03.h"
+#include "tests/01_Getting_started/06_Textures/T06_Textures_04.h"
 
 #include "tests/01_Getting_started/07_Transformations/T07_Transformations_01.h"
 #include "tests/01_Getting_started/07_Transformations/T07_Transformations_02.h"
@@ -99,6 +100,7 @@ int main(void)
 		TM_06_Textures->RegisterTest<test::T06_Textures_01>("Textures 01 Base");
 		TM_06_Textures->RegisterTest<test::T06_Textures_02>("Textures 02 Wrap");
 		TM_06_Textures->RegisterTest<test::T06_Textures_03>("Textures 03 Multi Texture Mixing");
+		TM_06_Textures->RegisterTest<test::T06_Textures_04>("Textures 04 Wrap 2.0");
 		TM_01_Getting_started->RegisterMenu(*TM_06_Textures);
 
 		// 07 Transformations

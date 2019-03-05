@@ -12,3 +12,6 @@ Setting up a Test Framework.
 
 Setting up New* tests:menus, example "Menu::Transformations".
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v04.png)
+
+Setting up New Texture Wrap/Filter/MipMap testing".
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v05.png)
