@@ -38,7 +38,15 @@
 #include "tests/01_Getting_started/09_Camera/T09_Camera_01_Basic.h"
 
 
+// Functions Declaration
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void processInput(GLFWwindow* window);
+
 // settings
+int framebufferWidth = 0, framebufferHeight = 0;
+
 float deltaTime = 0.0f;
 float lastframe = 0.0f;
 
@@ -63,6 +71,15 @@ int main(void)
 		glfwTerminate();
 		return -1;
 	}
+
+	// Added this lines to get framebuffer width/height and set Viewport
+	glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
+	framebuffer_size_callback(window, framebufferWidth, framebufferHeight);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+	// Mouse callback register fuctions
+	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetScrollCallback(window, scroll_callback);
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
@@ -136,6 +153,9 @@ int main(void)
 			deltaTime = currentFrame - lastframe;
 			lastframe = currentFrame;
 
+			// Main Input -----
+			processInput(window);
+
 			GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
 			renderer.Clear();
 
@@ -177,3 +197,30 @@ int main(void)
 	glfwTerminate();
 	return 0;
 }
+
+
+// Callback funcitons definitions
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	// make sure the viewport matches the new window dimension; notes that width and
+	// height will be significantly larger than specifies on retina display
+	glViewport(0, 0, width, height);
+	std::cout << "Viewport resized: ( " << width << " : " << height << " )" << std::endl;
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	std::cout << "mouse_callback : ( " << xpos << " : " << ypos << " )" << std::endl;
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	std::cout << "scroll_callback : (" << xoffset << " : " << yoffset<< ")" << std::endl;
+}
+
+void processInput(GLFWwindow* window)
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+}
+
