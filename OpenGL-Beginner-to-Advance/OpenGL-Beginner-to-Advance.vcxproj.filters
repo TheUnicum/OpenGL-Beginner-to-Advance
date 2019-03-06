@@ -87,10 +87,13 @@
     <ClCompile Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_02.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_03_First3D.cpp">
+    <ClCompile Include="src\tests\01_Getting_started\06_Textures\T06_Textures_04.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\tests\01_Getting_started\06_Textures\T06_Textures_04.cpp">
+    <ClCompile Include="src\tests\01_Getting_started\08_CoordinateSystems\T08_CoordinateSystems_01_First3D.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\01_Getting_started\09_Camera\T09_Camera_01_Basic.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -497,8 +500,9 @@
     <None Include="src\tests\01_Getting_started\06_Textures\S06_Textures_03.Shader" />
     <None Include="src\tests\01_Getting_started\07_Transformations\S07_Transformations_01.Shader" />
     <None Include="src\tests\01_Getting_started\07_Transformations\S07_Transformations_02.Shader" />
-    <None Include="src\tests\01_Getting_started\07_Transformations\S07_Transformations_03_First3D.Shader" />
     <None Include="src\tests\01_Getting_started\06_Textures\S06_Textures_04.Shader" />
+    <None Include="src\tests\01_Getting_started\08_CoordinateSystems\S08_CoordinateSystems_01_First3D.Shader" />
+    <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_01_Basic.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1299,13 +1303,22 @@
     <ClInclude Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_02.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_03_First3D.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="src\tests\01_Getting_started\07_Transformations\E00_cube_vertices.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\01_Getting_started\06_Textures\T06_Textures_04.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\08_CoordinateSystems\T08_CoordinateSystems_01_First3D.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\08_CoordinateSystems\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\09_Camera\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\09_Camera\T09_Camera_01_Basic.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
+#include "GLFW/glfw3.h"
 #include "Utility.h"
 #include "imgui\imgui.h"
 
@@ -19,6 +20,7 @@ namespace test {
 		virtual void OnUpdate(float deltaTime) {}
 		virtual void OnRender() {}
 		virtual void OnImGuiRender() {}
+		virtual void OnProcessInput(GLFWwindow* window, float deltaTime) {}
 	};
 
 	class TestMenu : public Test

@@ -163,7 +163,8 @@
     <ClCompile Include="src\tests\01_Getting_started\06_Textures\T06_Textures_04.cpp" />
     <ClCompile Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_01.cpp" />
     <ClCompile Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_02.cpp" />
-    <ClCompile Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_03_First3D.cpp" />
+    <ClCompile Include="src\tests\01_Getting_started\08_CoordinateSystems\T08_CoordinateSystems_01_First3D.cpp" />
+    <ClCompile Include="src\tests\01_Getting_started\09_Camera\T09_Camera_01_Basic.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -188,7 +189,8 @@
     <None Include="src\tests\01_Getting_started\06_Textures\S06_Textures_04.Shader" />
     <None Include="src\tests\01_Getting_started\07_Transformations\S07_Transformations_01.Shader" />
     <None Include="src\tests\01_Getting_started\07_Transformations\S07_Transformations_02.Shader" />
-    <None Include="src\tests\01_Getting_started\07_Transformations\S07_Transformations_03_First3D.Shader" />
+    <None Include="src\tests\01_Getting_started\08_CoordinateSystems\S08_CoordinateSystems_01_First3D.Shader" />
+    <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_01_Basic.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -335,7 +337,10 @@
     <ClInclude Include="src\tests\01_Getting_started\07_Transformations\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_01.h" />
     <ClInclude Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_02.h" />
-    <ClInclude Include="src\tests\01_Getting_started\07_Transformations\T07_Transformations_03_First3D.h" />
+    <ClInclude Include="src\tests\01_Getting_started\08_CoordinateSystems\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\01_Getting_started\08_CoordinateSystems\T08_CoordinateSystems_01_First3D.h" />
+    <ClInclude Include="src\tests\01_Getting_started\09_Camera\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\01_Getting_started\09_Camera\T09_Camera_01_Basic.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

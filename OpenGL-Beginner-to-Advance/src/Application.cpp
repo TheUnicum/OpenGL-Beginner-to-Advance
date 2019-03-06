@@ -32,7 +32,15 @@
 
 #include "tests/01_Getting_started/07_Transformations/T07_Transformations_01.h"
 #include "tests/01_Getting_started/07_Transformations/T07_Transformations_02.h"
-#include "tests/01_Getting_started/07_Transformations/T07_Transformations_03_First3D.h"
+
+#include "tests/01_Getting_started/08_CoordinateSystems/T08_CoordinateSystems_01_First3D.h"
+
+#include "tests/01_Getting_started/09_Camera/T09_Camera_01_Basic.h"
+
+
+// settings
+float deltaTime = 0.0f;
+float lastframe = 0.0f;
 
 
 int main(void)
@@ -107,14 +115,27 @@ int main(void)
 		test::TestMenu* TM_07_Transformations = new test::TestMenu(currentTest, "Transformations");
 		TM_07_Transformations->RegisterTest<test::T07_Transformations_01>("Transformations 01 - Basic");
 		TM_07_Transformations->RegisterTest<test::T07_Transformations_02>("Transformations 02 - Projector");
-		TM_07_Transformations->RegisterTest<test::T07_Transformations_03_First3D>("Transformation 03 - First 3D Model");
 		TM_01_Getting_started->RegisterMenu(*TM_07_Transformations);
+
+		// 08 Cordinate System
+		test::TestMenu* TM_08_CoordinateSystems = new test::TestMenu(currentTest, "Coordinate Systems");
+		TM_08_CoordinateSystems->RegisterTest<test::T08_CoordinateSystems_01_First3D>("Coordinate Systems 01 - First 3D Model");
+		TM_01_Getting_started->RegisterMenu(*TM_08_CoordinateSystems);
+
+		// 09 Camera
+		test::TestMenu* TM_09_Camera = new test::TestMenu(currentTest, "Camera");
+		TM_09_Camera->RegisterTest<test::T09_Camera_01_Basic>("Camera 01 - Basic (only Keys)");
+		TM_01_Getting_started->RegisterMenu(*TM_09_Camera);
 
 		// Main Menu
 		testMenu->RegisterMenu(*TM_01_Getting_started);
 
 		while (!glfwWindowShouldClose(window))
 		{
+			float currentFrame = glfwGetTime();
+			deltaTime = currentFrame - lastframe;
+			lastframe = currentFrame;
+
 			GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
 			renderer.Clear();
 
@@ -122,6 +143,7 @@ int main(void)
 
 			if (currentTest)
 			{
+				currentTest->OnProcessInput(window, deltaTime);
 				currentTest->OnUpdate(0.0f);
 				currentTest->OnRender();
 				ImGui::Begin("Test");

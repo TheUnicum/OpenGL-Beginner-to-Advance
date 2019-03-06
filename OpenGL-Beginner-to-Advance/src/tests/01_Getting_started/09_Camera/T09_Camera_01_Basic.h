@@ -22,15 +22,16 @@
 
 namespace test {
 
-	class T07_Transformations_03_First3D : public Test
+	class T09_Camera_01_Basic : public Test
 	{
 	public:
-		T07_Transformations_03_First3D();
-		~T07_Transformations_03_First3D();
+		T09_Camera_01_Basic();
+		~T09_Camera_01_Basic();
 
 		void OnUpdate(float deltaTime) override;
 		void OnRender() override;
 		void OnImGuiRender() override;
+		void OnProcessInput(GLFWwindow* window, float deltaTime) override;
 	private:
 		std::unique_ptr<VertexArray> m_VAO;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
@@ -41,5 +42,9 @@ namespace test {
 		float m_f_mixFactor, m_f_fov;
 		bool m_b_depth_test_active, m_b_depth_test_active_i_1;
 		bool m_b_more_cubes, m_b_more_cubes_i_1;
+
+		glm::vec3 m_cameraPos;
+		glm::vec3 m_cameraFront;
+		glm::vec3 m_cameraUp;
 	};
 }
