@@ -1,6 +1,6 @@
 #include "T09_Camera_01_Basic.h"
 #include "GLFW/glfw3.h"
-
+#include <iostream>
 namespace test {
 
 	T09_Camera_01_Basic::T09_Camera_01_Basic()
@@ -127,6 +127,8 @@ namespace test {
 
 	void T09_Camera_01_Basic::OnImGuiRender()
 	{
+		ImGui::Text("Camera key move");
+		ImGui::Text("<std::cout test callback functions>");
 		ImGui::SliderFloat("Texture Mixing Factor", &m_f_mixFactor, 0.0f, 1.0f);
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Checkbox("More Cube + Basic Cam Movement", &m_b_more_cubes);
@@ -148,6 +150,16 @@ namespace test {
 			m_cameraPos += m_cameraUp * cameraSpeed;
 		if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
 			m_cameraPos -= m_cameraUp * cameraSpeed;
+	}
+
+	void T09_Camera_01_Basic::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	{
+		std::cout << "-----TEST -> Viewport resized: ( " << width << " : " << height << " )" << std::endl;
+	}
+
+	void T09_Camera_01_Basic::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	{
+		std::cout << "-----TEST -> mouse_callback : ( " << xpos << " : " << ypos << " )" << std::endl;
 	}
 
 }

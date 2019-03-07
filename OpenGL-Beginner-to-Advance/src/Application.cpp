@@ -50,6 +50,7 @@ int framebufferWidth = 0, framebufferHeight = 0;
 float deltaTime = 0.0f;
 float lastframe = 0.0f;
 
+test::Test* currentTest = nullptr;
 
 int main(void)
 {
@@ -101,7 +102,7 @@ int main(void)
 		ImGui_ImplGlfwGL3_Init(window, true);
 		ImGui::StyleColorsDark();
 
-		test::Test* currentTest = nullptr;
+		//test::Test* currentTest = nullptr;
 		test::TestMenu* testMenu = new test::TestMenu(currentTest);
 		currentTest = testMenu;
 
@@ -141,7 +142,7 @@ int main(void)
 
 		// 09 Camera
 		test::TestMenu* TM_09_Camera = new test::TestMenu(currentTest, "Camera");
-		TM_09_Camera->RegisterTest<test::T09_Camera_01_Basic>("Camera 01 - Basic (only Keys)");
+		TM_09_Camera->RegisterTest<test::T09_Camera_01_Basic>("Camera 01 - Basic(Keys) + callbacks");
 		TM_01_Getting_started->RegisterMenu(*TM_09_Camera);
 
 		// Main Menu
@@ -199,28 +200,36 @@ int main(void)
 }
 
 
+void processInput(GLFWwindow* window)
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+}
+
 // Callback funcitons definitions
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	// make sure the viewport matches the new window dimension; notes that width and
 	// height will be significantly larger than specifies on retina display
 	glViewport(0, 0, width, height);
-	std::cout << "Viewport resized: ( " << width << " : " << height << " )" << std::endl;
+	std::cout << "MAIN -> Viewport resized: ( " << width << " : " << height << " )" << std::endl;
+
+	if (currentTest)
+		currentTest->framebuffer_size_callback(window, width, height);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	std::cout << "mouse_callback : ( " << xpos << " : " << ypos << " )" << std::endl;
+	//std::cout << "MAIN -> mouse_callback : ( " << xpos << " : " << ypos << " )" << std::endl;
+	if (currentTest)
+		currentTest->mouse_callback(window, xpos, ypos);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	std::cout << "scroll_callback : (" << xoffset << " : " << yoffset<< ")" << std::endl;
+	//std::cout << "scroll_callback : (" << xoffset << " : " << yoffset<< ")" << std::endl;
+	if (currentTest)
+		currentTest->scroll_callback(window, xoffset, yoffset);
 }
 
-void processInput(GLFWwindow* window)
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-}
 

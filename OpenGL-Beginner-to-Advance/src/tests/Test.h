@@ -21,6 +21,10 @@ namespace test {
 		virtual void OnRender() {}
 		virtual void OnImGuiRender() {}
 		virtual void OnProcessInput(GLFWwindow* window, float deltaTime) {}
+		// callbacks functions
+		virtual void framebuffer_size_callback(GLFWwindow* window, int width, int height) {}
+		virtual void mouse_callback(GLFWwindow* window, double xpos, double ypos) {}
+		virtual void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {}
 	};
 
 	class TestMenu : public Test

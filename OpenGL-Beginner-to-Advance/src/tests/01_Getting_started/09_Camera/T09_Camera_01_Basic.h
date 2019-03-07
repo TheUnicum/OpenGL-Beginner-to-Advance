@@ -32,6 +32,9 @@ namespace test {
 		void OnRender() override;
 		void OnImGuiRender() override;
 		void OnProcessInput(GLFWwindow* window, float deltaTime) override;
+		// callbacks functions
+		void framebuffer_size_callback(GLFWwindow* window, int width, int height) override;
+		void mouse_callback(GLFWwindow* window, double xpos, double ypos) override;
 	private:
 		std::unique_ptr<VertexArray> m_VAO;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
