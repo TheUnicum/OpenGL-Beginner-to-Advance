@@ -96,6 +96,12 @@
     <ClCompile Include="src\tests\01_Getting_started\09_Camera\T09_Camera_01_Basic.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\01_Getting_started\09_Camera\T09_Camera_02_Mouse.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\01_Getting_started\09_Camera\T09_Camera_03_CamClass.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -503,6 +509,8 @@
     <None Include="src\tests\01_Getting_started\06_Textures\S06_Textures_04.Shader" />
     <None Include="src\tests\01_Getting_started\08_CoordinateSystems\S08_CoordinateSystems_01_First3D.Shader" />
     <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_01_Basic.Shader" />
+    <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_02_Mouse.Shader" />
+    <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_03_CamClass.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1319,6 +1327,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\01_Getting_started\09_Camera\T09_Camera_01_Basic.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\09_Camera\T09_Camera_02_Mouse.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\09_Camera\T09_Camera_03_CamClass.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

@@ -36,6 +36,8 @@
 #include "tests/01_Getting_started/08_CoordinateSystems/T08_CoordinateSystems_01_First3D.h"
 
 #include "tests/01_Getting_started/09_Camera/T09_Camera_01_Basic.h"
+#include "tests/01_Getting_started/09_Camera/T09_Camera_02_Mouse.h"
+#include "tests/01_Getting_started/09_Camera/T09_Camera_03_CamClass.h"
 
 
 // Functions Declaration
@@ -143,6 +145,8 @@ int main(void)
 		// 09 Camera
 		test::TestMenu* TM_09_Camera = new test::TestMenu(currentTest, "Camera");
 		TM_09_Camera->RegisterTest<test::T09_Camera_01_Basic>("Camera 01 - Basic(Keys) + callbacks");
+		TM_09_Camera->RegisterTest<test::T09_Camera_02_Mouse>("Camera 02 - Mouse Movement");
+		TM_09_Camera->RegisterTest<test::T09_Camera_03_CamClass>("CAM Class Predisposition....."); // Copy of Camera 02
 		TM_01_Getting_started->RegisterMenu(*TM_09_Camera);
 
 		// Main Menu
