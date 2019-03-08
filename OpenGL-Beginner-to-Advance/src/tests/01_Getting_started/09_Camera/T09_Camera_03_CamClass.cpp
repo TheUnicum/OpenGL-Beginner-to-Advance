@@ -5,15 +5,11 @@ namespace test {
 
 	T09_Camera_03_CamClass::T09_Camera_03_CamClass()
 		: m_f_mixFactor(.5f), m_f_fov(45.0f),
-		m_b_depth_test_active(false), m_b_depth_test_active_i_1(false),
-		m_b_firstMouse(true),
-		m_lastX(0), m_lastY(0),
-		m_yaw(0.0f), m_pitch(0.0f),
-		m_cameraPos(glm::vec3(0.0f, 0.0f, 3.0f)),
-		m_cameraFront(glm::vec3(0.0f, 0.0f, -1.0f)),
-		m_cameraUp(glm::vec3(0.0f, 1.0f, 0.0f))
+		m_b_depth_test_active(false), m_b_depth_test_active_i_1(false)
 	{
 		#include "E00_cube_vertices.h"
+
+		m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
 
 		m_VertexBuffer = std::make_unique<VertexBuffer>(cube_vertices, 36 * (3 + 2) * sizeof(float));
 
@@ -43,7 +39,7 @@ namespace test {
 	{
 	}
 
-	void T09_Camera_03_CamClass::OnRender()
+	void T09_Camera_03_CamClass::OnRender(GLFWwindow* window)
 	{
 		if (m_b_depth_test_active != m_b_depth_test_active_i_1)
 		{
@@ -58,6 +54,17 @@ namespace test {
 			m_b_depth_test_active_i_1 = m_b_depth_test_active;
 		}
 
+		if (m_mouse_disable != m_mouse_disable_i_1)
+		{
+			if (m_mouse_disable)
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			else
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+			std::cout << "Enable changed" << std::endl;
+			m_mouse_disable_i_1 = m_mouse_disable;
+		}
+
 		//  MODEL MATRIX Correct order
 		// - translation
 		// - rotation
@@ -68,7 +75,11 @@ namespace test {
 		m_Texture1->Bind(1);
 		m_Shader->SetUniform1f("u_mixFactor", m_f_mixFactor);
 
-		if (!m_b_more_cubes)
+		if (!m_b_Cam_Active)
+		{
+			m_b_firstMouse = true;
+		}
+		else
 		{
 			glm::mat4 model(1.0f);
 			glm::mat4 view(1.0f);
@@ -77,11 +88,7 @@ namespace test {
 			model = glm::translate(model, glm::vec3(+0.0f, +0.0f, +0.0f));
 			model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 
-			float radius = 10.0f;
-			float camX = sin(glfwGetTime()) * radius;
-			float camY = cos(glfwGetTime()) * radius;
-			float camZ = cos(glfwGetTime()) * radius * 0 + 10;
-			view = glm::lookAt(glm::vec3(camX, camY, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			view = m_camera->GetViewMatrix();
 
 			proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f); 
 
@@ -90,71 +97,44 @@ namespace test {
 			m_Shader->SetUniformMat4f("u_mvp", mvp);
 			Renderer renderer;
 			renderer.Draw(*m_VAO, 36, *m_Shader);
-
-			m_b_firstMouse = true;
-		}
-		else
-		{
-			glm::vec3 cubePositions[] = {
-				  glm::vec3(0.0f,  0.0f,  0.0f),
-				  glm::vec3(2.0f,  5.0f, -15.0f),
-				  glm::vec3(-1.5f, -2.2f, -2.5f),
-				  glm::vec3(-3.8f, -2.0f, -12.3f),
-				  glm::vec3(2.4f, -0.4f, -3.5f),
-				  glm::vec3(-1.7f,  3.0f, -7.5f),
-				  glm::vec3(1.3f, -2.0f, -2.5f),
-				  glm::vec3(1.5f,  2.0f, -2.5f),
-				  glm::vec3(1.5f,  0.2f, -1.5f),
-				  glm::vec3(-1.3f,  1.0f, -1.5f)
-			};
-
-			glm::mat4 model(1.0f);
-			glm::mat4 view(1.0f);
-			glm::mat4 proj(1.0f);
-
-			view = glm::lookAt(m_cameraPos, m_cameraPos + m_cameraFront, m_cameraUp);
-			proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
-
-			for (unsigned int i = 0; i < sizeof(cubePositions); i++)
-			{
-				model = glm::translate(glm::mat4(1.0f), cubePositions[i]);
-				model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
-				model = glm::rotate(model, (float)glfwGetTime() / 2.0f * 0, glm::vec3(0.0f, 1.0f, 0.0f));
-
-				glm::mat4 mvp = proj * view * model;
-
-				m_Shader->SetUniformMat4f("u_mvp", mvp);
-				Renderer renderer;
-				renderer.Draw(*m_VAO, 36, *m_Shader);
-			}
 		}
 	}
 
 	void T09_Camera_03_CamClass::OnImGuiRender()
 	{
-		ImGui::Text("Camera key move + Mouse Movements");
+		ImGui::Text("Camera CLASS");
 		ImGui::Text("Eulero : | Pitch  -- Yaw");
+		
 		ImGui::SliderFloat("Texture Mixing Factor", &m_f_mixFactor, 0.0f, 1.0f);
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
-		ImGui::Checkbox("More Cube + Basic Cam Movement", &m_b_more_cubes);
+		ImGui::Checkbox("Cam Active/Disactive", &m_b_Cam_Active);
+		ImGui::Text("Press M to active/disable mouse!");
 		ImGui::SliderFloat("FOV", &m_f_fov, 20.0f, 80.0f);
 	}
 
 	void T09_Camera_03_CamClass::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
-		float cameraSpeed = 2.5f * deltaTime; // adjust accordingly
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-			m_cameraPos += cameraSpeed * m_cameraFront;
+			m_camera->ProcessKeyboard(Camera::Camera_Movement::FORWARDS, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-			m_cameraPos -= cameraSpeed * m_cameraFront;
+			m_camera->ProcessKeyboard(m_camera->BACKWARDS, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-			m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
+			m_camera->ProcessKeyboard(m_camera->LEFT, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-			m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * cameraSpeed;
+			m_camera->ProcessKeyboard(m_camera->RIGHT, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-			m_cameraPos += m_cameraUp * cameraSpeed;
+			m_camera->ProcessKeyboard(m_camera->UP, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
-			m_cameraPos -= m_cameraUp * cameraSpeed;
+			m_camera->ProcessKeyboard(m_camera->DOWN, deltaTime);
+		// Mouse pressed
+		if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+		{
+			if (!m_key_pressed)
+				m_mouse_disable = !m_mouse_disable;
+			m_key_pressed = true;
+		}
+		else //if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
+			m_key_pressed = false;
 	}
 
 	void T09_Camera_03_CamClass::framebuffer_size_callback(GLFWwindow * window, int width, int height)
@@ -167,7 +147,7 @@ namespace test {
 
 		if (m_b_firstMouse)
 		{
-			m_yaw = -90.0f;
+			m_camera->ResetYawPitch();
 			m_lastX = xpos;
 			m_lastY = ypos;
 			m_b_firstMouse = false;
@@ -177,26 +157,6 @@ namespace test {
 		float yoffset = -(ypos - m_lastY);
 		m_lastX = xpos;
 		m_lastY = ypos;
-
-		float sensitivity = 0.3f;
-		xoffset *= sensitivity;
-		yoffset *= sensitivity;
-
-		m_yaw += xoffset;
-		m_pitch += yoffset;
-
-		//std::cout << m_pitch << " " << m_yaw << std::endl;
-
-		if (m_pitch > +89.0f)
-			m_pitch = +89.0f;
-		if (m_pitch < -89.0f)
-			m_pitch = -89.0f;
-
-		glm::vec3 front(0.0f); // Only vector;
-		front.x = cos(glm::radians(m_pitch)) * cos(glm::radians(m_yaw));
-		front.y = sin(glm::radians(m_pitch));
-		front.z = cos(glm::radians(m_pitch)) * sin(glm::radians(m_yaw));
-		m_cameraFront = glm::normalize(front);
+		m_camera->ProcessMouseMovement(xoffset, yoffset);
 	}
-
 }

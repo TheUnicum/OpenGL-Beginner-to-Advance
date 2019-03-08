@@ -20,6 +20,8 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
+#include "Camera.h"	
+
 namespace test {
 
 	class T09_Camera_03_CamClass : public Test
@@ -29,7 +31,7 @@ namespace test {
 		~T09_Camera_03_CamClass();
 
 		void OnUpdate(float deltaTime) override;
-		void OnRender() override;
+		void OnRender(GLFWwindow* window) override;
 		void OnImGuiRender() override;
 		void OnProcessInput(GLFWwindow* window, float deltaTime) override;
 		// callbacks functions
@@ -44,14 +46,13 @@ namespace test {
 		std::unique_ptr<Renderer> m_Renderer;
 		float m_f_mixFactor, m_f_fov;
 		bool m_b_depth_test_active, m_b_depth_test_active_i_1;
-		bool m_b_more_cubes, m_b_more_cubes_i_1;
+		bool m_b_Cam_Active, m_b_Cam_Active_i_i;
 
 		bool m_b_firstMouse;
 		float m_lastX, m_lastY;
-		float m_yaw = -90.0f, m_pitch = 0.0f;
+		std::unique_ptr<Camera> m_camera;
+		bool m_mouse_disable, m_mouse_disable_i_1;
+		bool m_key_pressed = false;
 
-		glm::vec3 m_cameraPos;
-		glm::vec3 m_cameraFront;
-		glm::vec3 m_cameraUp;
 	};
 }

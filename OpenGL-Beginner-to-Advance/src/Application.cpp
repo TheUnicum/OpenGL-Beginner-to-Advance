@@ -146,7 +146,7 @@ int main(void)
 		test::TestMenu* TM_09_Camera = new test::TestMenu(currentTest, "Camera");
 		TM_09_Camera->RegisterTest<test::T09_Camera_01_Basic>("Camera 01 - Basic(Keys) + callbacks");
 		TM_09_Camera->RegisterTest<test::T09_Camera_02_Mouse>("Camera 02 - Mouse Movement");
-		TM_09_Camera->RegisterTest<test::T09_Camera_03_CamClass>("CAM Class Predisposition....."); // Copy of Camera 02
+		TM_09_Camera->RegisterTest<test::T09_Camera_03_CamClass>("Camera 03 - CAM Class");
 		TM_01_Getting_started->RegisterMenu(*TM_09_Camera);
 
 		// Main Menu
@@ -171,6 +171,7 @@ int main(void)
 				currentTest->OnProcessInput(window, deltaTime);
 				currentTest->OnUpdate(0.0f);
 				currentTest->OnRender();
+				currentTest->OnRender(window);
 				ImGui::Begin("Test");
 				if (currentTest != testMenu && ImGui::Button("<-"))
 				{

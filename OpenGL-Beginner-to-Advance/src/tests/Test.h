@@ -19,6 +19,7 @@ namespace test {
 
 		virtual void OnUpdate(float deltaTime) {}
 		virtual void OnRender() {}
+		virtual void OnRender(GLFWwindow* window) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnProcessInput(GLFWwindow* window, float deltaTime) {}
 		// callbacks functions
