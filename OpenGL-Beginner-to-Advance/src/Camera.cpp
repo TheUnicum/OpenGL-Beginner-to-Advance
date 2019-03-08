@@ -1,13 +1,41 @@
 #include "Camera.h"
 
-glm::mat4 Camera::GetViewMatrix()
-{
-	return glm::lookAt(m_Position, m_Position + m_Front, m_Up);
-}
-
 glm::mat4 Camera::Calculate_LookAt_Matrix(glm::vec3 position, glm::vec3 target, glm::vec3 worldUp)
 {
-	return glm::mat4();
+	/*
+	         +-          -+  +-           -+
+	         | Rx Ry Rz 0 |  | 1  0  0 -Px |
+	LookAt = | Ux Uy Uz 0 |  | 0  1  0 -Py |
+	         | Dx Dy Dz 0 |  | 0  0  1 -Pz |
+			 | 0  0  0  1 |  | 0  0  0  1  |
+	         +-          -+  +-           -+
+	*/
+	glm::vec3 zaxis_D = glm::normalize(position - target);
+	glm::vec3 xaxis_R = glm::normalize(glm::cross(worldUp, zaxis_D));
+	glm::vec3 yaxis_U = glm::normalize(glm::cross(zaxis_D, xaxis_R));
+
+	// Create translation and rotation matrix
+	// In glm we access elements as mat[col][row] due to clumn-major layout
+	glm::mat4 translation(1.0f);
+	translation[3][0] = -position.x; // Third colum, first row
+	translation[3][1] = -position.y;
+	translation[3][2] = -position.z;
+	// translation[3][3] = 1.0f; non serve perche nella matrix identity
+	glm::mat4 rotation(1.0f);
+	rotation[0][0] = xaxis_R.x;
+	rotation[1][0] = xaxis_R.y;
+	rotation[2][0] = xaxis_R.z;
+
+	rotation[0][1] = yaxis_U.x;
+	rotation[1][1] = yaxis_U.y;
+	rotation[2][1] = yaxis_U.z;
+
+	rotation[0][2] = zaxis_D.x;
+	rotation[1][2] = zaxis_D.y;
+	rotation[2][2] = zaxis_D.z;
+	//rotation[3][3] = 1.0f;
+
+	return rotation * translation;;
 }
 
 void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
@@ -28,6 +56,14 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 
 	// To make sure the user stays at the ground level
 	// m_Position.y = 0.0f; // <-- this one-liner keeps the user at the ground level (xz plane)
+	m_Position.y = (m_Fix_To_Ground ? 0 : 1) * m_Position.y;
+}
+
+void Camera::ProcessKeyboard(glm::vec3 direction, float deltaTime)
+{
+	float velocity = m_MovementSpeed * deltaTime;
+	m_Position += (-m_Front * direction.z + m_Right * direction.x + m_Up * direction.y) * velocity ;
+	m_Position.y = (m_Fix_To_Ground ? 0 : 1) * m_Position.y;
 }
 
 void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrinPitch)

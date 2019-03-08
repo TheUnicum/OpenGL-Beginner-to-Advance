@@ -38,6 +38,7 @@
 #include "tests/01_Getting_started/09_Camera/T09_Camera_01_Basic.h"
 #include "tests/01_Getting_started/09_Camera/T09_Camera_02_Mouse.h"
 #include "tests/01_Getting_started/09_Camera/T09_Camera_03_CamClass.h"
+#include "tests/01_Getting_started/09_Camera/T09_Camera_04_CamClassOpt.h"
 
 
 // Functions Declaration
@@ -147,6 +148,7 @@ int main(void)
 		TM_09_Camera->RegisterTest<test::T09_Camera_01_Basic>("Camera 01 - Basic(Keys) + callbacks");
 		TM_09_Camera->RegisterTest<test::T09_Camera_02_Mouse>("Camera 02 - Mouse Movement");
 		TM_09_Camera->RegisterTest<test::T09_Camera_03_CamClass>("Camera 03 - CAM Class");
+		TM_09_Camera->RegisterTest<test::T09_Camera_04_CamClassOpt>("Camera 04 - CAM Class Opt");
 		TM_01_Getting_started->RegisterMenu(*TM_09_Camera);
 
 		// Main Menu

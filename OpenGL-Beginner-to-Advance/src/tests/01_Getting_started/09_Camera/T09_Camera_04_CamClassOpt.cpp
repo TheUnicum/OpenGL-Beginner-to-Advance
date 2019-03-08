@@ -1,11 +1,12 @@
-#include "T09_Camera_03_CamClass.h"
+#include "T09_Camera_04_CamClassOpt.h"
 #include "GLFW/glfw3.h"
 #include <iostream>
 namespace test {
 
-	T09_Camera_03_CamClass::T09_Camera_03_CamClass()
+	T09_Camera_04_CamClassOpt::T09_Camera_04_CamClassOpt()
 		: m_f_mixFactor(.5f), m_f_fov(45.0f),
-		m_b_depth_test_active(false), m_b_depth_test_active_i_1(false)
+		m_b_depth_test_active(true), m_b_depth_test_active_i_1(false),
+		m_b_Cam_Active(true), m_b_firstMouse(true)
 	{
 		#include "E00_cube_vertices.h"
 
@@ -20,7 +21,7 @@ namespace test {
 		m_VAO = std::make_unique<VertexArray>();
 		m_VAO->AddBuffer(*m_VertexBuffer, layout);
 
-		m_Shader = std::make_unique<Shader>("src/tests/01_Getting_started/09_Camera/S09_Camera_03_CamClass.Shader");
+		m_Shader = std::make_unique<Shader>("src/tests/01_Getting_started/09_Camera/S09_Camera_04_CamClassOpt.Shader");
 		m_Shader->Bind();
 
 		m_Texture0 = std::make_unique<Texture>("res/textures/awesomeface.png");
@@ -29,17 +30,19 @@ namespace test {
 		m_Shader->SetUniform1i("u_Texture1", 1);
 
 		m_Shader->Unbind();
+
+		m_camera->ResetYawPitch();
 	}
 
-	T09_Camera_03_CamClass::~T09_Camera_03_CamClass()
+	T09_Camera_04_CamClassOpt::~T09_Camera_04_CamClassOpt()
 	{
 	}
 
-	void T09_Camera_03_CamClass::OnUpdate(float deltaTime)
+	void T09_Camera_04_CamClassOpt::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T09_Camera_03_CamClass::OnRender(GLFWwindow* window)
+	void T09_Camera_04_CamClassOpt::OnRender(GLFWwindow* window)
 	{
 		if (m_b_depth_test_active != m_b_depth_test_active_i_1)
 		{
@@ -61,7 +64,7 @@ namespace test {
 			else
 				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-			std::cout << "Enable changed" << std::endl;
+			//std::cout << "Enable changed" << std::endl;
 			m_mouse_disable_i_1 = m_mouse_disable;
 		}
 
@@ -81,51 +84,78 @@ namespace test {
 		}
 		else
 		{
-			glm::mat4 model(1.0f);
-			glm::mat4 view(1.0f);
-			glm::mat4 proj(1.0f);
+			{
+				glm::mat4 model(1.0f);
+				glm::mat4 view(1.0f);
+				glm::mat4 proj(1.0f);
 
-			model = glm::translate(model, glm::vec3(+0.0f, +0.0f, +0.0f));
-			model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+				model = glm::translate(model, glm::vec3(+0.5f, +0.0f, +0.0f));
+				model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 
-			view = m_camera->GetViewMatrix();
+				view = m_camera->GetViewMatrix();
 
-			proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f); 
+				proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
 
-			glm::mat4 mvp = proj * view * model;
+				glm::mat4 mvp = proj * view * model;
 
-			m_Shader->SetUniformMat4f("u_mvp", mvp);
-			Renderer renderer;
-			renderer.Draw(*m_VAO, 36, *m_Shader);
+				m_Shader->SetUniformMat4f("u_mvp", mvp);
+				Renderer renderer;
+				renderer.Draw(*m_VAO, 36, *m_Shader);
+			}
+			{
+				glm::mat4 model(1.0f);
+				glm::mat4 view(1.0f);
+				glm::mat4 proj(1.0f);
+
+				model = glm::translate(model, glm::vec3(-0.5f, +0.0f, +0.0f));
+				model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+
+				view = m_camera->GetViewMatrix_OEM();
+
+				proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
+
+				glm::mat4 mvp = proj * view * model;
+
+				m_Shader->SetUniformMat4f("u_mvp", mvp);
+				Renderer renderer;
+				renderer.Draw(*m_VAO, 36, *m_Shader);
+			}
 		}
 	}
 
-	void T09_Camera_03_CamClass::OnImGuiRender()
+	void T09_Camera_04_CamClassOpt::OnImGuiRender()
 	{
 		ImGui::Text("Camera CLASS");
 		ImGui::Text("Eulero : | Pitch  -- Yaw");
+		ImGui::Text(" 1st with glm::LookAt");
+		ImGui::Text(" 2nd with custom matrix");
+		ImGui::Text("--");
 		
 		ImGui::SliderFloat("Texture Mixing Factor", &m_f_mixFactor, 0.0f, 1.0f);
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Checkbox("Cam Active/Disactive", &m_b_Cam_Active);
 		ImGui::Text("Press M to active/disable mouse!");
+		ImGui::Text("Press F to fix player to ground!");
 		ImGui::SliderFloat("FOV", &m_f_fov, 20.0f, 80.0f);
 	}
 
-	void T09_Camera_03_CamClass::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T09_Camera_04_CamClassOpt::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
+		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-			m_camera->ProcessKeyboard(Camera::Camera_Movement::FORWARDS, deltaTime);
+			direction.z -= 1;
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-			m_camera->ProcessKeyboard(Camera::Camera_Movement::BACKWARDS, deltaTime);
+			direction.z += 1;
 		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-			m_camera->ProcessKeyboard(Camera::Camera_Movement::LEFT, deltaTime);
+			direction.x -= 1;
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-			m_camera->ProcessKeyboard(Camera::Camera_Movement::RIGHT, deltaTime);
+			direction.x += 1;
 		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-			m_camera->ProcessKeyboard(Camera::Camera_Movement::UP, deltaTime);
+			direction.y += 1;
 		if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
-			m_camera->ProcessKeyboard(Camera::Camera_Movement::DOWN, deltaTime);
+			direction.y -= 1;
+		m_camera->ProcessKeyboard(direction, deltaTime);
+
 		// Mouse pressed
 		if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
 		{
@@ -135,13 +165,23 @@ namespace test {
 		}
 		else //if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
 			m_key_pressed = false;
+
+
+		m_Fix_to_ground = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
+		if (m_Fix_to_ground && !m_Fix_to_ground_i_1)
+		{
+			m_camera->SetFixToGround(!m_camera->GetFixToGround());
+			//std::cout << "Switch " << std::endl;
+		}
+		m_Fix_to_ground_i_1 = m_Fix_to_ground;
+
 	}
 
-	void T09_Camera_03_CamClass::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T09_Camera_04_CamClassOpt::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 	}
 
-	void T09_Camera_03_CamClass::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T09_Camera_04_CamClassOpt::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 

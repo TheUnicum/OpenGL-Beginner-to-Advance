@@ -105,6 +105,9 @@
     <ClCompile Include="src\Camera.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\01_Getting_started\09_Camera\T09_Camera_04_CamClassOpt.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -514,6 +517,7 @@
     <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_01_Basic.Shader" />
     <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_02_Mouse.Shader" />
     <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_03_CamClass.Shader" />
+    <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_04_CamClassOpt.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1339,6 +1343,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Camera.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\01_Getting_started\09_Camera\T09_Camera_04_CamClassOpt.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
