@@ -7,7 +7,7 @@ glm::mat4 Camera::Calculate_LookAt_Matrix(glm::vec3 position, glm::vec3 target, 
 	         | Rx Ry Rz 0 |  | 1  0  0 -Px |
 	LookAt = | Ux Uy Uz 0 |  | 0  1  0 -Py |
 	         | Dx Dy Dz 0 |  | 0  0  1 -Pz |
-			 | 0  0  0  1 |  | 0  0  0  1  |
+	         | 0  0  0  1 |  | 0  0  0  1  |
 	         +-          -+  +-           -+
 	*/
 	glm::vec3 zaxis_D = glm::normalize(position - target);

@@ -20,6 +20,7 @@
 // include tests
 #include "tests/TestClearColor.h"
 
+// 01_Getting_started----------------------------------------------------------
 #include "tests/01_Getting_started/04_HelloTriangle/T04_HelloTriangle.h"
 
 #include "tests/01_Getting_started/05_Shader/T05_Shader_01.h"
@@ -40,6 +41,7 @@
 #include "tests/01_Getting_started/09_Camera/T09_Camera_03_CamClass.h"
 #include "tests/01_Getting_started/09_Camera/T09_Camera_04_CamClassOpt.h"
 
+#include "tests/02_Lighting/01_Colors/T01_Color_01.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -151,8 +153,19 @@ int main(void)
 		TM_09_Camera->RegisterTest<test::T09_Camera_04_CamClassOpt>("Camera 04 - CAM Class Opt");
 		TM_01_Getting_started->RegisterMenu(*TM_09_Camera);
 
+
+		// 02 Lighting
+		test::TestMenu* TM_02_Lighting = new test::TestMenu(currentTest, "Lighting");
+		
+		// 01 Color
+		test::TestMenu* TM_01_Color = new test::TestMenu(currentTest, "Colors");
+		TM_01_Color->RegisterTest<test::T01_Color_01>("Colors 01 - Basic");
+		TM_02_Lighting->RegisterMenu(*TM_01_Color);
+
+
 		// Main Menu
 		testMenu->RegisterMenu(*TM_01_Getting_started);
+		testMenu->RegisterMenu(*TM_02_Lighting);
 
 		while (!glfwWindowShouldClose(window))
 		{
