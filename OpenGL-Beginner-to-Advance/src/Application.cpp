@@ -42,6 +42,7 @@
 #include "tests/01_Getting_started/09_Camera/T09_Camera_04_CamClassOpt.h"
 
 #include "tests/02_Lighting/01_Colors/T01_Color_01.h"
+#include "tests/02_Lighting/01_Colors/T02_Basic_Lighting_01.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -162,6 +163,11 @@ int main(void)
 		TM_01_Color->RegisterTest<test::T01_Color_01>("Colors 01 - Basic");
 		TM_02_Lighting->RegisterMenu(*TM_01_Color);
 
+		// 02 Basic Lighting
+		test::TestMenu* TM_02_Basic_Lighting = new test::TestMenu(currentTest, "Basic Lighting");
+		TM_02_Basic_Lighting->RegisterTest<test::T02_Basic_Lighting_01>("Basic Lighting 01");
+		TM_02_Lighting->RegisterMenu(*TM_02_Basic_Lighting);
+		
 
 		// Main Menu
 		testMenu->RegisterMenu(*TM_01_Getting_started);

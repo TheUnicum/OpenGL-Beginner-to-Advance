@@ -170,6 +170,7 @@
     <ClCompile Include="src\tests\01_Getting_started\09_Camera\T09_Camera_03_CamClass.cpp" />
     <ClCompile Include="src\tests\01_Getting_started\09_Camera\T09_Camera_04_CamClassOpt.cpp" />
     <ClCompile Include="src\tests\02_Lighting\01_Colors\T01_Color_01.cpp" />
+    <ClCompile Include="src\tests\02_Lighting\01_Colors\T02_Basic_Lighting_01.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -200,7 +201,8 @@
     <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_03_CamClass.Shader" />
     <None Include="src\tests\01_Getting_started\09_Camera\S09_Camera_04_CamClassOpt.Shader" />
     <None Include="src\tests\02_Lighting\01_Colors\S01_Color_01.Shader" />
-    <None Include="src\tests\02_Lighting\01_Colors\S01_Color_01_Light.Shader" />
+    <None Include="src\tests\02_Lighting\01_Colors\S00_Color_01_Light.Shader" />
+    <None Include="src\tests\02_Lighting\01_Colors\S02_Basic_Lighting_01.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -357,6 +359,7 @@
     <ClInclude Include="src\tests\01_Getting_started\09_Camera\T09_Camera_04_CamClassOpt.h" />
     <ClInclude Include="src\tests\02_Lighting\01_Colors\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\02_Lighting\01_Colors\T01_Color_01.h" />
+    <ClInclude Include="src\tests\02_Lighting\01_Colors\T02_Basic_Lighting_01.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

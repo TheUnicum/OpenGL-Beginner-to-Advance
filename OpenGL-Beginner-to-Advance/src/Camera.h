@@ -44,6 +44,7 @@ public:
 	inline void ResetYawPitch() { m_Yaw = YAW, m_Pitch = PITCH; }
 	inline void SetFixToGround(bool enabling) { m_Fix_To_Ground = enabling; }
 	inline const bool GetFixToGround() { return m_Fix_To_Ground; }
+	inline glm::vec3& GetCamPosition() { return m_Position; }
 
 private:
 	glm::vec3 m_Position;

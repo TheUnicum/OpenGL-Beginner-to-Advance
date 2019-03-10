@@ -1,23 +1,25 @@
-#include "T01_Color_01.h"
+#include "T02_Basic_Lighting_01.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T01_Color_01::T01_Color_01()
+	T02_Basic_Lighting_01::T02_Basic_Lighting_01()
 		: m_f_fov(45.0f),
 		m_b_depth_test_active(true), m_b_depth_test_active_i_1(false),
 		m_b_firstMouse(true),
 		m_mouse_lock(false),
 
-		m_lightPos(glm::vec3(1.2f, 1.0f, 2.0f))
+		m_lightPos(glm::vec3(1.2f, 1.0f, 2.0f)),
+		m_b_ambient(true), m_b_diffuse(true), m_b_specular(true)
 	{
 		#include "E00_cube_vertices.h"
 
 		m_camera = std::make_unique<Camera>(glm::vec3(-2.0f, 2.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.f, -20.f);
 
-		m_VertexBuffer = std::make_unique<VertexBuffer>(cube_vertices_3v, 36 * (3 + 0) * sizeof(float));
+		m_VertexBuffer = std::make_unique<VertexBuffer>(cube_vertices_3v_3n, 36 * (3 + 3) * sizeof(float));
 		
 		VertexBufferLayout layout;
+		layout.Push<float>(3);
 		layout.Push<float>(3);
 
 		m_VAO = std::make_unique<VertexArray>();
@@ -26,7 +28,7 @@ namespace test {
 		m_lightVAO = std::make_unique<VertexArray>();
 		m_lightVAO->AddBuffer(*m_VertexBuffer, layout);
 
-		m_Shader = std::make_unique<Shader>("src/tests/02_Lighting/01_Colors/S01_Color_01.Shader");
+		m_Shader = std::make_unique<Shader>("src/tests/02_Lighting/01_Colors/S02_Basic_Lighting_01.Shader");
 		m_lightShader = std::make_unique<Shader>("src/tests/02_Lighting/01_Colors/S00_Color_01_Light.Shader");
 
 		// Initialize camera
@@ -34,15 +36,15 @@ namespace test {
 		m_camera->ProcessMouseMovement(0, 0);
 	}
 
-	T01_Color_01::~T01_Color_01()
+	T02_Basic_Lighting_01::~T02_Basic_Lighting_01()
 	{
 	}
 
-	void T01_Color_01::OnUpdate(float deltaTime)
+	void T02_Basic_Lighting_01::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T01_Color_01::OnRender(GLFWwindow* window)
+	void T02_Basic_Lighting_01::OnRender(GLFWwindow* window)
 	{
 		if (m_b_depth_test_active != m_b_depth_test_active_i_1)
 		{
@@ -78,19 +80,32 @@ namespace test {
 			glm::mat4 view(1.0f);
 			glm::mat4 proj(1.0f);
 			glm::mat4 mvp;
+			Renderer renderer;
 
 			view = m_camera->GetViewMatrix();
 			proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
 
+			// Shader Render for CUBE
 			m_Shader->Bind();
 			model = glm::mat4(1.0f);
 			mvp = proj * view * model;
 			m_Shader->SetUniformMat4f("u_mvp", mvp);
+			m_Shader->SetUniformMat4f("u_model", model);
+			m_Shader->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(model))));
+
 			m_Shader->SetUniform3f("objectColor", 1.0f, 0.5f, 0.31f);
 			m_Shader->SetUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
-			Renderer renderer;
+			m_Shader->SetUniform3fv("lightPos", m_lightPos);
+			m_Shader->SetUniform3fv("viewPos", m_camera->GetCamPosition());
+
+			// Active Phong lighting componetst
+			m_Shader->SetUniform1i("u_b_ambient", m_b_ambient);
+			m_Shader->SetUniform1i("u_b_diffuse", m_b_diffuse);
+			m_Shader->SetUniform1i("u_b_specular", m_b_specular);
+
 			renderer.Draw(*m_VAO, 36, *m_Shader);
 
+			// Shader Render for LIGHT
 			m_lightShader->Bind();
 			model = glm::mat4(1.0f);
 			model = glm::translate(model, m_lightPos);
@@ -101,7 +116,7 @@ namespace test {
 		}
 	}
 
-	void T01_Color_01::OnImGuiRender()
+	void T02_Basic_Lighting_01::OnImGuiRender()
 	{
 		ImGui::Text("Color");
 		
@@ -110,9 +125,13 @@ namespace test {
 		ImGui::Text("Press N to active/disable mouse!");
 		ImGui::Text("Press F to fix player to ground!");
 		ImGui::SliderFloat("FOV", &m_f_fov, 20.0f, 80.0f);
+
+		ImGui::Checkbox("Ambient Light", &m_b_ambient);
+		ImGui::Checkbox("Diffuse Light", &m_b_diffuse);
+		ImGui::Checkbox("Specular Light", &m_b_specular);
 	}
 
-	void T01_Color_01::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T02_Basic_Lighting_01::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -152,11 +171,11 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T01_Color_01::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T02_Basic_Lighting_01::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 	}
 
-	void T01_Color_01::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T02_Basic_Lighting_01::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 
