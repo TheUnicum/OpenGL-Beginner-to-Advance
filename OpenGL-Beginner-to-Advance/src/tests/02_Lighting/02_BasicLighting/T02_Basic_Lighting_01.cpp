@@ -28,8 +28,8 @@ namespace test {
 		m_lightVAO = std::make_unique<VertexArray>();
 		m_lightVAO->AddBuffer(*m_VertexBuffer, layout);
 
-		m_Shader = std::make_unique<Shader>("src/tests/02_Lighting/01_Colors/S02_Basic_Lighting_01.Shader");
-		m_lightShader = std::make_unique<Shader>("src/tests/02_Lighting/01_Colors/S00_Color_01_Light.Shader");
+		m_Shader = std::make_unique<Shader>("src/tests/02_Lighting/02_BasicLighting/S02_Basic_Lighting_01.Shader");
+		m_lightShader = std::make_unique<Shader>("src/tests/02_Lighting/02_BasicLighting/S00_Color_01_Light.Shader");
 
 		// Initialize camera
 		//m_camera->ResetYawPitch();

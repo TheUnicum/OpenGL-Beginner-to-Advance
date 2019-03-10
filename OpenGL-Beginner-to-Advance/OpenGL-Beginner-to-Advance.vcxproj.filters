@@ -111,6 +111,9 @@
     <ClCompile Include="src\tests\02_Lighting\01_Colors\T01_Color_01.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
     <ClCompile Include="src\tests\02_Lighting\01_Colors\T02_Basic_Lighting_01.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
@@ -527,6 +530,8 @@
     <None Include="src\tests\02_Lighting\01_Colors\S01_Color_01.Shader" />
     <None Include="src\tests\02_Lighting\01_Colors\S02_Basic_Lighting_01.Shader" />
     <None Include="src\tests\02_Lighting\01_Colors\S00_Color_01_Light.Shader" />
+    <None Include="src\tests\02_Lighting\02_BasicLighting\S00_Color_01_Light.Shader" />
+    <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_01.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1364,6 +1369,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\02_Lighting\01_Colors\T02_Basic_Lighting_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_01.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

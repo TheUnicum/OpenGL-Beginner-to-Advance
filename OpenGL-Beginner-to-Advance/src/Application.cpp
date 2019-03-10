@@ -42,7 +42,7 @@
 #include "tests/01_Getting_started/09_Camera/T09_Camera_04_CamClassOpt.h"
 
 #include "tests/02_Lighting/01_Colors/T01_Color_01.h"
-#include "tests/02_Lighting/01_Colors/T02_Basic_Lighting_01.h"
+#include "tests/02_Lighting/02_BasicLighting/T02_Basic_Lighting_01.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
