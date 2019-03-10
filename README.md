@@ -15,3 +15,6 @@ Setting up New* tests:menus, example "Menu::Transformations".
 
 Setting up New Texture Wrap/Filter/MipMap testing".
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v05.png)
+
+Setting up New Base Lighting System: "Phong" & "Gouraud" shading.
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v06.png)

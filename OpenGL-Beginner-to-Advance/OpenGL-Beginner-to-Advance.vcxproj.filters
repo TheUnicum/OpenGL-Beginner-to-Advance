@@ -114,7 +114,19 @@
     <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_01.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\tests\02_Lighting\01_Colors\T02_Basic_Lighting_01.cpp">
+    <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_02.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_03_ViewSpace.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_04_Gouraud.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_05_Compare.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_06_Scale.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -532,6 +544,11 @@
     <None Include="src\tests\02_Lighting\01_Colors\S00_Color_01_Light.Shader" />
     <None Include="src\tests\02_Lighting\02_BasicLighting\S00_Color_01_Light.Shader" />
     <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_01.Shader" />
+    <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_02.Shader" />
+    <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_03_ViewSpace.Shader" />
+    <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_04_Gouraud.Shader" />
+    <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_05_Compare.Shader" />
+    <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_06_Scale.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1375,6 +1392,21 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_02.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_03_ViewSpace.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_04_Gouraud.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_05_Compare.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_06_Scale.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

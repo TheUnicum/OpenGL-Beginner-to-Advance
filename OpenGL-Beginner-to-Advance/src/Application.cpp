@@ -42,7 +42,13 @@
 #include "tests/01_Getting_started/09_Camera/T09_Camera_04_CamClassOpt.h"
 
 #include "tests/02_Lighting/01_Colors/T01_Color_01.h"
+
 #include "tests/02_Lighting/02_BasicLighting/T02_Basic_Lighting_01.h"
+#include "tests/02_Lighting/02_BasicLighting/T02_Basic_Lighting_02.h"
+#include "tests/02_Lighting/02_BasicLighting/T02_Basic_Lighting_03_ViewSpace.h"
+#include "tests/02_Lighting/02_BasicLighting/T02_Basic_Lighting_04_Gouraud.h"
+#include "tests/02_Lighting/02_BasicLighting/T02_Basic_Lighting_05_Compare.h"
+#include "tests/02_Lighting/02_BasicLighting/T02_Basic_Lighting_06_Scale.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -165,7 +171,12 @@ int main(void)
 
 		// 02 Basic Lighting
 		test::TestMenu* TM_02_Basic_Lighting = new test::TestMenu(currentTest, "Basic Lighting");
-		TM_02_Basic_Lighting->RegisterTest<test::T02_Basic_Lighting_01>("Basic Lighting 01");
+		TM_02_Basic_Lighting->RegisterTest<test::T02_Basic_Lighting_01>("B-Lighting 01");
+		TM_02_Basic_Lighting->RegisterTest<test::T02_Basic_Lighting_02>("B-Lighting 02 - Ex01: Moving");
+		TM_02_Basic_Lighting->RegisterTest<test::T02_Basic_Lighting_03_ViewSpace>("B-Lighting 03 - Ex02: ViewSpace");
+		TM_02_Basic_Lighting->RegisterTest<test::T02_Basic_Lighting_04_Gouraud>("B-Lighting 04 - Ex03: Gouraud Shading");
+		TM_02_Basic_Lighting->RegisterTest<test::T02_Basic_Lighting_05_Compare>("B-Lighting 05 - COMPARE SHADERS");
+		TM_02_Basic_Lighting->RegisterTest<test::T02_Basic_Lighting_06_Scale>("B-Lighting 06 - Scale Test");
 		TM_02_Lighting->RegisterMenu(*TM_02_Basic_Lighting);
 		
 
