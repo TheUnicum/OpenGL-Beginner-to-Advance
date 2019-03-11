@@ -52,6 +52,7 @@
 
 #include "tests/02_Lighting/03_Materials/T03_Materials_01.h"
 #include "tests/02_Lighting/03_Materials/T03_Materials_02_DifferentColors.h"
+#include "tests/02_Lighting/03_Materials/T03_Materials_03_DataFile.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -186,6 +187,7 @@ int main(void)
 		test::TestMenu* TM_03_Materials = new test::TestMenu(currentTest, "Materials");
 		TM_03_Materials->RegisterTest<test::T03_Materials_01>("Materials 01 - Basic");
 		TM_03_Materials->RegisterTest<test::T03_Materials_02_DifferentColors>("Materials 02 - Different Colors");
+		TM_03_Materials->RegisterTest<test::T03_Materials_03_DataFile>("Materials 03 - Data Files VRML");
 		TM_02_Lighting->RegisterMenu(*TM_03_Materials);
 
 

@@ -1,9 +1,9 @@
-#include "T03_Materials_02_DifferentColors.h"
+#include "T03_Materials_03_DataFile.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T03_Materials_02_DifferentColors::T03_Materials_02_DifferentColors()
+	T03_Materials_03_DataFile::T03_Materials_03_DataFile()
 		: m_f_fov(45.0f),
 		m_b_depth_test_active(true), m_b_depth_test_active_i_1(false),
 		m_b_firstMouse(true),
@@ -30,23 +30,26 @@ namespace test {
 		m_lightVAO = std::make_unique<VertexArray>();
 		m_lightVAO->AddBuffer(*m_VertexBuffer, layout);
 
-		m_Shader = std::make_shared<Shader>("src/tests/02_Lighting/03_Materials/S03_Materials_02_DifferentColors.Shader");
+		m_Shader = std::make_shared<Shader>("src/tests/02_Lighting/03_Materials/S03_Materials_03_DataFile.Shader");
 		m_lightShader = std::make_shared<Shader>("src/tests/02_Lighting/03_Materials/S00_Color_01a_Light.Shader");
 
 		// Initialize camera
 		//m_camera->ResetYawPitch();
 		m_camera->ProcessMouseMovement(0, 0);
+
+		// Materials
+		m_materials = std::make_unique<Materials>("src/tests/02_Lighting/03_Materials/M00_Materials.data");
 	}
 
-	T03_Materials_02_DifferentColors::~T03_Materials_02_DifferentColors()
+	T03_Materials_03_DataFile::~T03_Materials_03_DataFile()
 	{
 	}
 
-	void T03_Materials_02_DifferentColors::OnUpdate(float deltaTime)
+	void T03_Materials_03_DataFile::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T03_Materials_02_DifferentColors::OnRender(GLFWwindow* window)
+	void T03_Materials_03_DataFile::OnRender(GLFWwindow* window)
 	{
 		if (m_b_depth_test_active != m_b_depth_test_active_i_1)
 		{
@@ -70,6 +73,21 @@ namespace test {
 
 			//std::cout << "Enable changed" << std::endl;
 			m_mouse_disable_i_1 = m_mouse_disable;
+		}
+
+		// Check materials selected Change <----------------------------------------------
+		for (auto& element : m_materials->GetMaterial())
+		{
+			if (element.second.selected && !element.second.selected_i_1)
+			{
+				//std::cout << "Selected: " << element.first.c_str() << std::endl;
+				m_materials->SetSelected(element.first);
+				// Unselected all other checkbox
+				for (auto& element_2loop : m_materials->GetMaterial())
+					if (element_2loop.first != element.first)
+						element_2loop.second.selected = false;
+			}
+			element.second.selected_i_1 = element.second.selected;
 		}
 
 		//  MODEL MATRIX Correct order
@@ -109,11 +127,21 @@ namespace test {
 				m_Shader->SetUniformMat3f("u_transInvers_model", model);
 
 			// Material
-			m_Shader->SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
-			m_Shader->SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
-			m_Shader->SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
-			m_Shader->SetUniform1f("material.shininess", 32.0f);
-
+			if (m_materials->GetSelected() != "")
+			{
+				MaterialData mdata = m_materials->GetMaterial()[m_materials->GetSelected()];
+				m_Shader->SetUniform3fv("material.ambient", mdata.Ambient);
+				m_Shader->SetUniform3fv("material.diffuse", mdata.Diffuse);
+				m_Shader->SetUniform3fv("material.specular", mdata.Specular);
+				m_Shader->SetUniform1f("material.shininess", mdata.Shininess * 128);// RATIO 128<-ATTENTION!!!
+			}
+			else
+			{
+				m_Shader->SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
+				m_Shader->SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
+				m_Shader->SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
+				m_Shader->SetUniform1f("material.shininess", 32.0f);
+			}
 			// Light
 			// change the light's position values over time (can be done anywhere in the render loop actually, 
 			// but try to do it at least before using the light source positions)
@@ -126,13 +154,13 @@ namespace test {
 			m_Shader->SetUniform3fv("light.position", m_lightPos);
 
 			// Light color
-			glm::vec3 lightColor;
-			lightColor.x = (float)sin(glfwGetTime() * 2.0f);
-			lightColor.y = (float)sin(glfwGetTime() * 0.7f);
-			lightColor.z = (float)sin(glfwGetTime() * 1.3f);
+			glm::vec3 lightColor(1.0f);
+			//lightColor.x = (float)sin(glfwGetTime() * 2.0f);
+			//lightColor.y = (float)sin(glfwGetTime() * 0.7f);
+			//lightColor.z = (float)sin(glfwGetTime() * 1.3f);
 
-			glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // decrease the influence
-			glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
+			glm::vec3 diffuseColor = lightColor;// *glm::vec3(0.5f); // decrease the influence
+			glm::vec3 ambientColor = diffuseColor;// *glm::vec3(0.2f); // low influence
 
 			m_Shader->SetUniform3fv("light.ambient", ambientColor);
 			m_Shader->SetUniform3fv("light.diffuse", diffuseColor); // darken the light a bit to fit the scene
@@ -160,7 +188,7 @@ namespace test {
 		}
 	}
 
-	void T03_Materials_02_DifferentColors::OnImGuiRender()
+	void T03_Materials_03_DataFile::OnImGuiRender()
 	{
 		ImGui::Text("Color");
 		
@@ -180,9 +208,17 @@ namespace test {
 		ImGui::Checkbox("Cube scale active", &m_b_cube_scale_active);
 		ImGui::Text("Exercises C - Phong Vs Gouraud");
 		ImGui::Checkbox("Transpose matrix disable", &m_b_traspose_disable);
+
+		// Display contents in a scrolling region
+		ImGui::TextColored(ImVec4(1, 0.2, 0, 1), "Materials List: ");
+		ImGui::BeginChild("Scrolling");
+		for (auto& element : m_materials->GetMaterial())
+			ImGui::Checkbox(element.first.c_str(), &element.second.selected);
+		ImGui::EndChild();
+
 	}
 
-	void T03_Materials_02_DifferentColors::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T03_Materials_03_DataFile::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -222,11 +258,11 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T03_Materials_02_DifferentColors::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T03_Materials_03_DataFile::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 	}
 
-	void T03_Materials_02_DifferentColors::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T03_Materials_03_DataFile::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 

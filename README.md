@@ -18,3 +18,6 @@ Setting up New Texture Wrap/Filter/MipMap testing".
 
 Setting up New Base Lighting System: "Phong" & "Gouraud" shading.
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v06.png)
+
+Setting up OpenGL/VRML Materials (RD materials data file).
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v07.png)
