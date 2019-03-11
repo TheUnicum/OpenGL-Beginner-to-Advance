@@ -129,6 +129,12 @@
     <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_06_Scale.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\03_Materials\T03_Materials_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\03_Materials\T03_Materials_02_DifferentColors.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -549,6 +555,9 @@
     <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_04_Gouraud.Shader" />
     <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_05_Compare.Shader" />
     <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_06_Scale.Shader" />
+    <None Include="src\tests\02_Lighting\03_Materials\S03_Materials_01.Shader" />
+    <None Include="src\tests\02_Lighting\03_Materials\S03_Materials_02_DifferentColors.Shader" />
+    <None Include="src\tests\02_Lighting\03_Materials\S00_Color_01a_Light.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1407,6 +1416,15 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_06_Scale.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\03_Materials\T03_Materials_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\03_Materials\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\03_Materials\T03_Materials_02_DifferentColors.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

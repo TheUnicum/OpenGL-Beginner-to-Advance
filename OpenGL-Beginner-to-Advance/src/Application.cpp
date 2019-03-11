@@ -50,6 +50,9 @@
 #include "tests/02_Lighting/02_BasicLighting/T02_Basic_Lighting_05_Compare.h"
 #include "tests/02_Lighting/02_BasicLighting/T02_Basic_Lighting_06_Scale.h"
 
+#include "tests/02_Lighting/03_Materials/T03_Materials_01.h"
+#include "tests/02_Lighting/03_Materials/T03_Materials_02_DifferentColors.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -179,6 +182,12 @@ int main(void)
 		TM_02_Basic_Lighting->RegisterTest<test::T02_Basic_Lighting_06_Scale>("B-Lighting 06 - Scale Test");
 		TM_02_Lighting->RegisterMenu(*TM_02_Basic_Lighting);
 		
+		// 03 Materials
+		test::TestMenu* TM_03_Materials = new test::TestMenu(currentTest, "Materials");
+		TM_03_Materials->RegisterTest<test::T03_Materials_01>("Materials 01 - Basic");
+		TM_03_Materials->RegisterTest<test::T03_Materials_02_DifferentColors>("Materials 02 - Different Colors");
+		TM_02_Lighting->RegisterMenu(*TM_03_Materials);
+
 
 		// Main Menu
 		testMenu->RegisterMenu(*TM_01_Getting_started);

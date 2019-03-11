@@ -176,6 +176,8 @@
     <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_04_Gouraud.cpp" />
     <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_05_Compare.cpp" />
     <ClCompile Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_06_Scale.cpp" />
+    <ClCompile Include="src\tests\02_Lighting\03_Materials\T03_Materials_01.cpp" />
+    <ClCompile Include="src\tests\02_Lighting\03_Materials\T03_Materials_02_DifferentColors.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -215,6 +217,9 @@
     <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_04_Gouraud.Shader" />
     <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_05_Compare.Shader" />
     <None Include="src\tests\02_Lighting\02_BasicLighting\S02_Basic_Lighting_06_Scale.Shader" />
+    <None Include="src\tests\02_Lighting\03_Materials\S00_Color_01a_Light.Shader" />
+    <None Include="src\tests\02_Lighting\03_Materials\S03_Materials_01.Shader" />
+    <None Include="src\tests\02_Lighting\03_Materials\S03_Materials_02_DifferentColors.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -379,6 +384,9 @@
     <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_04_Gouraud.h" />
     <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_05_Compare.h" />
     <ClInclude Include="src\tests\02_Lighting\02_BasicLighting\T02_Basic_Lighting_06_Scale.h" />
+    <ClInclude Include="src\tests\02_Lighting\03_Materials\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\02_Lighting\03_Materials\T03_Materials_01.h" />
+    <ClInclude Include="src\tests\02_Lighting\03_Materials\T03_Materials_02_DifferentColors.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />
