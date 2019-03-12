@@ -180,6 +180,7 @@
     <ClCompile Include="src\tests\02_Lighting\03_Materials\T03_Materials_01.cpp" />
     <ClCompile Include="src\tests\02_Lighting\03_Materials\T03_Materials_02_DifferentColors.cpp" />
     <ClCompile Include="src\tests\02_Lighting\03_Materials\T03_Materials_03_DataFile.cpp" />
+    <ClCompile Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_01.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -224,6 +225,7 @@
     <None Include="src\tests\02_Lighting\03_Materials\S03_Materials_01.Shader" />
     <None Include="src\tests\02_Lighting\03_Materials\S03_Materials_02_DifferentColors.Shader" />
     <None Include="src\tests\02_Lighting\03_Materials\S03_Materials_03_DataFile.Shader" />
+    <None Include="src\tests\02_Lighting\04_LightingMaps\S04_LightingMaps_01.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -392,6 +394,8 @@
     <ClInclude Include="src\tests\02_Lighting\03_Materials\T03_Materials_01.h" />
     <ClInclude Include="src\tests\02_Lighting\03_Materials\T03_Materials_02_DifferentColors.h" />
     <ClInclude Include="src\tests\02_Lighting\03_Materials\T03_Materials_03_DataFile.h" />
+    <ClInclude Include="src\tests\02_Lighting\04_LightingMaps\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_01.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

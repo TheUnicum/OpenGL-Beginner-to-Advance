@@ -54,6 +54,8 @@
 #include "tests/02_Lighting/03_Materials/T03_Materials_02_DifferentColors.h"
 #include "tests/02_Lighting/03_Materials/T03_Materials_03_DataFile.h"
 
+#include "tests/02_Lighting/04_LightingMaps/T04_LightingMaps_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -190,6 +192,10 @@ int main(void)
 		TM_03_Materials->RegisterTest<test::T03_Materials_03_DataFile>("Materials 03 - Data Files VRML");
 		TM_02_Lighting->RegisterMenu(*TM_03_Materials);
 
+		// 04 Lighting maps
+		test::TestMenu* TM_04_Lighting_maps = new test::TestMenu(currentTest, "Lighting maps");
+		TM_04_Lighting_maps->RegisterTest<test::T04_LightingMaps_01>("Lighting maps 01");
+		TM_02_Lighting->RegisterMenu(*TM_04_Lighting_maps);
 
 		// Main Menu
 		testMenu->RegisterMenu(*TM_01_Getting_started);
