@@ -1,9 +1,9 @@
-#include "T04_LightingMaps_01.h"
+#include "T04_LightingMaps_02_Exercises.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T04_LightingMaps_01::T04_LightingMaps_01()
+	T04_LightingMaps_02_Exercises::T04_LightingMaps_02_Exercises()
 		: m_f_fov(45.0f),
 		m_b_depth_test_active(true), m_b_depth_test_active_i_1(false),
 		m_b_firstMouse(true),
@@ -12,7 +12,8 @@ namespace test {
 		m_lightPos(glm::vec3(1.2f, 1.0f, 2.0f)),
 		m_b_ambient(true), m_b_diffuse(true), m_b_specular(true),
 		m_b_light_move_active(false), m_b_cube_rotating_active(false), m_b_cube_scale_active(false),
-		m_b_traspose_disable(false)
+		m_b_traspose_disable(false),
+		m_b_invert_specular_map(false), m_b_colored_specular_map(false), m_b_active_color_light(false)
 	{
 		#include "E00_cube_vertices.h"
 
@@ -31,27 +32,28 @@ namespace test {
 		m_lightVAO = std::make_unique<VertexArray>();
 		m_lightVAO->AddBuffer(*m_VertexBuffer, layout);
 
-		m_Shader = std::make_shared<Shader>("src/tests/02_Lighting/04_LightingMaps/S04_LightingMaps_01.Shader");
-		m_lightShader = std::make_shared<Shader>("src/tests/02_Lighting/02_BasicLighting/S00_Color_01_Light.Shader");
+		m_Shader = std::make_shared<Shader>("src/tests/02_Lighting/04_LightingMaps/S04_LightingMaps_02_Exercises.Shader");
+		m_lightShader = std::make_shared<Shader>("src/tests/02_Lighting/04_LightingMaps/S00_Color_01a_Light.Shader");
 
 		// Textures
 		m_Texture0 = std::make_unique<Texture>("res/textures/container2.png");
 		m_Texture1 = std::make_unique<Texture>("res/textures/container2_specular.png");
+		m_Texture2 = std::make_unique<Texture>("res/textures/lighting_maps_specular_color.png");
 
 		// Initialize camera
 		//m_camera->ResetYawPitch();
 		m_camera->ProcessMouseMovement(0, 0);
 	}
 
-	T04_LightingMaps_01::~T04_LightingMaps_01()
+	T04_LightingMaps_02_Exercises::~T04_LightingMaps_02_Exercises()
 	{
 	}
 
-	void T04_LightingMaps_01::OnUpdate(float deltaTime)
+	void T04_LightingMaps_02_Exercises::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T04_LightingMaps_01::OnRender(GLFWwindow* window)
+	void T04_LightingMaps_02_Exercises::OnRender(GLFWwindow* window)
 	{
 		if (m_b_depth_test_active != m_b_depth_test_active_i_1)
 		{
@@ -116,8 +118,13 @@ namespace test {
 			// Material
 			m_Texture0->Bind(0);
 			m_Shader->SetUniform1i("material.diffuse", 0);
-			m_Texture1->Bind(1);
+
+			if (!m_b_colored_specular_map)
+				m_Texture1->Bind(1);
+			else
+				m_Texture2->Bind(1);
 			m_Shader->SetUniform1i("material.specular", 1);
+
 			//m_Shader->SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
 			//m_Shader->SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
 			//m_Shader->SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
@@ -134,9 +141,27 @@ namespace test {
 
 			m_Shader->SetUniform3fv("light.position", m_lightPos);
 
+			// Light Color
+			glm::vec3 ambientColor, diffuseColor, lightColor;
+			if (m_b_active_color_light)
+			{
+				lightColor.x = (float)sin(glfwGetTime() * 2.0f);
+				lightColor.y = (float)sin(glfwGetTime() * 0.7f);
+				lightColor.z = (float)sin(glfwGetTime() * 1.3f);
+
+				diffuseColor = lightColor * glm::vec3(0.5f); // decrease the influence
+				ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
+			}
+			else
+			{
+				lightColor = glm::vec3(1.0f);
+				ambientColor = glm::vec3(0.2f, 0.2f, 0.2f);
+				diffuseColor = glm::vec3(0.5f, 0.5f, 0.5f);
+			}
+
 			// IMPORTANT! material.ambient & material.diffuse are the same so ratio on ambient must be on light.ambient!!!!!
-			m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
-			m_Shader->SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
+			m_Shader->SetUniform3fv("light.ambient", ambientColor); //0.2f, 0.2f, 0.2f);
+			m_Shader->SetUniform3fv("light.diffuse", diffuseColor); //0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
 			m_Shader->SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
 
 			// View position
@@ -147,6 +172,9 @@ namespace test {
 			m_Shader->SetUniform1i("u_b_diffuse", m_b_diffuse);
 			m_Shader->SetUniform1i("u_b_specular", m_b_specular);
 
+			// Exercises Lighting maps
+			m_Shader->SetUniform1i("m_b_invert_specular_map", m_b_invert_specular_map);
+
 			renderer.Draw(*m_VAO, 36, *m_Shader);
 
 			// Shader Render for LIGHT
@@ -156,13 +184,14 @@ namespace test {
 			model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
 			mvp = proj * view * model;
 			m_lightShader->SetUniformMat4f("u_mvp", mvp);
+			m_lightShader->SetUniform3fv("u_lightColor", lightColor);
 			renderer.Draw(*m_lightVAO, 36, *m_lightShader);
 		}
 	}
 
-	void T04_LightingMaps_01::OnImGuiRender()
+	void T04_LightingMaps_02_Exercises::OnImGuiRender()
 	{
-		ImGui::Text("Lighting Maps");
+		ImGui::Text("Exercises...");
 		
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Text("Press M to active/disable mouse!");
@@ -180,9 +209,14 @@ namespace test {
 		ImGui::Checkbox("Cube scale active", &m_b_cube_scale_active);
 		ImGui::Text("Exercises C - Phong Vs Gouraud");
 		ImGui::Checkbox("Transpose matrix disable", &m_b_traspose_disable);
+
+		ImGui::Text("Exercises");
+		ImGui::Checkbox("Inverting specular map", &m_b_invert_specular_map);
+		ImGui::Checkbox("Active COLORED spec. map", &m_b_colored_specular_map);
+		ImGui::Checkbox("Active colored Light", &m_b_active_color_light);
 	}
 
-	void T04_LightingMaps_01::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T04_LightingMaps_02_Exercises::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -222,11 +256,11 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T04_LightingMaps_01::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T04_LightingMaps_02_Exercises::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 	}
 
-	void T04_LightingMaps_01::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T04_LightingMaps_02_Exercises::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 

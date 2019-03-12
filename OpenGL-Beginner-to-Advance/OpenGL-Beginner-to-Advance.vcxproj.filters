@@ -144,6 +144,12 @@
     <ClCompile Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_01.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_02_Exercises.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_03_Emission.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -570,6 +576,9 @@
     <None Include="src\tests\02_Lighting\03_Materials\S03_Materials_03_DataFile.Shader" />
     <None Include="src\tests\02_Lighting\03_Materials\M00_Materials.data" />
     <None Include="src\tests\02_Lighting\04_LightingMaps\S04_LightingMaps_01.Shader" />
+    <None Include="src\tests\02_Lighting\04_LightingMaps\S04_LightingMaps_02_Exercises.Shader" />
+    <None Include="src\tests\02_Lighting\04_LightingMaps\S00_Color_01a_Light.Shader" />
+    <None Include="src\tests\02_Lighting\04_LightingMaps\S04_LightingMaps_03_Emission.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1449,6 +1458,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\02_Lighting\04_LightingMaps\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_02_Exercises.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_03_Emission.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

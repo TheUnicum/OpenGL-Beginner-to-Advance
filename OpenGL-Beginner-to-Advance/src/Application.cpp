@@ -55,6 +55,8 @@
 #include "tests/02_Lighting/03_Materials/T03_Materials_03_DataFile.h"
 
 #include "tests/02_Lighting/04_LightingMaps/T04_LightingMaps_01.h"
+#include "tests/02_Lighting/04_LightingMaps/T04_LightingMaps_02_Exercises.h"
+#include "tests/02_Lighting/04_LightingMaps/T04_LightingMaps_03_Emission.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -195,6 +197,8 @@ int main(void)
 		// 04 Lighting maps
 		test::TestMenu* TM_04_Lighting_maps = new test::TestMenu(currentTest, "Lighting maps");
 		TM_04_Lighting_maps->RegisterTest<test::T04_LightingMaps_01>("Lighting maps 01");
+		TM_04_Lighting_maps->RegisterTest<test::T04_LightingMaps_02_Exercises>("Lighting maps 02 - Exercises");
+		TM_04_Lighting_maps->RegisterTest<test::T04_LightingMaps_03_Emission>("Lighting maps 03 - Emission!!");
 		TM_02_Lighting->RegisterMenu(*TM_04_Lighting_maps);
 
 		// Main Menu

@@ -190,7 +190,7 @@ namespace test {
 
 	void T03_Materials_03_DataFile::OnImGuiRender()
 	{
-		ImGui::Text("Color");
+		ImGui::Text("Material Data File");
 		
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Text("Press M to active/disable mouse!");

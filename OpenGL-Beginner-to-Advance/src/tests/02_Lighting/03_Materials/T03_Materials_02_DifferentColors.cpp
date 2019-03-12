@@ -162,7 +162,7 @@ namespace test {
 
 	void T03_Materials_02_DifferentColors::OnImGuiRender()
 	{
-		ImGui::Text("Color");
+		ImGui::Text("Colors");
 		
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Text("Press M to active/disable mouse!");
