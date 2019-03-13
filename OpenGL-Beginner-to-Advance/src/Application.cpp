@@ -17,6 +17,12 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw_gl3.h"
 
+// assimp lib import <assimp-4.1.0>
+// Important: after generate lib with cMake remember to add include\assimp\config.h
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 // include tests
 #include "tests/TestClearColor.h"
 
