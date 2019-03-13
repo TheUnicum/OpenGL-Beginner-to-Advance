@@ -21,3 +21,6 @@ Setting up New Base Lighting System: "Phong" & "Gouraud" shading.
 
 Setting up OpenGL/VRML Materials (RD materials data file).
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v07.png)
+
+Setting up Light casters.
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v08.png)

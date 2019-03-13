@@ -45,6 +45,7 @@ public:
 	inline void SetFixToGround(bool enabling) { m_Fix_To_Ground = enabling; }
 	inline const bool GetFixToGround() { return m_Fix_To_Ground; }
 	inline glm::vec3& GetCamPosition() { return m_Position; }
+	inline glm::vec3& GetCamFront() { return m_Front; }
 
 private:
 	glm::vec3 m_Position;

@@ -150,6 +150,15 @@
     <ClCompile Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_03_Emission.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_02_PointL.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_01_DirectL.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_03_SpotL.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -579,6 +588,10 @@
     <None Include="src\tests\02_Lighting\04_LightingMaps\S04_LightingMaps_02_Exercises.Shader" />
     <None Include="src\tests\02_Lighting\04_LightingMaps\S00_Color_01a_Light.Shader" />
     <None Include="src\tests\02_Lighting\04_LightingMaps\S04_LightingMaps_03_Emission.Shader" />
+    <None Include="src\tests\02_Lighting\05_LightCasters\S00_Color_01_Light.Shader" />
+    <None Include="src\tests\02_Lighting\05_LightCasters\S05_LightCaster_02_PointL.Shader" />
+    <None Include="src\tests\02_Lighting\05_LightCasters\S05_LightCaster_01_DirectL.Shader" />
+    <None Include="src\tests\02_Lighting\05_LightCasters\S05_LightCaster_03_SpotL.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1464,6 +1477,18 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_03_Emission.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\05_LightCasters\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_02_PointL.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_01_DirectL.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_03_SpotL.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

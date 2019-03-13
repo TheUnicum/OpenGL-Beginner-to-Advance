@@ -1,0 +1,114 @@
+#shader vertex
+#version 330 core
+
+layout(location = 0) in vec4 aPos;
+layout(location = 1) in vec3 aNormal;
+layout(location = 2) in vec2 aTexCoords;
+
+out vec3 FragPos;
+out vec3 Normal;
+out vec2 TexCoords;
+
+uniform mat4 u_mvp;
+uniform mat4 u_model;
+uniform mat3 u_transInvers_model;
+
+
+void main()
+{
+	FragPos = vec3(u_model * aPos);
+	Normal = u_transInvers_model * aNormal;
+	TexCoords = aTexCoords;
+
+	gl_Position = u_mvp * aPos;
+};
+
+#shader fragment
+#version 330 core
+out vec4 FragColor;
+
+in vec3 FragPos;
+in vec3 Normal;
+in vec2 TexCoords;
+
+struct Material {
+	sampler2D diffuse;
+	sampler2D specular;
+	sampler2D emission;
+	float shininess;
+};
+
+struct Light {
+	vec3 position;
+	vec3 direction;
+	float cutOff;
+	float outerCutOff;
+
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+
+	float u_k_constant;
+	float u_k_linear;
+	float u_k_quadratic;
+};
+
+uniform vec3 u_viewPos;
+uniform Material material;
+uniform Light light;
+
+uniform int u_b_ambient;
+uniform int u_b_diffuse;
+uniform int u_b_specular;
+uniform int u_b_emission;
+
+uniform int u_b_outerCutOff_OFF;
+
+void main()
+{
+	// ambient
+	vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords)) * u_b_ambient;
+
+	// diffuse
+	vec3 norm = normalize(Normal);
+	vec3 lightDir = normalize(light.position - FragPos);
+	float diff = max(dot(norm, lightDir), 0.0f);
+	vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords)) * u_b_diffuse;
+
+	// specular
+	vec3 viewDir = normalize(u_viewPos - FragPos);
+	vec3 reflectDir = reflect(-lightDir, norm);
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), material.shininess);
+	vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords)) * u_b_specular;
+
+	// emission
+	vec3 emission = texture(material.emission, TexCoords).rgb * u_b_emission;
+
+	// spotlight (soft edges)
+	float theta = dot(lightDir, normalize(-light.direction));
+	float epsilon = (light.cutOff - light.outerCutOff);
+	float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0f, 1.0f);
+
+	if (u_b_outerCutOff_OFF == 1)
+	{
+		if (theta > light.cutOff)
+			intensity = 1.0f;
+		else
+			intensity = 0.0f;
+	}
+
+	diffuse *= intensity;
+	specular *= intensity;
+
+	// attenation
+	float distance = length(light.position - FragPos);
+	float attenuation = 1.0f / (light.u_k_constant + light.u_k_linear * distance + light.u_k_quadratic * (distance * distance));
+
+	ambient *= attenuation;
+	diffuse*= attenuation;
+	specular *= attenuation;
+
+	vec3 result = ambient + diffuse + specular + emission;
+	FragColor = vec4(result, 1.0f);
+};
+

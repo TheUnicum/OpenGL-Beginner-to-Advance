@@ -183,6 +183,9 @@
     <ClCompile Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_01.cpp" />
     <ClCompile Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_02_Exercises.cpp" />
     <ClCompile Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_03_Emission.cpp" />
+    <ClCompile Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_01_DirectL.cpp" />
+    <ClCompile Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_02_PointL.cpp" />
+    <ClCompile Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_03_SpotL.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -231,6 +234,10 @@
     <None Include="src\tests\02_Lighting\04_LightingMaps\S04_LightingMaps_01.Shader" />
     <None Include="src\tests\02_Lighting\04_LightingMaps\S04_LightingMaps_02_Exercises.Shader" />
     <None Include="src\tests\02_Lighting\04_LightingMaps\S04_LightingMaps_03_Emission.Shader" />
+    <None Include="src\tests\02_Lighting\05_LightCasters\S00_Color_01_Light.Shader" />
+    <None Include="src\tests\02_Lighting\05_LightCasters\S05_LightCaster_01_DirectL.Shader" />
+    <None Include="src\tests\02_Lighting\05_LightCasters\S05_LightCaster_02_PointL.Shader" />
+    <None Include="src\tests\02_Lighting\05_LightCasters\S05_LightCaster_03_SpotL.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -403,6 +410,10 @@
     <ClInclude Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_01.h" />
     <ClInclude Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_02_Exercises.h" />
     <ClInclude Include="src\tests\02_Lighting\04_LightingMaps\T04_LightingMaps_03_Emission.h" />
+    <ClInclude Include="src\tests\02_Lighting\05_LightCasters\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_01_DirectL.h" />
+    <ClInclude Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_02_PointL.h" />
+    <ClInclude Include="src\tests\02_Lighting\05_LightCasters\T05_LightCaster_03_SpotL.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

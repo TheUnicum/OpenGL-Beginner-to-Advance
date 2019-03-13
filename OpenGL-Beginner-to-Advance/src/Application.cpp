@@ -58,6 +58,10 @@
 #include "tests/02_Lighting/04_LightingMaps/T04_LightingMaps_02_Exercises.h"
 #include "tests/02_Lighting/04_LightingMaps/T04_LightingMaps_03_Emission.h"
 
+#include "tests/02_Lighting/05_LightCasters/T05_LightCaster_01_DirectL.h"
+#include "tests/02_Lighting/05_LightCasters/T05_LightCaster_02_PointL.h"
+#include "tests/02_Lighting/05_LightCasters/T05_LightCaster_03_SpotL.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -200,6 +204,13 @@ int main(void)
 		TM_04_Lighting_maps->RegisterTest<test::T04_LightingMaps_02_Exercises>("Lighting maps 02 - Exercises");
 		TM_04_Lighting_maps->RegisterTest<test::T04_LightingMaps_03_Emission>("Lighting maps 03 - Emission!!");
 		TM_02_Lighting->RegisterMenu(*TM_04_Lighting_maps);
+
+		// 05 Light Casters
+		test::TestMenu* TM_05_Light_casters = new test::TestMenu(currentTest, "Light casters");
+		TM_05_Light_casters->RegisterTest<test::T05_LightCaster_01_DirectL>("Light casters 01 - Direct.L.");
+		TM_05_Light_casters->RegisterTest<test::T05_LightCaster_02_PointL>("Light casters 02 - Point.L.");
+		TM_05_Light_casters->RegisterTest<test::T05_LightCaster_03_SpotL>("Light casters 02 - Spot.L.");
+		TM_02_Lighting->RegisterMenu(*TM_05_Light_casters);
 
 		// Main Menu
 		testMenu->RegisterMenu(*TM_01_Getting_started);
