@@ -95,11 +95,11 @@ namespace test {
 			std::cout << ele << std::endl;
 
 		// Textures
-		m_mTexture0 = std::make_unique<Texture>("res/textures/container2.png");
-		m_mTexture1 = std::make_unique<Texture>("res/textures/container2_specular.png");
-		m_mTexture2 = std::make_unique<Texture>("res/textures/matrix.jpg");
+		m_mTexture0 = std::make_unique<Texture>("res/textures/container2.png", TextureType::DIFFUSE);
+		m_mTexture1 = std::make_unique<Texture>("res/textures/container2_specular.png", TextureType::SPECULAR);
+		m_mTexture2 = std::make_unique<Texture>("res/textures/matrix.jpg", TextureType::EMISSION);
 
-
+		std::cout << "m_mTexture2 : " << (int)m_mTexture0->GetType() << std::endl;
 	}
 
 	T02_Mesh_01::~T02_Mesh_01()

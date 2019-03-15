@@ -6,7 +6,8 @@
 
 Texture::Texture(const std::string & path, int min_filter, int mag_filter, int wrap_s, int wrap_t)
 	: m_RendererID(0), m_FilePath(path), m_LocalBuffer(nullptr),
-	m_Width(0), m_Height(0), m_BPP(0)
+	m_Width(0), m_Height(0), m_BPP(0),
+	m_type(TextureType::DIFFUSE)
 {
 	stbi_set_flip_vertically_on_load(true);
 	m_LocalBuffer = stbi_load(path.c_str(), &m_Width, &m_Height,&m_BPP, 4);
@@ -28,6 +29,12 @@ Texture::Texture(const std::string & path, int min_filter, int mag_filter, int w
 		stbi_image_free(m_LocalBuffer);
 	else
 		std::cout << "ERROR::Failed to load Texture!" << std::endl;
+}
+
+Texture::Texture(const std::string & path, TextureType textureType, int min_filter, int mag_filter, int wrap_s, int wrap_t)
+	: m_type(textureType)
+{
+	Texture(path, min_filter, mag_filter, wrap_s, wrap_t);
 }
 
 Texture::~Texture()
