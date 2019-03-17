@@ -18,7 +18,7 @@ namespace test {
 
 		m_camera = std::make_unique<Camera>(glm::vec3(-2.0f, 2.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.f, -20.f);
 
-		m_VertexBuffer = std::make_unique<VertexBuffer>(pyramid_vertices_3v_3n_2t, 36 * (3 + 3 + 2) * sizeof(float));
+		m_VertexBuffer = std::make_unique<VertexBuffer>(cube_vertices_3v_3n_2t, 36 * (3 + 3 + 2) * sizeof(float));
 		
 		VertexBufferLayout layout;
 		layout.Push<float>(3);
@@ -45,16 +45,11 @@ namespace test {
 
 
 		// NEW mesh----------------------------------------------------------------------------------------
-		unsigned int m_indices[] = {
-			0, 1, 2
-		};
-		m_mesh = std::make_unique<Mesh>();
-
 		std::vector<Vertex> vertices_3v_3n_2t;
 		glm::vec3 temp_pos, temp_norm;
 		glm::vec2 temp_texC;
 		int i = 0;
-		for (float val : pyramid_vertices_3v_3n_2t)
+		for (float val : cube_vertices_3v_3n_2t)
 		{
 			switch (i)
 			{
@@ -90,16 +85,21 @@ namespace test {
 			i++;
 		}
 
-		// 
-		for (auto& ele : vertices_3v_3n_2t)
-			std::cout << ele << std::endl;
+		// To check the correct format of vertec:position/normal/textCoords
+		//for (auto& ele : vertices_3v_3n_2t)
+		//	std::cout << ele << std::endl;
 
-		// Textures
-		m_mTexture0 = std::make_unique<Texture>("res/textures/container2.png", TextureType::DIFFUSE);
-		m_mTexture1 = std::make_unique<Texture>("res/textures/container2_specular.png", TextureType::SPECULAR);
-		m_mTexture2 = std::make_unique<Texture>("res/textures/matrix.jpg", TextureType::EMISSION);
+		// Textures - Shared pointer
+		msp_mTexture0 = std::make_shared<Texture>("res/textures/container2.png", TextureType::DIFFUSE);
+		msp_mTexture1 = std::make_shared<Texture>("res/textures/container2_specular.png", TextureType::EMISSION);
+		msp_mTexture2 = std::make_shared<Texture>("res/textures/matrix_2.jpg", TextureType::SPECULAR);
+		msp_Textures.push_back(msp_mTexture0);
+		msp_Textures.push_back(msp_mTexture1);
+		msp_Textures.push_back(msp_mTexture2);
 
-		std::cout << "m_mTexture2 : " << (int)m_mTexture0->GetType() << std::endl;
+		std::vector<unsigned int> indices0;
+		m_mesh = std::make_unique<Mesh>(vertices_3v_3n_2t, indices0, msp_Textures);
+		m_ShaderMesh = std::make_unique<Shader>("src/tests/03_Model_Loading/02_Mesh/S02_Mesh_01_Mesh.Shader");
 	}
 
 	T02_Mesh_01::~T02_Mesh_01()
@@ -153,7 +153,7 @@ namespace test {
 
 			m_Shader->Bind();
 			model = glm::mat4(1.0f);
-			
+
 			if (m_b_cube_rotating_active)
 			{
 				model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -221,6 +221,72 @@ namespace test {
 			m_lightShader->SetUniform3fv("u_lightColor", lightColor);
 			m_lightShader->SetUniformMat4f("u_mvp", mvp);
 			renderer.Draw(*m_lightVAO, 36, *m_lightShader);
+		}
+
+		// Mesh
+		{
+			glm::mat4 model(1.0f);
+			glm::mat4 view(1.0f);
+			glm::mat4 proj(1.0f);
+			glm::mat4 mvp;
+			//Renderer renderer;
+
+			view = m_camera->GetViewMatrix();
+			proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
+
+			m_ShaderMesh->Bind();
+			model = glm::mat4(1.0f);
+
+			model = glm::translate(model, glm::vec3(2.0f, 1.0f, 0.0f));
+
+			if (m_b_cube_rotating_active)
+			{
+				model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
+				model = glm::rotate(model, (float)glfwGetTime() / 2.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+			}
+
+			if (m_b_cube_scale_active)
+				model = glm::scale(model, glm::vec3(1.0f, 0.2f, 2.3f));
+
+			mvp = proj * view * model;
+			m_ShaderMesh->SetUniformMat4f("u_mvp", mvp);
+			m_ShaderMesh->SetUniformMat4f("u_model", model);
+
+			if (!m_b_traspose_disable)
+				m_ShaderMesh->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(model))));
+			else
+				m_ShaderMesh->SetUniformMat3f("u_transInvers_model", model);
+
+			// Material
+			m_ShaderMesh->SetUniform1f("material.shininess", 2.0f);
+
+			// Light
+			// change the light's position values over time (can be done anywhere in the render loop actually, 
+			// but try to do it at least before using the light source positions)
+			if (m_b_light_move_active)
+			{
+				m_lightPos.x = (1.0f + (float)sin(glfwGetTime()) * 2.0f);
+				m_lightPos.y = (float)sin(glfwGetTime() / 2.0f) * 1.0f;
+			}
+
+			m_ShaderMesh->SetUniform3fv("light.position", m_lightPos);
+
+			// IMPORTANT! material.ambient & material.diffuse are the same so ratio on ambient must be on light.ambient!!!!!
+			m_ShaderMesh->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
+			m_ShaderMesh->SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
+			m_ShaderMesh->SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
+
+			// View position
+			m_ShaderMesh->SetUniform3fv("u_viewPos", m_camera->GetCamPosition());
+
+			// Active Phong lighting componetst
+			m_ShaderMesh->SetUniform1i("u_b_ambient", m_b_ambient);
+			m_ShaderMesh->SetUniform1i("u_b_diffuse", m_b_diffuse);
+			m_ShaderMesh->SetUniform1i("u_b_specular", m_b_specular);
+			m_ShaderMesh->SetUniform1i("u_b_emission", m_b_emission);
+
+			// Draw MESH
+			m_mesh->Draw(m_ShaderMesh);
 		}
 	}
 

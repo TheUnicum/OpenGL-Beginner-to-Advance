@@ -131,7 +131,7 @@ float pyramid_vertices_3v_3n[] = {
 };
 
 
-float pyramid_vertices_3v_3n_2t[] = {
+float cube_vertices_3v_3n_2t[] = {
 	// positions          // normals           // texture coords
 	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,

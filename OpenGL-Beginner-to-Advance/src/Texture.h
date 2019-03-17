@@ -5,7 +5,7 @@
 
 enum class TextureType
 {
-	NONE = -1, DIFFUSE = 0, SPECULAR = 1, NORMAL = 2, HEIGHT = 3, EMISSION = 4
+	NONE = -1, DIFFUSE = 0, SPECULAR = 1, EMISSION = 2, NORMAL = 3, HEIGHT = 4, AMBIENT = 5
 };
 
 class Texture
@@ -22,6 +22,7 @@ public:
 		int mag_filter = GL_LINEAR,
 		int wrap_s = GL_CLAMP_TO_EDGE,
 		int wrap_t = GL_CLAMP_TO_EDGE);
+
 	Texture(const std::string& path,
 		TextureType textureType,
 		int min_filter = GL_LINEAR,

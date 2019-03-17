@@ -32,10 +32,7 @@ Texture::Texture(const std::string & path, int min_filter, int mag_filter, int w
 }
 
 Texture::Texture(const std::string & path, TextureType textureType, int min_filter, int mag_filter, int wrap_s, int wrap_t)
-	: m_type(textureType)
-{
-	Texture(path, min_filter, mag_filter, wrap_s, wrap_t);
-}
+	: Texture(path, min_filter, mag_filter, wrap_s, wrap_t) { m_type = textureType; }
 
 Texture::~Texture()
 {

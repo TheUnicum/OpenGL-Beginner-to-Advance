@@ -69,8 +69,12 @@ namespace test {
 		bool m_b_gouraud_shading_active;
 		bool m_b_traspose_disable;
 
+		// MESH members
 		std::unique_ptr<Mesh> m_mesh;
-		std::unique_ptr<Texture> m_mTexture0, m_mTexture1, m_mTexture2;
+		std::shared_ptr<Shader> m_ShaderMesh;
+		std::shared_ptr<Texture> msp_mTexture0, msp_mTexture1, msp_mTexture2;
+		std::vector<std::shared_ptr<Texture>> msp_Textures;
+
 	};
 
 }

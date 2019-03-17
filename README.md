@@ -24,3 +24,6 @@ Setting up OpenGL/VRML Materials (RD materials data file).
 
 Setting up Light casters.
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v08.png)
+
+Setting up a test:Mesh, first working <MESH>!.
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v09.png)
