@@ -165,6 +165,9 @@
     <ClCompile Include="src\Mesh.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\03_Model_Loading\03_Model\T03_Model_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -601,6 +604,9 @@
     <None Include="src\tests\03_Model_Loading\02_Mesh\S00_Color_01a_Light.Shader" />
     <None Include="src\tests\03_Model_Loading\02_Mesh\S02_Mesh_01.Shader" />
     <None Include="src\tests\03_Model_Loading\02_Mesh\S02_Mesh_01_Mesh.Shader" />
+    <None Include="src\tests\03_Model_Loading\03_Model\S00_Color_01a_Light.Shader" />
+    <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01.Shader" />
+    <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01_Mesh.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1507,6 +1513,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Mesh.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\03_Model_Loading\03_Model\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\03_Model_Loading\03_Model\T03_Model_01.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

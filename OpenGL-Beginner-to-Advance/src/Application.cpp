@@ -70,6 +70,8 @@
 
 #include "tests/03_Model_Loading/02_Mesh/T02_Mesh_01.h"
 
+#include "tests/03_Model_Loading/03_Model/T03_Model_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -233,8 +235,16 @@ int main(void)
 		TM_02_Mesh->RegisterTest<test::T02_Mesh_01>("Mesh 01 - Class");
 		TM_03_Model_Loading->RegisterMenu(*TM_02_Mesh);
 
+		// 03 Model
+		test::TestMenu* TM_03_Model = new test::TestMenu(currentTest, "Model");
+		TM_03_Model->RegisterTest<test::T03_Model_01>("Model 01 - Class");
+		TM_03_Model_Loading->RegisterMenu(*TM_03_Model);
 
+		//-----------------------------
+		//-----------------------------
 		// Main Menu
+		//-----------------------------
+		//-----------------------------
 		testMenu->RegisterMenu(*TM_01_Getting_started);
 		testMenu->RegisterMenu(*TM_02_Lighting);
 		testMenu->RegisterMenu(*TM_03_Model_Loading);
