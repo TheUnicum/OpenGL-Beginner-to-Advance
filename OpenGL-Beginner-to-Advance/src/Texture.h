@@ -38,4 +38,5 @@ public:
 	inline int GetHeight() const { return m_Height; }
 	inline int GetBPP() const { return m_BPP; }
 	inline TextureType GetType() const { return m_type; }
+	inline std::string GetPath() const { return m_FilePath; }
 };

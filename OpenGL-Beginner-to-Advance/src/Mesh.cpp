@@ -10,7 +10,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 	this->m_vertices = vertices;
 	this->m_indices = indices;
 	this->msp_Textures = textures;
-	
+
 	this->m_v_count = vertices.size();
 	this->m_i_count = indices.size();
 
@@ -36,6 +36,7 @@ void Mesh::Draw(std::shared_ptr<Shader> shader)
 	unsigned int emissionNr = 1;
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
+
 	for (unsigned int i = 0; i < msp_Textures.size(); i++)
 	{
 		std::string str_indexNr;
@@ -55,7 +56,8 @@ void Mesh::Draw(std::shared_ptr<Shader> shader)
 		shader->SetUniform1i(((m_textureTypeName[(int)this->msp_Textures[i]->GetType()] + str_indexNr).c_str()) , i);
 	}
 	m_va.Bind();
-	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));// m_v_count
+
+	GLCall(glDrawArrays(GL_TRIANGLES, 0, m_v_count));// m_v_count
 }
 
 void Mesh::setupMesh()

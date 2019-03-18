@@ -8,6 +8,7 @@
 
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
+#include "IndexBuffer.h"
 
 #include "Texture.h"
 #include "VertexArray.h"
@@ -45,6 +46,7 @@ private:
 	// VertexArray & VertexBuffer
 	VertexArray m_va;
 	std::unique_ptr<VertexBuffer> m_vb;
+	std::unique_ptr<IndexBuffer> m_ibo;
 	//utility
 	unsigned int m_v_count, m_i_count;
 	std::string m_textureTypeName[6];

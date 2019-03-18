@@ -100,6 +100,11 @@ namespace test {
 		std::vector<unsigned int> indices0;
 		m_mesh = std::make_unique<Mesh>(vertices_3v_3n_2t, indices0, msp_Textures);
 		m_ShaderMesh = std::make_unique<Shader>("src/tests/03_Model_Loading/03_Model/S03_Model_01_Mesh.Shader");
+
+		// NEW Model----------------------------------------------------------------------------------------
+
+		m_model = std::make_unique<Model>("res/objects/nanosuit/nanosuit.obj");
+
 	}
 
 	T03_Model_01::~T03_Model_01()
@@ -141,6 +146,8 @@ namespace test {
 		// - rotation
 		// - scale
 		float inv_ratio_aspect = 960.0f / 540.0f;
+
+		if (false)
 		{
 			glm::mat4 model(1.0f);
 			glm::mat4 view(1.0f);
@@ -224,6 +231,7 @@ namespace test {
 		}
 
 		// Mesh
+		if (false)
 		{
 			glm::mat4 model(1.0f);
 			glm::mat4 view(1.0f);
@@ -288,6 +296,84 @@ namespace test {
 			// Draw MESH
 			m_mesh->Draw(m_ShaderMesh);
 		}
+
+
+
+
+
+		// MeModel
+		{
+			glm::mat4 model(1.0f);
+			glm::mat4 view(1.0f);
+			glm::mat4 proj(1.0f);
+			glm::mat4 mvp;
+			//Renderer renderer;
+
+			view = m_camera->GetViewMatrix();
+			proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
+
+			m_ShaderMesh->Bind();
+			model = glm::mat4(1.0f);
+
+			//model = glm::translate(model, glm::vec3(-2.0f, 1.0f, 0.0f));
+
+			if (m_b_cube_rotating_active)
+			{
+				model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
+				model = glm::rotate(model, (float)glfwGetTime() / 2.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+			}
+
+			if (m_b_cube_scale_active)
+				model = glm::scale(model, glm::vec3(1.0f, 0.2f, 2.3f));
+
+			mvp = proj * view * model;
+			m_ShaderMesh->SetUniformMat4f("u_mvp", mvp);
+			m_ShaderMesh->SetUniformMat4f("u_model", model);
+
+			if (!m_b_traspose_disable)
+				m_ShaderMesh->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(model))));
+			else
+				m_ShaderMesh->SetUniformMat3f("u_transInvers_model", model);
+
+			// Material
+			m_ShaderMesh->SetUniform1f("material.shininess", 2.0f);
+
+			// Light
+			// change the light's position values over time (can be done anywhere in the render loop actually, 
+			// but try to do it at least before using the light source positions)
+			if (m_b_light_move_active)
+			{
+				m_lightPos.x = (1.0f + (float)sin(glfwGetTime()) * 2.0f);
+				m_lightPos.y = (float)sin(glfwGetTime() / 2.0f) * 1.0f;
+			}
+
+			m_ShaderMesh->SetUniform3fv("light.position", m_lightPos);
+
+			// IMPORTANT! material.ambient & material.diffuse are the same so ratio on ambient must be on light.ambient!!!!!
+			m_ShaderMesh->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
+			m_ShaderMesh->SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f); // darken the light a bit to fit the scene
+			m_ShaderMesh->SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
+
+			// View position
+			m_ShaderMesh->SetUniform3fv("u_viewPos", m_camera->GetCamPosition());
+
+			// Active Phong lighting componetst
+			m_ShaderMesh->SetUniform1i("u_b_ambient", m_b_ambient);
+			m_ShaderMesh->SetUniform1i("u_b_diffuse", m_b_diffuse);
+			m_ShaderMesh->SetUniform1i("u_b_specular", m_b_specular);
+			m_ShaderMesh->SetUniform1i("u_b_emission", m_b_emission);
+
+			// Draw MODEL
+			m_model->Draw(m_ShaderMesh);
+		}
+
+
+
+
+
+
+
+
 	}
 
 	void T03_Model_01::OnImGuiRender()

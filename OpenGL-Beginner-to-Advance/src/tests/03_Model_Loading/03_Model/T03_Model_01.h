@@ -23,6 +23,7 @@
 #include "Camera.h"	
 
 #include "Mesh.h"
+#include "Model.h"
 
 namespace test {
 
@@ -74,6 +75,9 @@ namespace test {
 		std::shared_ptr<Shader> m_ShaderMesh;
 		std::shared_ptr<Texture> msp_mTexture0, msp_mTexture1, msp_mTexture2;
 		std::vector<std::shared_ptr<Texture>> msp_Textures;
+
+		// MODEL
+		std::unique_ptr<Model> m_model;
 
 	};
 

@@ -27,3 +27,6 @@ Setting up Light casters.
 
 Setting up a test:Mesh, first working <MESH>!.
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v09.png)
+
+Setting up a test:Model, first alfa:working <MODEL>!.
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v10.png)

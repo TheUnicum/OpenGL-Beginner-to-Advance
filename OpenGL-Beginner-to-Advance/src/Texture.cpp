@@ -9,7 +9,7 @@ Texture::Texture(const std::string & path, int min_filter, int mag_filter, int w
 	m_Width(0), m_Height(0), m_BPP(0),
 	m_type(TextureType::DIFFUSE)
 {
-	stbi_set_flip_vertically_on_load(true);
+	//stbi_set_flip_vertically_on_load(true);
 	m_LocalBuffer = stbi_load(path.c_str(), &m_Width, &m_Height,&m_BPP, 4);
 
 	GLCall(glGenTextures(1, &m_RendererID));
