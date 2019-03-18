@@ -7,7 +7,6 @@ void Model::Draw(std::shared_ptr<Shader> shader)
 		m_meshes[i]->Draw(shader);
 }
 
-
 void Model::loadModel(const std::string & path)
 {
 	// read file via ASSIMP
@@ -16,8 +15,7 @@ void Model::loadModel(const std::string & path)
 	// aiProcess_CalcTangentSpace  : Calculates the tangents and bitangents for the imported meshes.
 	// for more https://learnopengl.com/Model-Loading/Model
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-	//const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_CalcTangentSpace);
+	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_CalcTangentSpace);
 	// check for errors
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 	{

@@ -25,10 +25,10 @@ public:
 
 	Texture(const std::string& path,
 		TextureType textureType,
-		int min_filter = GL_LINEAR,
+		int min_filter = GL_LINEAR_MIPMAP_LINEAR,
 		int mag_filter = GL_LINEAR,
-		int wrap_s = GL_CLAMP_TO_EDGE,
-		int wrap_t = GL_CLAMP_TO_EDGE);
+		int wrap_s = GL_REPEAT,		// important for loading MODEL: Texture MUST NOT BE CLAMPED TO EDGE!!!!!!
+		int wrap_t = GL_REPEAT);
 	~Texture();
 
 	void Bind(unsigned int slot = 0) const;

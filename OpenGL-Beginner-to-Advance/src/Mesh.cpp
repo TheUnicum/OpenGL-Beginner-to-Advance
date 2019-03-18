@@ -53,7 +53,7 @@ void Mesh::Draw(std::shared_ptr<Shader> shader)
 
 		// Now set the sampler to the correct texture unit
 		this->msp_Textures[i]->Bind(i);
-		shader->SetUniform1i(((m_textureTypeName[(int)this->msp_Textures[i]->GetType()] + str_indexNr).c_str()) , i);
+		shader->SetUniform1i(((m_textureTypeName[(int)this->msp_Textures[i]->GetType()] + str_indexNr).c_str()), i);
 	}
 	m_va.Bind();
 

@@ -147,7 +147,7 @@ namespace test {
 		// - scale
 		float inv_ratio_aspect = 960.0f / 540.0f;
 
-		if (false)
+		if (true)
 		{
 			glm::mat4 model(1.0f);
 			glm::mat4 view(1.0f);

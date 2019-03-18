@@ -248,7 +248,6 @@
     <None Include="src\tests\03_Model_Loading\03_Model\S00_Color_01a_Light.Shader" />
     <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01.Shader" />
     <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01_Mesh.Shader" />
-    <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01_Mesh_Simple.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />

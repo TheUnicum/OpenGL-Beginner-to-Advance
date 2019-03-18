@@ -610,7 +610,6 @@
     <None Include="src\tests\03_Model_Loading\03_Model\S00_Color_01a_Light.Shader" />
     <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01.Shader" />
     <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01_Mesh.Shader" />
-    <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01_Mesh_Simple.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
