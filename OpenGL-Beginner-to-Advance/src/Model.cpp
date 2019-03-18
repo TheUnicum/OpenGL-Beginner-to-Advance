@@ -1,11 +1,12 @@
 #include "Model.h"
 
 
-void Model::Draw(std::shared_ptr<Shader> shader)
+void Model::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
 {
 	for (unsigned int i = 0; i < m_meshes.size(); i++)
-		m_meshes[i]->Draw(shader);
+		m_meshes[i]->Draw(shader, compatible_glDrawArrays);
 }
+
 
 void Model::loadModel(const std::string & path)
 {

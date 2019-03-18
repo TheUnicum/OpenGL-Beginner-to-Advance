@@ -12,10 +12,12 @@ VertexArray::~VertexArray()
 	GLCall(glDeleteVertexArrays(1, &m_RendererID));
 }
 
-void VertexArray::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout)
+void VertexArray::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout, const std::shared_ptr<IndexBuffer> ib)
 {
 	Bind();
 	vb.Bind();
+	if (ib)
+		ib->Bind();
 	const auto& elements = layout.GetElements();
 	unsigned int offset = 0;
 	for (unsigned int i = 0; i < elements.size(); i++)

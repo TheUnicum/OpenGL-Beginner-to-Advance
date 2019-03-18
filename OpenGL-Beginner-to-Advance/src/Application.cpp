@@ -63,6 +63,7 @@
 #include "tests/02_Lighting/05_LightCasters/T05_LightCaster_03_SpotL.h"
 
 #include "tests/03_Model_Loading/02_Mesh/T02_Mesh_01.h"
+#include "tests/03_Model_Loading/02_Mesh/T03_Mesh_02_ibo.h"
 
 #include "tests/03_Model_Loading/03_Model/T03_Model_01.h"
 
@@ -227,6 +228,7 @@ int main(void)
 		// 02 Mesh
 		test::TestMenu* TM_02_Mesh = new test::TestMenu(currentTest, "Mesh");
 		TM_02_Mesh->RegisterTest<test::T02_Mesh_01>("Mesh 01 - Class");
+		TM_02_Mesh->RegisterTest<test::T03_Mesh_02_ibo>("Mesh 02 - glDrawElements(ibo)");
 		TM_03_Model_Loading->RegisterMenu(*TM_02_Mesh);
 
 		// 03 Model

@@ -34,7 +34,7 @@ class Mesh
 {
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
-	void Draw(std::shared_ptr<Shader> shader);
+	void Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays = false);
 private:
 	void setupMesh();
 
@@ -46,10 +46,11 @@ private:
 	// VertexArray & VertexBuffer
 	VertexArray m_va;
 	std::unique_ptr<VertexBuffer> m_vb;
-	std::unique_ptr<IndexBuffer> m_ibo;
+	std::shared_ptr<IndexBuffer> m_ibo;
 	//utility
 	unsigned int m_v_count, m_i_count;
 	std::string m_textureTypeName[6];
+	bool m_ibo_data;
 };
 
 // utility overload

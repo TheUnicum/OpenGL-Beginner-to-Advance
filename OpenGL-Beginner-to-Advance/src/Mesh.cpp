@@ -13,6 +13,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 
 	this->m_v_count = vertices.size();
 	this->m_i_count = indices.size();
+	this->m_ibo_data = (bool)indices.size();
 
 	// Now that we have all the required data, set the vertex buffers and its attribute pointer.
 	this->setupMesh();
@@ -25,7 +26,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 	this->m_textureTypeName[(int)TextureType::HEIGHT] = "material.height";
 }
 
-void Mesh::Draw(std::shared_ptr<Shader> shader)
+void Mesh::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
 {
 	shader->Bind();
 
@@ -56,18 +57,28 @@ void Mesh::Draw(std::shared_ptr<Shader> shader)
 		shader->SetUniform1i(((m_textureTypeName[(int)this->msp_Textures[i]->GetType()] + str_indexNr).c_str()), i);
 	}
 	m_va.Bind();
-
-	GLCall(glDrawArrays(GL_TRIANGLES, 0, m_v_count));// m_v_count
+	if (this->m_ibo_data && !compatible_glDrawArrays)
+	{	// ATTENTION !! GLCall is a MACRO so is more than 1 line of code. Use scope {}.
+		GLCall(glDrawElements(GL_TRIANGLES, m_i_count, GL_UNSIGNED_INT, 0));
+	}
+	else
+	{
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, m_v_count));// m_v_count
+	}
 }
 
 void Mesh::setupMesh()
 {
 	m_vb = std::make_unique<VertexBuffer>(&m_vertices[0], m_vertices.size() * sizeof(Vertex));
+	if (m_ibo_data) // if ibo data generate IndexBuffer and link to the VertexArray
+		m_ibo = std::make_shared<IndexBuffer>(&m_indices[0], m_indices.size());
+
 	VertexBufferLayout layout;
 	layout.Push<float>(sizeof(Vertex::Position) / sizeof(float));
 	layout.Push<float>(sizeof(Vertex::Normal) / sizeof(float));
 	layout.Push<float>(sizeof(Vertex::TexCoords) / sizeof(float));
-	m_va.AddBuffer(*m_vb, layout);
+	m_va.AddBuffer(*m_vb, layout, m_ibo);
+	m_va.Unbind();
 }
 
 // utility overload for iostream Vertex Data

@@ -23,7 +23,7 @@ public:
 	/* Functions */
 	Model(const std::string& path) { loadModel(path); }
 	// draws the model, and thus all its meshes
-	void Draw(std::shared_ptr<Shader> shader);
+	void Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays = false);
 
 private:
 	/* Funcitons */
