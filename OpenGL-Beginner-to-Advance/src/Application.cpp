@@ -67,6 +67,8 @@
 
 #include "tests/03_Model_Loading/03_Model/T03_Model_01.h"
 
+#include "tests/04_Advanced_OpenGL/01_DepthTesting/T01_DepthTesting.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -237,6 +239,16 @@ int main(void)
 		TM_03_Model_Loading->RegisterMenu(*TM_03_Model);
 
 		//-----------------------------
+		// 04 Advanced OpenGL
+		//-----------------------------
+		test::TestMenu* TM_04_Advanced_OpenGL = new test::TestMenu(currentTest, "Advanced OpenGL");
+
+		// 01 Depth testing
+		test::TestMenu* TM_01_DepthTesting = new test::TestMenu(currentTest, "Depth testing");
+		TM_01_DepthTesting->RegisterTest<test::T01_DepthTesting>("Depth testing 01 - Basic");
+		TM_04_Advanced_OpenGL->RegisterMenu(*TM_01_DepthTesting);
+
+		//-----------------------------
 		//-----------------------------
 		// Main Menu
 		//-----------------------------
@@ -244,6 +256,7 @@ int main(void)
 		testMenu->RegisterMenu(*TM_01_Getting_started);
 		testMenu->RegisterMenu(*TM_02_Lighting);
 		testMenu->RegisterMenu(*TM_03_Model_Loading);
+		testMenu->RegisterMenu(*TM_04_Advanced_OpenGL);
 
 		while (!glfwWindowShouldClose(window))
 		{

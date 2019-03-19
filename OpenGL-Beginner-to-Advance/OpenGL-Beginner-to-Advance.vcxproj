@@ -191,6 +191,7 @@
     <ClCompile Include="src\tests\03_Model_Loading\02_Mesh\T02_Mesh_01.cpp" />
     <ClCompile Include="src\tests\03_Model_Loading\02_Mesh\T03_Mesh_02_ibo.cpp" />
     <ClCompile Include="src\tests\03_Model_Loading\03_Model\T03_Model_01.cpp" />
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -250,6 +251,8 @@
     <None Include="src\tests\03_Model_Loading\03_Model\S00_Color_01a_Light.Shader" />
     <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01.Shader" />
     <None Include="src\tests\03_Model_Loading\03_Model\S03_Model_01_Mesh.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\S00_Light.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\S01_DepthTesting.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -433,6 +436,8 @@
     <ClInclude Include="src\tests\03_Model_Loading\02_Mesh\T03_Mesh_02_ibo.h" />
     <ClInclude Include="src\tests\03_Model_Loading\03_Model\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\03_Model_Loading\03_Model\T03_Model_01.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />
