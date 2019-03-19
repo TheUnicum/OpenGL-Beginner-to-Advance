@@ -55,6 +55,16 @@ uniform int u_b_diffuse;
 uniform int u_b_specular;
 uniform int u_b_emission;
 
+uniform int u_i_DP_Visualizing_opt;
+float near = 0.1;
+float far = 100.0;
+
+float LinearizeDepth(float depth)
+{
+	float z = depth * 2.0 - 1.0; // back to NDC 
+	return (2.0 * near * far) / (far + near - z * (far - near));
+}
+
 void main()
 {
 	// ambient
@@ -76,6 +86,15 @@ void main()
 	vec3 emission = texture(material.emission1, TexCoords).rgb * u_b_emission;
 
 	vec3 result = ambient + diffuse + specular + emission;
-	FragColor = vec4(result, 1.0f);
+
+	if (u_i_DP_Visualizing_opt == 0)
+		FragColor = vec4(result, 1.0f);
+	else if(u_i_DP_Visualizing_opt == 1)
+		FragColor = vec4(vec3(gl_FragCoord.z), 1.0);
+	else
+	{
+		float depth = LinearizeDepth(gl_FragCoord.z) / far; // divide by far for demonstration
+		FragColor = vec4(vec3(depth), 1.0);
+	}
 };
 

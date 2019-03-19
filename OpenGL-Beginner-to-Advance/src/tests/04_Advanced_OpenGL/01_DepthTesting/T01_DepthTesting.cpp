@@ -12,7 +12,8 @@ namespace test {
 
 		m_lightPos(glm::vec3(1.2f, 1.0f, 2.0f)),
 		m_b_ambient(true), m_b_diffuse(true), m_b_specular(false), m_b_emission(false),
-		m_b_light_move_active(false), m_b_cube_rotating_active(false), m_b_cube_scale_active(false)
+		m_b_light_move_active(false), m_b_cube_rotating_active(false), m_b_cube_scale_active(false),
+		m_i_DP_Visualizing_opt(0)
 	{
 		// Initialize camera
 		m_camera = std::make_unique<Camera>(glm::vec3(-2.0f, 2.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.f, -20.f);
@@ -268,6 +269,9 @@ namespace test {
 			m_ShaderMesh->SetUniform1i("u_b_specular", m_b_specular);
 			m_ShaderMesh->SetUniform1i("u_b_emission", m_b_emission);
 
+			// Setup Visualizing depth buffer opton
+			m_ShaderMesh->SetUniform1i("u_i_DP_Visualizing_opt", m_i_DP_Visualizing_opt);
+
 			// Draw MESH
 			m_mesh->Draw(m_ShaderMesh);
 		}
@@ -312,6 +316,9 @@ namespace test {
 			m_ShaderMesh->SetUniform1i("u_b_specular", m_b_specular);
 			m_ShaderMesh->SetUniform1i("u_b_emission", m_b_emission);
 
+			// Setup Visualizing depth buffer opton
+			m_ShaderMesh->SetUniform1i("u_i_DP_Visualizing_opt", m_i_DP_Visualizing_opt);
+
 			// Draw MESH
 			m_mesh->Draw(m_ShaderMesh);
 		}
@@ -351,6 +358,9 @@ namespace test {
 			m_ShaderMesh->SetUniform1i("u_b_specular", m_b_specular);
 			m_ShaderMesh->SetUniform1i("u_b_emission", m_b_emission);
 
+			// Setup Visualizing depth buffer opton
+			m_ShaderMesh->SetUniform1i("u_i_DP_Visualizing_opt", m_i_DP_Visualizing_opt);
+
 			m_mesh_quad->Draw(m_ShaderMesh);
 		}
 
@@ -378,6 +388,12 @@ namespace test {
 
 		ImGui::Text("Depth Testing Options:");
 		ImGui::Checkbox("Depth Testing func(GL_ALWAYS)", &m_b_Depht_GL_Always_active);
+		ImGui::Text("Visualizing the depth buffer opt:");
+		ImGui::Text("0 - Normal");
+		ImGui::Text("1 - Non linear");
+		ImGui::Text("2 - linear");
+		ImGui::SliderInt("Choise", &m_i_DP_Visualizing_opt, 0, 2);
+
 	}
 
 	void T01_DepthTesting::OnProcessInput(GLFWwindow * window, float deltaTime)

@@ -69,6 +69,7 @@ namespace test {
 
 		// Depht Testing
 		bool m_b_Depht_GL_Always_active, m_b_Depht_GL_Always_active_i_1;
+		int m_i_DP_Visualizing_opt;
 
 	};
 
