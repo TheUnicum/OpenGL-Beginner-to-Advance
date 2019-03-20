@@ -69,6 +69,8 @@
 
 #include "tests/04_Advanced_OpenGL/01_DepthTesting/T01_DepthTesting.h"
 
+#include "tests/04_Advanced_OpenGL/02_StencilTesting/T02_StencilTesting.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -247,6 +249,11 @@ int main(void)
 		test::TestMenu* TM_01_DepthTesting = new test::TestMenu(currentTest, "Depth testing");
 		TM_01_DepthTesting->RegisterTest<test::T01_DepthTesting>("Depth testing 01 - Basic");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_01_DepthTesting);
+
+		// 02 Stencil Testing
+		test::TestMenu* TM_02_StencilTesting = new test::TestMenu(currentTest, "Stencil testing");
+		TM_02_StencilTesting->RegisterTest<test::T02_StencilTesting>("Stencil testing 01 - Basic");
+		TM_04_Advanced_OpenGL->RegisterMenu(*TM_02_StencilTesting);
 
 		//-----------------------------
 		//-----------------------------

@@ -177,6 +177,9 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\T02_StencilTesting.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -619,6 +622,9 @@
     <None Include="src\tests\03_Model_Loading\02_Mesh\S03_Mesh_02_ibo.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\S00_Light.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\S01_DepthTesting.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\S00_Light.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\S02_StencilTesting.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\S02_StencilTesting_SingleColor.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1543,6 +1549,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\T02_StencilTesting.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
