@@ -71,6 +71,8 @@
 
 #include "tests/04_Advanced_OpenGL/02_StencilTesting/T02_StencilTesting.h"
 
+#include "tests/04_Advanced_OpenGL/03_Blending/T03_Blending.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -254,6 +256,11 @@ int main(void)
 		test::TestMenu* TM_02_StencilTesting = new test::TestMenu(currentTest, "Stencil testing");
 		TM_02_StencilTesting->RegisterTest<test::T02_StencilTesting>("Stencil testing 01 - Basic");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_02_StencilTesting);
+
+		// 03 Blending
+		test::TestMenu* TM_03_Blending = new test::TestMenu(currentTest, "Blending");
+		TM_03_Blending->RegisterTest<test::T03_Blending>("Blending 01 - Manual Discard");
+		TM_04_Advanced_OpenGL->RegisterMenu(*TM_03_Blending);
 
 		//-----------------------------
 		//-----------------------------

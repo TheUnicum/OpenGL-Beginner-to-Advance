@@ -193,6 +193,7 @@
     <ClCompile Include="src\tests\03_Model_Loading\03_Model\T03_Model_01.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\T02_StencilTesting.cpp" />
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -257,6 +258,8 @@
     <None Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\S00_Light.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\S02_StencilTesting.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\S02_StencilTesting_SingleColor.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\03_Blending\S00_Light.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\03_Blending\S03_Blending.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -444,6 +447,8 @@
     <ClInclude Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\T02_StencilTesting.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />
