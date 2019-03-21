@@ -180,7 +180,10 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\T02_StencilTesting.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending.cpp">
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_02_Order.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -629,7 +632,8 @@
     <None Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\S02_StencilTesting.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\S02_StencilTesting_SingleColor.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\03_Blending\S00_Light.Shader" />
-    <None Include="src\tests\04_Advanced_OpenGL\03_Blending\S03_Blending.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\03_Blending\S03_Blending_01.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\03_Blending\S03_Blending_02_Order.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1565,7 +1569,10 @@
     <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\E00_cube_vertices.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending.h">
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_02_Order.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

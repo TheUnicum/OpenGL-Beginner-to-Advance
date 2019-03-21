@@ -30,3 +30,6 @@ Setting up a test:Mesh, first working <MESH>!.
 
 Setting up a test:Model, first alfa:working <MODEL>!.
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v10.png)
+
+Setting up a test:Blending, Sort all the transparent objects.
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v11.png)

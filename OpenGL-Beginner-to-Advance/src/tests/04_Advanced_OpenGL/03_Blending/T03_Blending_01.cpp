@@ -1,9 +1,9 @@
-#include "T03_Blending.h"
+#include "T03_Blending_01.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T03_Blending::T03_Blending()
+	T03_Blending_01::T03_Blending_01()
 		: m_f_fov(45.0f),
 		m_b_depth_test_active(true), m_b_depth_test_active_i_1(false),
 		m_b_firstMouse(true),
@@ -71,7 +71,7 @@ namespace test {
 
 		std::vector<unsigned int> indices0;
 		m_mesh = std::make_unique<Mesh>(vertices_3v_3n_2t, indices0, msp_Textures);
-		m_ShaderMesh = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/03_Blending/S03_Blending.Shader");
+		m_ShaderMesh = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/03_Blending/S03_Blending_01.Shader");
 
 
 
@@ -145,15 +145,15 @@ namespace test {
 		m_mesh_grass_Clamped = std::make_unique<Mesh>(vertices_quad_3v_3n_2t, vec_quad_indices, msp_mTextures3C);
 	}
 
-	T03_Blending::~T03_Blending()
+	T03_Blending_01::~T03_Blending_01()
 	{
 	}
 
-	void T03_Blending::OnUpdate(float deltaTime)
+	void T03_Blending_01::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T03_Blending::OnRender(GLFWwindow* window)
+	void T03_Blending_01::OnRender(GLFWwindow* window)
 	{
 		if (m_b_depth_test_active != m_b_depth_test_active_i_1)
 		{
@@ -311,9 +311,9 @@ namespace test {
 
 	}
 
-	void T03_Blending::OnImGuiRender()
+	void T03_Blending_01::OnImGuiRender()
 	{
-		ImGui::Text("DBlending - Manual discard! ");
+		ImGui::Text("Blending - Manual discard! ");
 		
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Text("Press M to active/disable mouse!");
@@ -322,12 +322,12 @@ namespace test {
 		ImGui::SliderFloat("FOV", &m_f_fov, 20.0f, 80.0f);
 
 		ImGui::Text("Blending options:");
-		ImGui::Checkbox("m_i_manually_discard", &m_i_manually_discard);
+		ImGui::Checkbox("Manually discard fragments", &m_i_manually_discard);
 		ImGui::Checkbox("Optimize texture ClampToEdge", &m_i_optimize_clampToEdge_ON);
 
 	}
 
-	void T03_Blending::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T03_Blending_01::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -367,11 +367,11 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T03_Blending::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T03_Blending_01::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 	}
 
-	void T03_Blending::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T03_Blending_01::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 

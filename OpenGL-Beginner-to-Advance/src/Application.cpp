@@ -71,7 +71,8 @@
 
 #include "tests/04_Advanced_OpenGL/02_StencilTesting/T02_StencilTesting.h"
 
-#include "tests/04_Advanced_OpenGL/03_Blending/T03_Blending.h"
+#include "tests/04_Advanced_OpenGL/03_Blending/T03_Blending_01.h"
+#include "tests/04_Advanced_OpenGL/03_Blending/T03_Blending_02_Order.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -259,7 +260,8 @@ int main(void)
 
 		// 03 Blending
 		test::TestMenu* TM_03_Blending = new test::TestMenu(currentTest, "Blending");
-		TM_03_Blending->RegisterTest<test::T03_Blending>("Blending 01 - Manual Discard");
+		TM_03_Blending->RegisterTest<test::T03_Blending_01>("Blending 01 - Manual Discard");
+		TM_03_Blending->RegisterTest<test::T03_Blending_02_Order>("Blending 02 - GL_BLEND Function");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_03_Blending);
 
 		//-----------------------------

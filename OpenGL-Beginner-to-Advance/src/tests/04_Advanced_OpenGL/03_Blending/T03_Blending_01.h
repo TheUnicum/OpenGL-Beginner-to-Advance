@@ -21,11 +21,11 @@
 
 namespace test {
 
-	class T03_Blending : public Test
+	class T03_Blending_01 : public Test
 	{
 	public:
-		T03_Blending();
-		~T03_Blending();
+		T03_Blending_01();
+		~T03_Blending_01();
 
 		void OnUpdate(float deltaTime) override;
 		void OnRender(GLFWwindow* window) override;
