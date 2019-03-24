@@ -61,6 +61,8 @@ namespace test {
 		// Face Culling
 		bool m_b_face_culling_enabled, m_b_CullFaceFront;
 
+		// Disable VSync 
+		bool m_b_VSync_disabled, m_b_VSync_disabled_i_1;
 	};
 
 }

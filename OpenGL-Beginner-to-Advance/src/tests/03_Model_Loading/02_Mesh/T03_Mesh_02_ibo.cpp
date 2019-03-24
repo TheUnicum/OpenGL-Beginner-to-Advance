@@ -413,6 +413,7 @@ namespace test {
 	void T03_Mesh_02_ibo::OnImGuiRender()
 	{
 		ImGui::Text("Test Mesh Class Draw (vbo/ibo)");
+		IMGUI_FPS;
 		
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Text("Press M to active/disable mouse!");

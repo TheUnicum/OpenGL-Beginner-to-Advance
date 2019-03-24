@@ -324,6 +324,7 @@ namespace test {
 	void T03_Blending_02_Order::OnImGuiRender()
 	{
 		ImGui::Text("Blending - Enable GL Funciton! ");
+		IMGUI_FPS;
 		
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Text("Press M to active/disable mouse!");

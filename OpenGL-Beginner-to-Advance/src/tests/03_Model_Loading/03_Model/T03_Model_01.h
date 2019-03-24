@@ -79,7 +79,8 @@ namespace test {
 		// MODEL
 		std::unique_ptr<Model> m_model;
 
+		// Disable VSync 
+		bool m_b_VSync_disabled, m_b_VSync_disabled_i_1;
 	};
-
 }
 

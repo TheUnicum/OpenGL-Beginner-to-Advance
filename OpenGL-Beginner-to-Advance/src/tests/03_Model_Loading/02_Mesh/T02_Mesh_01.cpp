@@ -293,7 +293,8 @@ namespace test {
 	void T02_Mesh_01::OnImGuiRender()
 	{
 		ImGui::Text("Emission maps");
-		
+		IMGUI_FPS;
+
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Text("Press M to active/disable mouse!");
 		ImGui::Text("Press N to active/disable mouse!");

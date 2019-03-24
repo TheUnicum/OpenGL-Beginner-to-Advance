@@ -12,7 +12,9 @@ namespace test {
 		m_lightPos(glm::vec3(1.2f, 1.0f, 2.0f)),
 		m_b_ambient(true), m_b_diffuse(true), m_b_specular(true), m_b_emission(true),
 		m_b_light_move_active(false), m_b_cube_rotating_active(false), m_b_cube_scale_active(false),
-		m_b_traspose_disable(false)
+		m_b_traspose_disable(false),
+
+		m_b_VSync_disabled(false), m_b_VSync_disabled_i_1(false)
 	{
 		#include "E00_cube_vertices.h"
 
@@ -139,6 +141,13 @@ namespace test {
 
 			//std::cout << "Enable changed" << std::endl;
 			m_mouse_disable_i_1 = m_mouse_disable;
+		}
+
+		// VSync
+		if (m_b_VSync_disabled != m_b_VSync_disabled_i_1)
+		{
+			glfwSwapInterval(m_b_VSync_disabled ? 0 : 1);
+			m_b_VSync_disabled_i_1 = m_b_VSync_disabled;
 		}
 
 		//  MODEL MATRIX Correct order
@@ -379,6 +388,7 @@ namespace test {
 	void T03_Model_01::OnImGuiRender()
 	{
 		ImGui::Text("Emission maps");
+		IMGUI_FPS;
 		
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Text("Press M to active/disable mouse!");
@@ -397,6 +407,8 @@ namespace test {
 		ImGui::Checkbox("Cube scale active", &m_b_cube_scale_active);
 		ImGui::Text("Exercises C - Phong Vs Gouraud");
 		ImGui::Checkbox("Transpose matrix disable", &m_b_traspose_disable);
+
+		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
 	}
 
 	void T03_Model_01::OnProcessInput(GLFWwindow * window, float deltaTime)

@@ -8,7 +8,8 @@ namespace test {
 		m_b_depth_test_active(true), m_b_depth_test_active_i_1(false),
 		m_b_firstMouse(true),
 		m_mouse_lock(false),
-		m_b_face_culling_enabled(false), m_b_CullFaceFront(false)
+		m_b_face_culling_enabled(false), m_b_CullFaceFront(false),
+		m_b_VSync_disabled(false), m_b_VSync_disabled_i_1(false)
 	{
 		// Initialize camera
 		m_camera = std::make_unique<Camera>(glm::vec3(-2.0f, 2.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.f, -20.f);
@@ -168,6 +169,13 @@ namespace test {
 			m_mouse_disable_i_1 = m_mouse_disable;
 		}
 
+		// VSync
+		if (m_b_VSync_disabled != m_b_VSync_disabled_i_1)
+		{
+			glfwSwapInterval(m_b_VSync_disabled ? 0 : 1);
+			m_b_VSync_disabled_i_1 = m_b_VSync_disabled;
+		}
+
 		// Disable blending for manual discard-----------------------------
 		GLCall(glDisable(GL_BLEND));
 
@@ -284,7 +292,7 @@ namespace test {
 	void T04_FaceCulling_01::OnImGuiRender()
 	{
 		ImGui::Text("Face culling!");
-		ImGui::Text("App.average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		IMGUI_FPS;
 
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
 		ImGui::Text("Press M to active/disable mouse!");
@@ -296,6 +304,7 @@ namespace test {
 		ImGui::Checkbox("Enabel face culling", &m_b_face_culling_enabled);
 		ImGui::Checkbox("Cull Front Faces", &m_b_CullFaceFront);
 
+		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
 	}
 
 	void T04_FaceCulling_01::OnProcessInput(GLFWwindow * window, float deltaTime)
