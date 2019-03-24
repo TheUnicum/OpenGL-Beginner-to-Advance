@@ -1,18 +1,18 @@
-#include "T04_FaceCulling_01.h"
+#include "T05_Framebuffers_01.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T04_FaceCulling_01::T04_FaceCulling_01()
+	T05_Framebuffers_01::T05_Framebuffers_01()
 		: m_f_fov(45.0f),
 		m_b_depth_test_active(true), m_b_depth_test_active_i_1(false),
 		m_b_firstMouse(true),
 		m_mouse_lock(false),
-		m_b_face_culling_enabled(false), m_b_CullFaceFront(false),
-		m_b_VSync_disabled(false), m_b_VSync_disabled_i_1(false)
+		m_b_VSync_disabled(false), m_b_VSync_disabled_i_1(false),
+		m_b_pproc_Inversion(false)
 	{
 		// Initialize camera
-		m_camera = std::make_unique<Camera>(glm::vec3(-2.0f, 2.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.f, -20.f);
+		m_camera = std::make_unique<Camera>(glm::vec3(-1.5f, 2.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), -75.f, -20.f);
 		//m_camera->ResetYawPitch();
 		m_camera->ProcessMouseMovement(0, 0);
 
@@ -54,12 +54,12 @@ namespace test {
 		//	std::cout << ele << std::endl;
 
 		// Textures - Shared pointer
-		msp_mTexture0 = std::make_shared<Texture>("res/textures/marble.jpg", TextureType::DIFFUSE); // ontainer2.png
+		msp_mTexture0 = std::make_shared<Texture>("res/textures/container.jpg", TextureType::DIFFUSE); // ontainer2.png
 		msp_Textures.push_back(msp_mTexture0);
 
 		std::vector<unsigned int> indices0;
 		m_mesh = std::make_unique<Mesh>(vertices_3v_3n_2t, indices0, msp_Textures);
-		m_ShaderMesh = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/04_FaceCulling/S04_FaceCulling_01.Shader");
+		m_ShaderMesh = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/05_Framebuffers/S05_Framebuffers_01.Shader");
 
 
 
@@ -125,9 +125,52 @@ namespace test {
 
 		//  VSync / Enabel & Disable
 		glfwSwapInterval(1);
+
+
+		// 1- framebuffer configuration 
+		// ----------------------------------------
+		glGenFramebuffers(1, &m_fb);
+		glBindFramebuffer(GL_FRAMEBUFFER, m_fb);
+
+		// 2- create a color attachment texture
+		glGenTextures(1, &m_textureColorBuffer);
+		glBindTexture(GL_TEXTURE_2D, m_textureColorBuffer);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 960, 540, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		// 3- attach it to currently bound framebuffer object
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureColorBuffer, 0);
+
+		// 4- create a render buffer object for depth and stencil attachment ( we won't be sampling these)
+		glGenRenderbuffers(1, &m_rbo);
+		glBindRenderbuffer(GL_RENDERBUFFER, m_rbo);
+		// use a single renderbuffer object for both a depth & stencil buffer.
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 960, 540);
+
+		// 5- attach it to currently bound framebuffer object
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo);
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+		// 6- Now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
+
+		// 7- Unbind FrameBuffer and reset to default
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		// Quad already x[-1, 1], y[-1, 1]
+		m_ScreenVBO = std::make_unique<VertexBuffer>(quadScreenVertices_2v_2t, 6 * (2 + 2) * sizeof(float));
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		layout.Push<float>(2);
+		m_ScreenVAO = std::make_unique<VertexArray>();
+		m_ScreenVAO->AddBuffer(*m_ScreenVBO, layout);
+		m_ShaderScreen = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/05_Framebuffers/S05_Framebuffers_01_Screeen.Shader");
 	}
 
-	T04_FaceCulling_01::~T04_FaceCulling_01()
+	T05_Framebuffers_01::~T05_Framebuffers_01()
 	{
 		glfwSwapInterval(0);
 
@@ -136,11 +179,11 @@ namespace test {
 		GLCall(glFrontFace(GL_CCW));
 	}
 
-	void T04_FaceCulling_01::OnUpdate(float deltaTime)
+	void T05_Framebuffers_01::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T04_FaceCulling_01::OnRender(GLFWwindow* window)
+	void T05_Framebuffers_01::OnRender(GLFWwindow* window)
 	{
 		if (m_b_depth_test_active != m_b_depth_test_active_i_1)
 		{
@@ -185,6 +228,17 @@ namespace test {
 		// - scale
 		float inv_ratio_aspect = 960.0f / 540.0f;
 
+		//--------------------------------------------------------------------------------------------
+		// Framebuffer A (Draw Scene into texture/renderbuffer)
+		//--------------------------------------------------------------------------------------------
+		// bind to framebuffer and draw scene as we normally would to color texture
+		glBindFramebuffer(GL_FRAMEBUFFER, m_fb);
+		glEnable(GL_DEPTH_TEST); // Enable depth testing (is disabled for rendering screen-space quad)
+
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
 		// Global Variables
 		glm::mat4 model(1.0f);
 		glm::mat4 view(1.0f);
@@ -193,27 +247,6 @@ namespace test {
 
 		view = m_camera->GetViewMatrix();
 		proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
-
-		if (m_b_face_culling_enabled)
-		{
-			GLCall(glEnable(GL_CULL_FACE));
-			if (m_b_CullFaceFront)
-			{
-				GLCall(glCullFace(GL_FRONT));
-				GLCall(glFrontFace(GL_CCW));
-			}
-			else
-			{
-				GLCall(glCullFace(GL_BACK));
-				GLCall(glFrontFace(GL_CCW));
-			}
-		}
-		else
-		{
-			GLCall(glDisable(GL_CULL_FACE));
-			GLCall(glCullFace(GL_BACK));
-			GLCall(glFrontFace(GL_CCW));
-		}
 
 
 		{	// Mesh 1st Cube
@@ -226,7 +259,7 @@ namespace test {
 			// MVP
 			mvp = proj * view * model;
 			m_ShaderMesh->SetUniformMat4f("u_mvp", mvp);
-
+	
 			// Draw MESH
 			m_mesh->Draw(m_ShaderMesh);
 		}
@@ -263,11 +296,35 @@ namespace test {
 
 			m_mesh_quad->Draw(m_ShaderMesh);
 		}
+
+
+		//--------------------------------------------------------------------------------------------
+		// Framebuffer B (Draw Texture in a quad!)
+		//--------------------------------------------------------------------------------------------
+
+		// now bind back to the default framebuffer and draw a quad plane with the attached framebuffer
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glDisable(GL_DEPTH_TEST);	//  disable depth test so screen-space quad isn't discard due depth test.
+		
+		// clear all relevant buffers
+		// set clear color to white (not really necessery actually, since we won't be able to see behind the quad anyways)
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+
+		m_ShaderScreen->Bind();
+		m_ShaderScreen->SetUniform1i("u_b_pproc_Inversion", m_b_pproc_Inversion);
+		m_ScreenVAO->Bind();
+		// use the color attachment texture as the texture of the quad plane
+		glBindTexture(GL_TEXTURE_2D, m_textureColorBuffer);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
 	}
 
-	void T04_FaceCulling_01::OnImGuiRender()
+	void T05_Framebuffers_01::OnImGuiRender()
 	{
-		ImGui::Text("Face culling!");
+		ImGui::Text("Framebuffer - Base");
 		IMGUI_FPS;
 
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
@@ -276,14 +333,14 @@ namespace test {
 		ImGui::Text("Press F to fix player to ground!");
 		ImGui::SliderFloat("FOV", &m_f_fov, 20.0f, 80.0f);
 
-		ImGui::Text("Face culling options:");
-		ImGui::Checkbox("Enabel face culling", &m_b_face_culling_enabled);
-		ImGui::Checkbox("Cull Front Faces", &m_b_CullFaceFront);
+		ImGui::Text("Post Processor:");
+		ImGui::Checkbox("Inversion", &m_b_pproc_Inversion);
 
+		ImGui::Text("Options:");
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
 	}
 
-	void T04_FaceCulling_01::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T05_Framebuffers_01::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -323,11 +380,11 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T04_FaceCulling_01::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T05_Framebuffers_01::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 	}
 
-	void T04_FaceCulling_01::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T05_Framebuffers_01::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 

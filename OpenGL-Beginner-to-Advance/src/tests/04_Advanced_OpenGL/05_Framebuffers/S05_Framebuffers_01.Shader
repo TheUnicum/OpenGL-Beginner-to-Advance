@@ -12,7 +12,6 @@ uniform mat4 u_mvp;
 void main()
 {
 	TexCoords = aTexCoords;
-
 	gl_Position = u_mvp * aPos;
 };
 

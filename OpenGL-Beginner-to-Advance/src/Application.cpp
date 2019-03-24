@@ -76,6 +76,8 @@
 
 #include "tests/04_Advanced_OpenGL/04_FaceCulling/T04_FaceCulling_01.h"
 
+#include "tests/04_Advanced_OpenGL/05_Framebuffers/T05_Framebuffers_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -270,6 +272,11 @@ int main(void)
 		test::TestMenu* TM_04_FaceCulling = new test::TestMenu(currentTest, "Face Culling");
 		TM_04_FaceCulling->RegisterTest<test::T04_FaceCulling_01>("Face Culling 01 - Base");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_04_FaceCulling);
+
+		// 05 Framebuffers
+		test::TestMenu* TM_05_Framebuffers = new test::TestMenu(currentTest, "FrameBuffers");
+		TM_05_Framebuffers->RegisterTest<test::T05_Framebuffers_01>("Framebuffers 01 - Base");
+		TM_04_Advanced_OpenGL->RegisterMenu(*TM_05_Framebuffers);
 
 		//-----------------------------
 		//-----------------------------
