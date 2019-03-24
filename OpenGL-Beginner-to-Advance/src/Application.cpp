@@ -74,6 +74,8 @@
 #include "tests/04_Advanced_OpenGL/03_Blending/T03_Blending_01.h"
 #include "tests/04_Advanced_OpenGL/03_Blending/T03_Blending_02_Order.h"
 
+#include "tests/04_Advanced_OpenGL/04_FaceCulling/T04_FaceCulling_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -263,6 +265,11 @@ int main(void)
 		TM_03_Blending->RegisterTest<test::T03_Blending_01>("Blending 01 - Manual Discard");
 		TM_03_Blending->RegisterTest<test::T03_Blending_02_Order>("Blending 02 - GL_BLEND Function");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_03_Blending);
+
+		// 04 Face culling
+		test::TestMenu* TM_04_FaceCulling = new test::TestMenu(currentTest, "Face Culling");
+		TM_04_FaceCulling->RegisterTest<test::T04_FaceCulling_01>("Face Culling 01 - Base");
+		TM_04_Advanced_OpenGL->RegisterMenu(*TM_04_FaceCulling);
 
 		//-----------------------------
 		//-----------------------------
