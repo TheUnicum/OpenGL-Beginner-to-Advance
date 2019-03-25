@@ -1,9 +1,9 @@
-#include "T05_Framebuffers_03_Abstract_A.h"
+#include "T05_Framebuffers_04_Abstract_B.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T05_Framebuffers_03_Abstract_A::T05_Framebuffers_03_Abstract_A()
+	T05_Framebuffers_04_Abstract_B::T05_Framebuffers_04_Abstract_B()
 		: m_f_fov(45.0f),
 		m_b_depth_test_active(true), m_b_depth_test_active_i_1(false),
 		m_b_firstMouse(true),
@@ -60,7 +60,7 @@ namespace test {
 
 		std::vector<unsigned int> indices0;
 		m_mesh = std::make_unique<Mesh>(vertices_3v_3n_2t, indices0, msp_Textures);
-		m_ShaderMesh = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/05_Framebuffers/S05_Framebuffers_03_Abstract_A.Shader");
+		m_ShaderMesh = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/05_Framebuffers/S05_Framebuffers_04_Abstract_B.Shader");
 
 
 
@@ -139,11 +139,11 @@ namespace test {
 		layout.Push<float>(2);
 		m_ScreenVAO = std::make_unique<VertexArray>();
 		m_ScreenVAO->AddBuffer(*m_ScreenVBO, layout);
-		m_ShaderScreen = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/05_Framebuffers/S05_Framebuffers_03_Abstract_A_Screeen.Shader");
+		m_ShaderScreen = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/05_Framebuffers/S05_Framebuffers_04_Abstract_B_Screeen.Shader");
 
 	}
 
-	T05_Framebuffers_03_Abstract_A::~T05_Framebuffers_03_Abstract_A()
+	T05_Framebuffers_04_Abstract_B::~T05_Framebuffers_04_Abstract_B()
 	{
 		glfwSwapInterval(0);
 
@@ -152,11 +152,11 @@ namespace test {
 		GLCall(glFrontFace(GL_CCW));
 	}
 
-	void T05_Framebuffers_03_Abstract_A::OnUpdate(float deltaTime)
+	void T05_Framebuffers_04_Abstract_B::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T05_Framebuffers_03_Abstract_A::OnRender(GLFWwindow* window)
+	void T05_Framebuffers_04_Abstract_B::OnRender(GLFWwindow* window)
 	{
 		if (m_b_depth_test_active != m_b_depth_test_active_i_1)
 		{
@@ -295,9 +295,9 @@ namespace test {
 
 	}
 
-	void T05_Framebuffers_03_Abstract_A::OnImGuiRender()
+	void T05_Framebuffers_04_Abstract_B::OnImGuiRender()
 	{
-		ImGui::Text("Framebuffer - Abstracting A");
+		ImGui::Text("Framebuffer - Abstracting B");
 		IMGUI_FPS;
 
 		ImGui::Checkbox("Depth Test", &m_b_depth_test_active);
@@ -321,7 +321,7 @@ namespace test {
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
 	}
 
-	void T05_Framebuffers_03_Abstract_A::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T05_Framebuffers_04_Abstract_B::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -361,7 +361,7 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T05_Framebuffers_03_Abstract_A::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T05_Framebuffers_04_Abstract_B::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 		if (!window)
 		{
@@ -373,7 +373,7 @@ namespace test {
 		FramebufferSetup(m_framebufferWidth, m_framebufferHeight);
 	}
 
-	void T05_Framebuffers_03_Abstract_A::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T05_Framebuffers_04_Abstract_B::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 
@@ -394,7 +394,7 @@ namespace test {
 	}
 	
 	
-	void T05_Framebuffers_03_Abstract_A::FramebufferSetup(int width, int height)
+	void T05_Framebuffers_04_Abstract_B::FramebufferSetup(int width, int height)
 	{
 		// - We have to attach at least one buffer(color, depth or stencil buffer).
 		// - There should be at least one color attachment.
