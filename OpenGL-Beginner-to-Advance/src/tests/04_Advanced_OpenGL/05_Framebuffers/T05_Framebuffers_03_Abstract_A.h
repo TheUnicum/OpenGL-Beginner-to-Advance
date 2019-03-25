@@ -62,7 +62,7 @@ namespace test {
 		bool m_b_VSync_disabled, m_b_VSync_disabled_i_1;
 
 		// Framebuffers
-		unsigned int m_fb, m_textureColorBuffer, m_rbo;
+		unsigned int m_fb, m_rbo;
 		std::unique_ptr<Shader> m_ShaderScreen;
 		std::unique_ptr<VertexBuffer> m_ScreenVBO;
 		std::unique_ptr<VertexArray> m_ScreenVAO;
@@ -72,6 +72,9 @@ namespace test {
 		int m_framebufferWidth, m_framebufferHeight;
 
 		void FramebufferSetup(int width, int height);
+
+		// Abstracting
+		Texture m_fbp_texture;
 
 	};
 

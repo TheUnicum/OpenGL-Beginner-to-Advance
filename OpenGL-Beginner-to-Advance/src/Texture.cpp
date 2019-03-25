@@ -3,6 +3,14 @@
 #include <iostream>
 #include "stb_image/stb_image.h"
 
+Texture::Texture()
+	: m_RendererID(0), m_FilePath(""), m_LocalBuffer(nullptr),
+	m_Width(0), m_Height(0), m_BPP(0),
+	m_type(TextureType::NONE)
+{
+	GLCall(glGenTextures(1, &m_RendererID));
+}
+
 Texture::Texture(const std::string & path, int min_filter, int mag_filter, int wrap_s, int wrap_t)
 	: m_RendererID(0), m_FilePath(path), m_LocalBuffer(nullptr),
 	m_Width(0), m_Height(0), m_BPP(0),
@@ -46,5 +54,21 @@ void Texture::Bind(unsigned int slot /*= 0*/) const
 
 void Texture::Unbind() const
 {
+	GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+}
+
+void Texture::Initialize(int width, int height, int internalFormat, int dataFormat, int min_filter, int mag_filter, int wrap_s, int wrap_t)
+{
+	m_LocalBuffer = nullptr;
+	m_Width = width;
+	m_Height = height;
+	m_BPP = 0;
+
+	GLCall(glBindTexture(GL_TEXTURE_2D, m_RendererID));
+	GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_UNSIGNED_BYTE, nullptr));
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_filter)); // GL_LINEAR
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag_filter)); // GL_LINEAR
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_s)); // GL_REPEAT
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_t)); // GL_REPEAT
 	GLCall(glBindTexture(GL_TEXTURE_2D, 0));
 }

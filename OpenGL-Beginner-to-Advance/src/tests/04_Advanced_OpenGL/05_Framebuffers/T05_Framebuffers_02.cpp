@@ -408,11 +408,9 @@ namespace test {
 
 		// 1- framebuffer configuration 
 		// ----------------------------------------
-		glGenFramebuffers(1, &m_fb);
 		glBindFramebuffer(GL_FRAMEBUFFER, m_fb);
 
 		// 2- create a color attachment texture
-		glGenTextures(1, &m_textureColorBuffer);
 		glBindTexture(GL_TEXTURE_2D, m_textureColorBuffer);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_framebufferWidth, m_framebufferHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -423,7 +421,6 @@ namespace test {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_textureColorBuffer, 0);
 
 		// 4- create a render buffer object for depth and stencil attachment ( we won't be sampling these)
-		glGenRenderbuffers(1, &m_rbo);
 		glBindRenderbuffer(GL_RENDERBUFFER, m_rbo);
 		// use a single renderbuffer object for both a depth & stencil buffer.
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_framebufferWidth, m_framebufferHeight);
