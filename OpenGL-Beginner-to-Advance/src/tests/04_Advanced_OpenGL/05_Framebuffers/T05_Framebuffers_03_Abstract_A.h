@@ -6,6 +6,7 @@
 
 #include "Shader.h"
 #include "Texture.h"
+#include "RenderBuffer.h"
 
 #include <memory>
 
@@ -62,7 +63,7 @@ namespace test {
 		bool m_b_VSync_disabled, m_b_VSync_disabled_i_1;
 
 		// Framebuffers
-		unsigned int m_fb, m_rbo;
+		unsigned int m_fb;
 		std::unique_ptr<Shader> m_ShaderScreen;
 		std::unique_ptr<VertexBuffer> m_ScreenVBO;
 		std::unique_ptr<VertexArray> m_ScreenVAO;
@@ -75,6 +76,7 @@ namespace test {
 
 		// Abstracting
 		Texture m_fbp_texture;
+		RenderBuffer m_fbo_rbuffer;
 
 	};
 

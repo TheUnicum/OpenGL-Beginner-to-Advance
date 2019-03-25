@@ -129,7 +129,6 @@ namespace test {
 
 		// FrameBuffer
 		glGenFramebuffers(1, &m_fb);
-		glGenRenderbuffers(1, &m_rbo);
 		FramebufferSetup(m_framebufferWidth, m_framebufferHeight);
 
 
@@ -416,14 +415,11 @@ namespace test {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_fbp_texture.GetID(), 0);
 
 		// 4- create a render buffer object for depth and stencil attachment ( we won't be sampling these)
-		glBindRenderbuffer(GL_RENDERBUFFER, m_rbo);
-		// use a single renderbuffer object for both a depth & stencil buffer.
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_framebufferWidth, m_framebufferHeight);
+		m_fbo_rbuffer.Initialize(m_framebufferWidth, m_framebufferHeight);
 
 		// 5- attach it to currently bound framebuffer object
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo);
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_fbo_rbuffer.GetID());
+		
 		// 6- Now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
