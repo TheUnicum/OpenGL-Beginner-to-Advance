@@ -84,7 +84,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
 
-// settings
 int framebufferWidth = 0, framebufferHeight = 0;
 
 float deltaTime = 0.0f;
@@ -353,7 +352,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	// make sure the viewport matches the new window dimension; notes that width and
 	// height will be significantly larger than specifies on retina display
 	glViewport(0, 0, width, height);
-	std::cout << "MAIN -> Viewport resized: ( " << width << " : " << height << " )" << std::endl;
+	framebufferWidth = width;
+	framebufferHeight = height;
 
 	if (currentTest)
 		currentTest->framebuffer_size_callback(window, width, height);

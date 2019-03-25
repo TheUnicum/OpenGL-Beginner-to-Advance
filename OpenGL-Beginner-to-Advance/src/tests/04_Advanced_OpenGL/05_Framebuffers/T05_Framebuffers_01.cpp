@@ -9,7 +9,8 @@ namespace test {
 		m_b_firstMouse(true),
 		m_mouse_lock(false),
 		m_b_VSync_disabled(false), m_b_VSync_disabled_i_1(false),
-		m_b_pproc_Inversion(false)
+		m_b_pproc_Inversion(false),
+		m_framebufferWidth(WINDOW_WIDTH), m_framebufferHeight(WINDOW_HEIGHT)
 	{
 		// Initialize camera
 		m_camera = std::make_unique<Camera>(glm::vec3(-1.5f, 2.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), -75.f, -20.f);
@@ -135,7 +136,7 @@ namespace test {
 		// 2- create a color attachment texture
 		glGenTextures(1, &m_textureColorBuffer);
 		glBindTexture(GL_TEXTURE_2D, m_textureColorBuffer);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 960, 540, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_framebufferWidth, m_framebufferHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -147,7 +148,7 @@ namespace test {
 		glGenRenderbuffers(1, &m_rbo);
 		glBindRenderbuffer(GL_RENDERBUFFER, m_rbo);
 		// use a single renderbuffer object for both a depth & stencil buffer.
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 960, 540);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_framebufferWidth, m_framebufferHeight);
 
 		// 5- attach it to currently bound framebuffer object
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo);
@@ -168,6 +169,7 @@ namespace test {
 		m_ScreenVAO = std::make_unique<VertexArray>();
 		m_ScreenVAO->AddBuffer(*m_ScreenVBO, layout);
 		m_ShaderScreen = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/05_Framebuffers/S05_Framebuffers_01_Screeen.Shader");
+
 	}
 
 	T05_Framebuffers_01::~T05_Framebuffers_01()
@@ -226,7 +228,7 @@ namespace test {
 		// - translation
 		// - rotation
 		// - scale
-		float inv_ratio_aspect = 960.0f / 540.0f;
+		float inv_ratio_aspect = (float)m_framebufferWidth / (float)m_framebufferHeight;
 
 		//--------------------------------------------------------------------------------------------
 		// Framebuffer A (Draw Scene into texture/renderbuffer)
@@ -382,6 +384,14 @@ namespace test {
 
 	void T05_Framebuffers_01::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
+		if (!window)
+		{
+			// 
+		}
+		m_framebufferWidth = width;
+		m_framebufferHeight = height;
+		glViewport(0, 0, width, height);
+		// Regenerate frameBuffer!!!
 	}
 
 	void T05_Framebuffers_01::mouse_callback(GLFWwindow * window, double xpos, double ypos)

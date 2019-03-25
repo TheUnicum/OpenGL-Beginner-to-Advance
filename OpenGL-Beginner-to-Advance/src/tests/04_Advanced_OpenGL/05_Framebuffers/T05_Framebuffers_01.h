@@ -68,6 +68,9 @@ namespace test {
 		std::unique_ptr<VertexArray> m_ScreenVAO;
 
 		bool m_b_pproc_Inversion;
+	private:
+		int m_framebufferWidth, m_framebufferHeight;
+
 	};
 
 }

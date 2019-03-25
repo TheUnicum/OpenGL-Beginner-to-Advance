@@ -11,3 +11,6 @@ void GLClearError();
 bool GLLogCall(const char* function, const char* file, int line);
 
 #define IMGUI_FPS ImGui::Text("App.average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+// settings
+#define WINDOW_WIDTH 960
+#define WINDOW_HEIGHT 540
