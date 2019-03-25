@@ -128,7 +128,6 @@ namespace test {
 		glfwSwapInterval(1);
 
 		// FrameBuffer
-		glGenFramebuffers(1, &m_fb);
 		FramebufferSetup(m_framebufferWidth, m_framebufferHeight);
 
 
@@ -205,7 +204,7 @@ namespace test {
 		// Framebuffer A (Draw Scene into texture/renderbuffer)
 		//--------------------------------------------------------------------------------------------
 		// bind to framebuffer and draw scene as we normally would to color texture
-		glBindFramebuffer(GL_FRAMEBUFFER, m_fb);
+		m_fbo.Bind();
 		glEnable(GL_DEPTH_TEST); // Enable depth testing (is disabled for rendering screen-space quad)
 
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -276,7 +275,7 @@ namespace test {
 		//--------------------------------------------------------------------------------------------
 
 		// now bind back to the default framebuffer and draw a quad plane with the attached framebuffer
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		m_fbo.Unbind();
 		glDisable(GL_DEPTH_TEST);	//  disable depth test so screen-space quad isn't discard due depth test.
 		
 		// clear all relevant buffers
@@ -289,7 +288,7 @@ namespace test {
 		m_ShaderScreen->SetUniform1i("u_i_postproc_effect", m_i_postproc_effect);
 		m_ScreenVAO->Bind();
 		// use the color attachment texture as the texture of the quad plane
-		glBindTexture(GL_TEXTURE_2D, m_fbp_texture.GetID());
+		m_fbo.TextureBind(0);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 
 
@@ -396,33 +395,8 @@ namespace test {
 	
 	void T05_Framebuffers_04_Abstract_B::FramebufferSetup(int width, int height)
 	{
-		// - We have to attach at least one buffer(color, depth or stencil buffer).
-		// - There should be at least one color attachment.
-		// -  All attachments should be complete as well(reserved memory).
-		// - Each buffer should have the same number of samples.
-
-		// 1- framebuffer configuration 
-		// ----------------------------------------
-		glBindFramebuffer(GL_FRAMEBUFFER, m_fb);
-
-		// 2- create a color attachment texture
-		m_fbp_texture.Initialize(m_framebufferWidth, m_framebufferHeight);
-
-		// 3- attach it to currently bound framebuffer object
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_fbp_texture.GetID(), 0);
-
-		// 4- create a render buffer object for depth and stencil attachment ( we won't be sampling these)
-		m_fbo_rbuffer.Initialize(m_framebufferWidth, m_framebufferHeight);
-
-		// 5- attach it to currently bound framebuffer object
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_fbo_rbuffer.GetID());
-		
-		// 6- Now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
-		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		if (!m_fbo.Initialize(width, height))
 			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
-
-		// 7- Unbind FrameBuffer and reset to default
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 }
 

@@ -204,6 +204,9 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_04_Abstract_B.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\FrameBuffer.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1625,6 +1628,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_04_Abstract_B.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FrameBuffer.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
