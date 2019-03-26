@@ -210,6 +210,9 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -670,6 +673,8 @@
     <None Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\S05_Framebuffers_04_Abstract_B.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\S05_Framebuffers_05_Multi_Screeen.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\S05_Framebuffers_05_Multi.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_01.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_01_Sky.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1639,6 +1644,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_01.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

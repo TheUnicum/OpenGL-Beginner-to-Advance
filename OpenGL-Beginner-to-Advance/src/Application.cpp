@@ -82,6 +82,8 @@
 #include "tests/04_Advanced_OpenGL/05_Framebuffers/T05_Framebuffers_04_Abstract_B.h"
 #include "tests/04_Advanced_OpenGL/05_Framebuffers/T05_Framebuffers_05_Multi.h"
 
+#include "tests/04_Advanced_OpenGL/06_Cubemaps/T06_Cubemaps_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -284,6 +286,11 @@ int main(void)
 		TM_05_Framebuffers->RegisterTest<test::T05_Framebuffers_04_Abstract_B>("Framebuffers 04 - Abstracting B");
 		TM_05_Framebuffers->RegisterTest<test::T05_Framebuffers_05_Multi>("Framebuffers 05 - Multi");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_05_Framebuffers);
+
+		// 06 Cubemaps
+		test::TestMenu* TM_06_Cubemaps = new test::TestMenu(currentTest, "Cubemaps");
+		TM_06_Cubemaps->RegisterTest<test::T06_Cubemaps_01>("Cubemaps 01 - Base");
+		TM_04_Advanced_OpenGL->RegisterMenu(*TM_06_Cubemaps);
 
 		//-----------------------------
 		//-----------------------------
