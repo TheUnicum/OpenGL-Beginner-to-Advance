@@ -33,3 +33,6 @@ Setting up a test:Model, first alfa:working <MODEL>!.
 
 Setting up a test:Blending, Sort all the transparent objects.
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v11.png)
+
+Setting up a test:Framebuffer. (Multiple)
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v12.png)

@@ -80,6 +80,7 @@
 #include "tests/04_Advanced_OpenGL/05_Framebuffers/T05_Framebuffers_02.h"
 #include "tests/04_Advanced_OpenGL/05_Framebuffers/T05_Framebuffers_03_Abstract_A.h"
 #include "tests/04_Advanced_OpenGL/05_Framebuffers/T05_Framebuffers_04_Abstract_B.h"
+#include "tests/04_Advanced_OpenGL/05_Framebuffers/T05_Framebuffers_05_Multi.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -280,7 +281,8 @@ int main(void)
 		TM_05_Framebuffers->RegisterTest<test::T05_Framebuffers_01>("Framebuffers 01 - Base");
 		TM_05_Framebuffers->RegisterTest<test::T05_Framebuffers_02>("Framebuffers 02 - Improved");
 		TM_05_Framebuffers->RegisterTest<test::T05_Framebuffers_03_Abstract_A>("Framebuffers 03 - Abstracting A");
-		TM_05_Framebuffers->RegisterTest<test::T05_Framebuffers_04_Abstract_B>("Framebuffers 03 - Abstracting B");
+		TM_05_Framebuffers->RegisterTest<test::T05_Framebuffers_04_Abstract_B>("Framebuffers 04 - Abstracting B");
+		TM_05_Framebuffers->RegisterTest<test::T05_Framebuffers_05_Multi>("Framebuffers 05 - Multi");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_05_Framebuffers);
 
 		//-----------------------------

@@ -207,6 +207,9 @@
     <ClCompile Include="src\FrameBuffer.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -665,6 +668,8 @@
     <None Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\S05_Framebuffers_03_Abstract_A_Screeen.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\S05_Framebuffers_04_Abstract_B_Screeen.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\S05_Framebuffers_04_Abstract_B.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\S05_Framebuffers_05_Multi_Screeen.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\S05_Framebuffers_05_Multi.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1631,6 +1636,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\FrameBuffer.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
