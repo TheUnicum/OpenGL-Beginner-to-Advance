@@ -36,3 +36,6 @@ Setting up a test:Blending, Sort all the transparent objects.
 
 Setting up a test:Framebuffer. (Multiple)
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v12.png)
+
+Setting up a test:Cubemaps <Reflection>
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v13.png)

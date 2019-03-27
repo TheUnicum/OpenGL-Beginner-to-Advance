@@ -204,6 +204,7 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_04_Abstract_B.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_01.cpp" />
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_02_Reflection.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -285,6 +286,7 @@
     <None Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\S05_Framebuffers_05_Multi_Screeen.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_01.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_01_Sky.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_02_Reflecion.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -487,6 +489,7 @@
     <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_01.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_02_Reflection.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />
