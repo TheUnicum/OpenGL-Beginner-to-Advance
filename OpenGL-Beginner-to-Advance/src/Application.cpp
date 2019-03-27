@@ -385,7 +385,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	//std::cout << "scroll_callback : (" << xoffset << " : " << yoffset<< ")" << std::endl;
+	std::cout << "scroll_callback : (" << xoffset << " : " << yoffset<< ")" << std::endl;
 	if (currentTest)
 		currentTest->scroll_callback(window, xoffset, yoffset);
 }

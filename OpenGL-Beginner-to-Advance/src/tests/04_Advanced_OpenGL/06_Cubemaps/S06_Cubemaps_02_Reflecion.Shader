@@ -43,6 +43,8 @@ uniform Material material;
 uniform vec3 u_viewPos;
 uniform samplerCube skybox;
 uniform int u_b_cube_boxtexture;
+uniform int u_b_refraction;
+uniform float u_f_transparency;
 
 void main()
 {
@@ -56,9 +58,19 @@ void main()
 	}
 	else
 	{
-		vec3 I = normalize(Position - u_viewPos);
-		vec3 R = reflect(I, normalize(Normal));
-		FragColor = vec4(texture(skybox, R).rgb, 1.0f);
+		if (u_b_refraction == 0)
+		{
+			vec3 I = normalize(Position - u_viewPos);
+			vec3 R = reflect(I, normalize(Normal));
+			FragColor = vec4(texture(skybox, R).rgb, 1.0f);
+		}
+		else
+		{
+			float ratio = 1.00 / u_f_transparency;
+			vec3 I = normalize(Position - u_viewPos);
+			vec3 R = refract(I, normalize(Normal), ratio);
+			FragColor = vec4(texture(skybox, R).rgb, 1.0f);
+		}
 	}
 };
 

@@ -12,6 +12,7 @@ namespace test {
 		m_b_cube_rotating_active(false), m_b_Model_rotating_active(false),
 		m_b_cube_boxtexture(false),
 		m_f_model_scale(1),
+		m_b_refraction(false), m_f_transparency(1.52f),
 
 		m_framebufferWidth(WINDOW_WIDTH), m_framebufferHeight(WINDOW_HEIGHT)
 	{
@@ -231,7 +232,7 @@ namespace test {
 
 	void T06_Cubemaps_02_Reflection::OnImGuiRender()
 	{
-		ImGui::Text("CubeMaps - Reflection");
+		ImGui::Text("CubeMaps - Reflection/Refraction");
 		IMGUI_FPS;
 
 		ImGui::Text("Press M to active/disable mouse!");
@@ -247,7 +248,14 @@ namespace test {
 		ImGui::Checkbox("Cube rotation", &m_b_cube_rotating_active);
 		ImGui::Checkbox("Model rotation", &m_b_Model_rotating_active);
 		ImGui::Checkbox("Texture wood container", &m_b_cube_boxtexture);
-		ImGui::SliderFloat("Model Scale", &m_f_model_scale, 0.1f, 100.0f);
+		ImGui::Checkbox("Refraction/Reflection", &m_b_refraction);
+		ImGui::Text("Air     : 1.0");
+		ImGui::Text("Water   : 1.33");
+		ImGui::Text("Ice     : 1.309");
+		ImGui::Text("Glass   : 1.52");
+		ImGui::Text("Diamond : 2.42");
+		ImGui::SliderFloat("Ratio", &m_f_transparency, 1.0f, 2.42f);
+		ImGui::SliderFloat("Model Scale", &m_f_model_scale, 0.1f, 10.0f);
 		
 	}
 
@@ -341,10 +349,12 @@ namespace test {
 		m_ShaderMesh->SetUniformMat4f("u_model", model);
 		m_ShaderMesh->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(model))));
 		// View position
-		m_ShaderMesh->SetUniform1i("u_b_cube_boxtexture", m_b_cube_boxtexture);
-
-		// opt
 		m_ShaderMesh->SetUniform3fv("u_viewPos", m_camera->GetCamPosition());
+
+		// Reflect/Refraction
+		m_ShaderMesh->SetUniform1i("u_b_cube_boxtexture", m_b_cube_boxtexture);
+		m_ShaderMesh->SetUniform1i("u_b_refraction", m_b_refraction);
+		m_ShaderMesh->SetUniform1f("u_f_transparency", m_f_transparency);
 		
 		// Draw MESH
 		m_mesh->Draw(m_ShaderMesh);
@@ -357,11 +367,13 @@ namespace test {
 		m_ShaderMesh->SetUniform1i("skybox", 1);
 
 		model = glm::scale(model, glm::vec3(m_f_model_scale));
+		model = glm::translate(model, glm::vec3(0.0f, +7.0f, 0.0f));
 		if (m_b_Model_rotating_active)
 		{
 			model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));
 			model = glm::rotate(model, (float)glfwGetTime() / 2.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 		}
+		model = glm::translate(model, glm::vec3(0.0f, -7.0f, 0.0f));
 		// MVP
 		glm::mat4 mvp = proj * view * model;
 
@@ -369,10 +381,13 @@ namespace test {
 		m_ShaderMesh->SetUniformMat4f("u_model", model);
 		m_ShaderMesh->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(model))));
 		// View position
-		m_ShaderMesh->SetUniform1i("u_b_cube_boxtexture", m_b_cube_boxtexture);
-
-		// opt
 		m_ShaderMesh->SetUniform3fv("u_viewPos", m_camera->GetCamPosition());
+
+		// Reflect/Refraction
+		m_ShaderMesh->SetUniform1i("u_b_cube_boxtexture", m_b_cube_boxtexture);
+		m_ShaderMesh->SetUniform1i("u_b_refraction", m_b_refraction);
+		m_ShaderMesh->SetUniform1f("u_f_transparency", m_f_transparency);
+
 		m_model->Draw(m_ShaderMesh);
 	}
 

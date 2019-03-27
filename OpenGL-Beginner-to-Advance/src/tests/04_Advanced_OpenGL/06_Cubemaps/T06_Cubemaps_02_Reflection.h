@@ -64,12 +64,17 @@ namespace test {
 		std::shared_ptr<Shader> m_ShaderSky;
 		bool m_b_disable_cubemap_lock, m_b_optimization;
 		bool m_b_cube_rotating_active, m_b_Model_rotating_active;
+		
 		bool m_b_cube_boxtexture;
+		bool m_b_refraction;
 		float m_f_model_scale;
 		void DrawCube(glm::mat4 model, glm::mat4 proj, glm::mat4 view);
 		void DrawModel(glm::mat4 model, glm::mat4 proj, glm::mat4 view);
 
 		int m_framebufferWidth, m_framebufferHeight;
+
+		// Refraction
+		float m_f_transparency;
 	};
 
 }
