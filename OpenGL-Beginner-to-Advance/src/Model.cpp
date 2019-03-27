@@ -140,6 +140,9 @@ std::shared_ptr<Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	// 5. height maps
 	std::vector<std::shared_ptr<Texture>> heightMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, TextureType::HEIGHT);
 	sp_textures.insert(sp_textures.end(), heightMaps.begin(), heightMaps.end());
+	// 6. ambient map
+	std::vector<std::shared_ptr<Texture>> ambientMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, TextureType::AMBIENT);
+	sp_textures.insert(sp_textures.end(), ambientMaps.begin(), ambientMaps.end());
 
 	return std::make_shared<Mesh>(vertices, indices, sp_textures);
 }
@@ -181,12 +184,3 @@ std::vector<std::shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* ma
 	return textures;
 }
 
-
-/*
-msp_mTexture2 = std::make_shared<Texture>("res/textures/matrix_2.jpg", TextureType::EMISSION);
-msp_Textures.push_back(msp_mTexture0);
-
-std::shared_ptr<Texture> msp_mTexture0, msp_mTexture1, msp_mTexture2;
-std::vector<std::shared_ptr<Texture>> msp_Textures;
-
-*/

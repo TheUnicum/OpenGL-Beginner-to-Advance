@@ -24,6 +24,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 	this->m_textureTypeName[(int)TextureType::EMISSION] = "material.emission";
 	this->m_textureTypeName[(int)TextureType::NORMAL] = "material.normal";
 	this->m_textureTypeName[(int)TextureType::HEIGHT] = "material.height";
+	this->m_textureTypeName[(int)TextureType::AMBIENT] = "material.ambient";
 }
 
 void Mesh::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
@@ -37,6 +38,7 @@ void Mesh::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
 	unsigned int emissionNr = 1;
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
+	unsigned int ambientNr = 1;
 
 	for (unsigned int i = 0; i < msp_Textures.size(); i++)
 	{
@@ -51,6 +53,8 @@ void Mesh::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
 			str_indexNr = std::to_string(normalNr++);
 		else if (this->msp_Textures[i]->GetType() == TextureType::HEIGHT)
 			str_indexNr = std::to_string(heightNr++);
+		else if (this->msp_Textures[i]->GetType() == TextureType::AMBIENT)
+			str_indexNr = std::to_string(ambientNr++);
 
 		// Now set the sampler to the correct texture unit
 		this->msp_Textures[i]->Bind(i);

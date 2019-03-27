@@ -84,6 +84,7 @@
 
 #include "tests/04_Advanced_OpenGL/06_Cubemaps/T06_Cubemaps_01.h"
 #include "tests/04_Advanced_OpenGL/06_Cubemaps/T06_Cubemaps_02_Reflection.h"
+#include "tests/04_Advanced_OpenGL/06_Cubemaps/T06_Cubemaps_03_Model2.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -291,7 +292,8 @@ int main(void)
 		// 06 Cubemaps
 		test::TestMenu* TM_06_Cubemaps = new test::TestMenu(currentTest, "Cubemaps");
 		TM_06_Cubemaps->RegisterTest<test::T06_Cubemaps_01>("Cubemaps 01 - Base");
-		TM_06_Cubemaps->RegisterTest<test::T06_Cubemaps_02_Reflection>("Cubemaps 02 - Reflection");
+		TM_06_Cubemaps->RegisterTest<test::T06_Cubemaps_02_Reflection>("Cubemaps 02 - Reflection/Refraction");
+		TM_06_Cubemaps->RegisterTest<test::T06_Cubemaps_03_Model2>("Cubemaps 03 - Model 2.0");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_06_Cubemaps);
 
 		//-----------------------------
