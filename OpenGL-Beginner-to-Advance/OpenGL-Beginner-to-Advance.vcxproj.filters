@@ -219,6 +219,9 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_03_Model2.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -683,6 +686,7 @@
     <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_01_Sky.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_02_Reflecion.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_03_Model2.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_01.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1664,6 +1668,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_03_Model2.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_01.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

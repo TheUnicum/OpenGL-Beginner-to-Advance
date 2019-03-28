@@ -35,6 +35,11 @@ class Mesh
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
 	void Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays = false);
+	// Utility functions
+	inline void vaBind() const { m_va.Bind(); }
+	inline void vaUnbind() const { m_va.Unbind(); }
+	inline unsigned int GetVertexCount() const { return m_v_count; }
+	inline unsigned int GetIndexCount() const { return m_i_count; }
 private:
 	void setupMesh();
 
