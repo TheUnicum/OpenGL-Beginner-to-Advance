@@ -87,6 +87,8 @@
 #include "tests/04_Advanced_OpenGL/06_Cubemaps/T06_Cubemaps_03_Model2.h"
 
 #include "tests/04_Advanced_OpenGL/08_Advanced_GLSL/T08_Advanced_GLSL_01.h"
+#include "tests/04_Advanced_OpenGL/08_Advanced_GLSL/T08_Advanced_GLSL_02_FragCoord.h"
+
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -300,7 +302,8 @@ int main(void)
 
 		// 08 Advanced GLSL
 		test::TestMenu* TM_08_Advanced_GLSL = new test::TestMenu(currentTest, "Advanced GLSL");
-		TM_08_Advanced_GLSL->RegisterTest<test::T08_Advanced_GLSL_01>("Advanced GLSL 01 - Base");
+		TM_08_Advanced_GLSL->RegisterTest<test::T08_Advanced_GLSL_01>("Advanced GLSL 01 - PointSize");
+		TM_08_Advanced_GLSL->RegisterTest<test::T08_Advanced_GLSL_02_FragCoord>("GLSL02 - FragCoord/FrontFacing");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_08_Advanced_GLSL);
 
 
