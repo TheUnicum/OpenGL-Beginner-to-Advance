@@ -88,6 +88,7 @@
 
 #include "tests/04_Advanced_OpenGL/08_Advanced_GLSL/T08_Advanced_GLSL_01.h"
 #include "tests/04_Advanced_OpenGL/08_Advanced_GLSL/T08_Advanced_GLSL_02_FragCoord.h"
+#include "tests/04_Advanced_OpenGL/08_Advanced_GLSL/T08_Advanced_GLSL_03_UniformBuff.h"
 
 
 // Functions Declaration
@@ -304,6 +305,7 @@ int main(void)
 		test::TestMenu* TM_08_Advanced_GLSL = new test::TestMenu(currentTest, "Advanced GLSL");
 		TM_08_Advanced_GLSL->RegisterTest<test::T08_Advanced_GLSL_01>("Advanced GLSL 01 - PointSize");
 		TM_08_Advanced_GLSL->RegisterTest<test::T08_Advanced_GLSL_02_FragCoord>("GLSL02 - FragCoord/FrontFacing");
+		TM_08_Advanced_GLSL->RegisterTest<test::T08_Advanced_GLSL_03_UniformBuff>("GLSL03 - Uniform buffer objects");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_08_Advanced_GLSL);
 
 

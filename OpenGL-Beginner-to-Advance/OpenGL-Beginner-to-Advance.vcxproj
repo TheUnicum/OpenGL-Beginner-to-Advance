@@ -208,6 +208,7 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_03_Model2.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_01.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_02_FragCoord.cpp" />
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_03_UniformBuff.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -293,6 +294,10 @@
     <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_03_Model2.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_01.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_02_FragCoord.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_03_UniformBuff_B.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_03_UniformBuff_G.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_03_UniformBuff_R.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_03_UniformBuff_Y.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -426,6 +431,7 @@
     <None Include="src\vendor\glm\gtx\wrap.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\App_ToDoList.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\FrameBuffer.h" />
     <ClInclude Include="src\IndexBuffer.h" />
@@ -500,6 +506,7 @@
     <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_01.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_02_FragCoord.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_03_UniformBuff.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

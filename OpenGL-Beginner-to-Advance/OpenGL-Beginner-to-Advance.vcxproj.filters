@@ -225,6 +225,9 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_02_FragCoord.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_03_UniformBuff.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -691,6 +694,10 @@
     <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_03_Model2.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_01.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_02_FragCoord.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_03_UniformBuff_R.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_03_UniformBuff_Y.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_03_UniformBuff_G.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\S08_Advanced_GLSL_03_UniformBuff_B.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1681,6 +1688,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_02_FragCoord.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_03_UniformBuff.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\App_ToDoList.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

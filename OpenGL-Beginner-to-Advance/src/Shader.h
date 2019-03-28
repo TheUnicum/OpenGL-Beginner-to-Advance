@@ -35,6 +35,7 @@ public:
 
 	void SetUniformMat3f(const std::string& name, const glm::mat3& matrix);
 	void SetUniformMat4f(const std::string& name, const glm::mat4& matrix);
+	inline unsigned int GetID() const { return m_RendererID; }
 private:
 	ShaderProgramSource ParseShader(const std::string& filepath);
 	unsigned int CompileShader(unsigned int type, const std::string& source);
