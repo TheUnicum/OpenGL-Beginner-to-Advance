@@ -92,6 +92,7 @@
 
 #include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_01_Line.h"
 #include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_02_Line.h"
+#include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_03_House.h"
 
 
 // Functions Declaration
@@ -315,7 +316,8 @@ int main(void)
 		// 09 Geometry Shader
 		test::TestMenu* TM_09_Geometry_Shader = new test::TestMenu(currentTest, "Geometry Shader");
 		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_01_Line>("Geometry Shader 01 - 1 Simgle File");
-		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_02_Line>("Geometry Shader 01 - 3 Files, V-G-F");
+		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_02_Line>("Geometry Shader 02 - 3 Files, V-G-F");
+		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_03_House>("Geometry Shader 03 - Build a House");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_09_Geometry_Shader);
 
 

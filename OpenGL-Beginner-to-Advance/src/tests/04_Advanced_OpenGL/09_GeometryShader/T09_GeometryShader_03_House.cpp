@@ -1,9 +1,9 @@
-#include "T09_GeometryShader_01_Line.h"
+#include "T09_GeometryShader_03_House.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T09_GeometryShader_01_Line::T09_GeometryShader_01_Line()
+	T09_GeometryShader_03_House::T09_GeometryShader_03_House()
 		: m_f_fov(45.0f),
 		m_b_firstMouse(true),
 		m_mouse_lock(false),
@@ -23,13 +23,13 @@ namespace test {
 		m_VAO = std::make_unique<VertexArray>();
 		m_VAO->AddBuffer(*m_VertexBuffer, layout);
 		
-		m_Shader = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/09_GeometryShader/S09_GeometryShader_01_Line.Shader");
+		m_Shader = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/09_GeometryShader/S09_GeometryShader_03_House.Shader");
 		
 		//  VSync / Enabel & Disable
 		glfwSwapInterval(1);
 	}
 
-	T09_GeometryShader_01_Line::~T09_GeometryShader_01_Line()
+	T09_GeometryShader_03_House::~T09_GeometryShader_03_House()
 	{
 		glfwSwapInterval(0);
 
@@ -38,11 +38,11 @@ namespace test {
 		GLCall(glFrontFace(GL_CCW));
 	}
 
-	void T09_GeometryShader_01_Line::OnUpdate(float deltaTime)
+	void T09_GeometryShader_03_House::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T09_GeometryShader_01_Line::OnRender(GLFWwindow* window)
+	void T09_GeometryShader_03_House::OnRender(GLFWwindow* window)
 	{
 		if (m_mouse_disable != m_mouse_disable_i_1)
 		{
@@ -88,9 +88,9 @@ namespace test {
 		GLCall(glDrawArrays(GL_POINTS, 0, 4));// m_v_count
 	}
 
-	void T09_GeometryShader_01_Line::OnImGuiRender()
+	void T09_GeometryShader_03_House::OnImGuiRender()
 	{
-		ImGui::Text("GeometryShader - 01");
+		ImGui::Text("GeometryShader - 03");
 		IMGUI_FPS;
 
 		ImGui::Text("Press M to active/disable mouse!");
@@ -103,9 +103,14 @@ namespace test {
 		ImGui::Text(" ");
 
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
+
+		ImGui::Text(" ");
+		ImGui::Text("Remember:");
+		ImGui::Text("S09_GeometryShader_03_House_X");
+		ImGui::Text("is a pass-through geometry shader");
 	}
 
-	void T09_GeometryShader_01_Line::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T09_GeometryShader_03_House::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -145,7 +150,7 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T09_GeometryShader_01_Line::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T09_GeometryShader_03_House::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 		if (!window)
 		{
@@ -156,7 +161,7 @@ namespace test {
 		glViewport(0, 0, width, height);
 	}
 
-	void T09_GeometryShader_01_Line::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T09_GeometryShader_03_House::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 

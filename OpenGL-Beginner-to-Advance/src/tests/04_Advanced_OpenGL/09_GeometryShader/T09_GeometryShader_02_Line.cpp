@@ -92,14 +92,17 @@ namespace test {
 
 	void T09_GeometryShader_02_Line::OnImGuiRender()
 	{
-		ImGui::Text("GLSL's built-in variables");
-		ImGui::Text("<gl_FragCoord> <FrontFacing>");
+		ImGui::Text("GeometryShader - 02");
 		IMGUI_FPS;
 
 		ImGui::Text("Press M to active/disable mouse!");
 		ImGui::Text("Press N to active/disable mouse!");
 		ImGui::Text("Press F to fix player to ground!");
 		ImGui::SliderFloat("FOV", &m_f_fov, 20.0f, 80.0f);
+
+		ImGui::Text(" ");
+		ImGui::Text("glDrawArrays(GL_POINTS, 0, 4)");
+		ImGui::Text(" ");
 
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
 	}
