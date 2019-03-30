@@ -90,6 +90,9 @@
 #include "tests/04_Advanced_OpenGL/08_Advanced_GLSL/T08_Advanced_GLSL_02_FragCoord.h"
 #include "tests/04_Advanced_OpenGL/08_Advanced_GLSL/T08_Advanced_GLSL_03_UniformBuff.h"
 
+#include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_01_Line.h"
+#include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_02_Line.h"
+
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -262,6 +265,7 @@ int main(void)
 		//-----------------------------
 		// 04 Advanced OpenGL
 		//-----------------------------
+
 		test::TestMenu* TM_04_Advanced_OpenGL = new test::TestMenu(currentTest, "Advanced OpenGL");
 
 		// 01 Depth testing
@@ -307,6 +311,12 @@ int main(void)
 		TM_08_Advanced_GLSL->RegisterTest<test::T08_Advanced_GLSL_02_FragCoord>("GLSL02 - FragCoord/FrontFacing");
 		TM_08_Advanced_GLSL->RegisterTest<test::T08_Advanced_GLSL_03_UniformBuff>("GLSL03 - Uniform buffer objects");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_08_Advanced_GLSL);
+
+		// 09 Geometry Shader
+		test::TestMenu* TM_09_Geometry_Shader = new test::TestMenu(currentTest, "Geometry Shader");
+		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_01_Line>("Geometry Shader 01 - 1 Simgle File");
+		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_02_Line>("Geometry Shader 01 - 3 Files, V-G-F");
+		TM_04_Advanced_OpenGL->RegisterMenu(*TM_09_Geometry_Shader);
 
 
 		//-----------------------------
