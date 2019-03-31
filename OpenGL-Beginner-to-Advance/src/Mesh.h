@@ -46,16 +46,19 @@ private:
 private:
 	/* Mesh Data */
 	std::vector<Vertex> m_vertices;
-	std::vector<unsigned int> m_indices;
+	//---std::vector<unsigned int> m_indices;
 	std::vector<std::shared_ptr<Texture>> msp_Textures;
 	// VertexArray & VertexBuffer
-	VertexArray m_va;
+	//----VertexArray m_va;
 	std::unique_ptr<VertexBuffer> m_vb;
 	std::shared_ptr<IndexBuffer> m_ibo;
 	//utility
 	unsigned int m_v_count, m_i_count;
 	std::string m_textureTypeName[6];
 	bool m_ibo_data;
+public:
+	VertexArray m_va;
+	std::vector<unsigned int> m_indices;
 };
 
 // utility overload

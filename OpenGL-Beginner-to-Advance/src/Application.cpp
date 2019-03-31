@@ -98,6 +98,8 @@
 
 #include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_01_Multi_Quad.h"
 #include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_02_InstancedA.h"
+#include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_03_Asteroid_Field_Base.h"
+#include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_04_Asteroid_Field_Instancing.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -334,6 +336,8 @@ int main(void)
 		test::TestMenu* TM_10_Instancing = new test::TestMenu(currentTest, "Instancing");
 		TM_10_Instancing->RegisterTest<test::T10_Instancing_01_Multi_Quad>("Inst. 01 - Hundred 2D quads");
 		TM_10_Instancing->RegisterTest<test::T10_Instancing_02_InstancedA>("Inst. 02 - Instanced Array");
+		TM_10_Instancing->RegisterTest<test::T10_Instancing_03_Asteroid_Field_Base>("Inst. 03 - Asteroid_Field_Base");
+		TM_10_Instancing->RegisterTest<test::T10_Instancing_04_Asteroid_Field_Instancing>("Inst. 04 - Asteroid_Field Inst.");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_10_Instancing);
 
 		//-----------------------------

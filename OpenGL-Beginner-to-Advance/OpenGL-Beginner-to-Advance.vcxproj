@@ -216,6 +216,8 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_05_Fur_Normal.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_01_Multi_Quad.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.cpp" />
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_03_Asteroid_Field_Base.cpp" />
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -315,6 +317,8 @@
     <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_05_Fur_Normal.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\10_Instancing\S10_Instancing_01_Multi_Quad.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\10_Instancing\S10_Instancing_02_InstancedA.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\10_Instancing\S10_Instancing_03_Asteroid_Field_Base.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\10_Instancing\S10_Instancing_04_Asteroid_Field_Instancing.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -533,6 +537,8 @@
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_01_Multi_Quad.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_03_Asteroid_Field_Base.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

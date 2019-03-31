@@ -43,7 +43,10 @@ private:
 	/* Model Data */
 	std::vector<std::shared_ptr<Texture>> msp_texture_loaded;	// store all the texture loaded so far, optimization to make 
 																// sure texture aren't loaded more than once.
-	std::vector<std::shared_ptr<Mesh>> m_meshes;
+	//---std::vector<std::shared_ptr<Mesh>> m_meshes;
 	std::string m_directory;
+
+public:
+	std::vector<std::shared_ptr<Mesh>> m_meshes;
 
 };
