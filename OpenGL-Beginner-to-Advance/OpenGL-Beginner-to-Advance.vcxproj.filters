@@ -237,6 +237,9 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_03_House.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_04_Exploding.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -713,6 +716,7 @@
     <None Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\S06_Cubemaps_03_Model2.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_03_House.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_03_House_X.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_04_Exploding.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1721,6 +1725,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_03_House.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_04_Exploding.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
