@@ -35,6 +35,11 @@ class Mesh
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
 	void Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays = false);
+	void Draw(std::shared_ptr<Shader> shader, unsigned int instance_count, bool compatible_glDrawArrays = false);
+
+	void SetMaterialUniforms(std::shared_ptr<Shader> shader);
+	void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout, unsigned int attrP_offset);
+
 	// Utility functions
 	inline void vaBind() const { m_va.Bind(); }
 	inline void vaUnbind() const { m_va.Unbind(); }
@@ -46,19 +51,16 @@ private:
 private:
 	/* Mesh Data */
 	std::vector<Vertex> m_vertices;
-	//---std::vector<unsigned int> m_indices;
+	std::vector<unsigned int> m_indices;
 	std::vector<std::shared_ptr<Texture>> msp_Textures;
 	// VertexArray & VertexBuffer
-	//----VertexArray m_va;
+	VertexArray m_va;
 	std::unique_ptr<VertexBuffer> m_vb;
 	std::shared_ptr<IndexBuffer> m_ibo;
 	//utility
 	unsigned int m_v_count, m_i_count;
 	std::string m_textureTypeName[6];
 	bool m_ibo_data;
-public:
-	VertexArray m_va;
-	std::vector<unsigned int> m_indices;
 };
 
 // utility overload

@@ -29,6 +29,36 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 
 void Mesh::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
 {
+	SetMaterialUniforms(shader); // shader Bind inside Function
+	m_va.Bind();
+
+	if (this->m_ibo_data && !compatible_glDrawArrays)
+	{	// ATTENTION !! GLCall is a MACRO so is more than 1 line of code. Use scope {}.
+		GLCall(glDrawElements(GL_TRIANGLES, m_i_count, GL_UNSIGNED_INT, 0));
+	}
+	else
+	{
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, m_v_count));// m_v_count
+	}
+}
+
+void Mesh::Draw(std::shared_ptr<Shader> shader, unsigned int instance_count, bool compatible_glDrawArrays)
+{
+	SetMaterialUniforms(shader); // shader Bind inside Function
+	m_va.Bind();
+
+	if (this->m_ibo_data && !compatible_glDrawArrays)
+	{	// ATTENTION !! GLCall is a MACRO so is more than 1 line of code. Use scope {}.
+		GLCall(glDrawElementsInstanced(GL_TRIANGLES, m_i_count, GL_UNSIGNED_INT, 0, instance_count));
+	}
+	else
+	{
+		GLCall(glDrawArraysInstanced(GL_TRIANGLES, 0, m_v_count, instance_count));
+	}
+}
+
+void Mesh::SetMaterialUniforms(std::shared_ptr<Shader> shader)
+{
 	shader->Bind();
 
 	// msp_Textures[0]->Bind(0);
@@ -60,15 +90,17 @@ void Mesh::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
 		this->msp_Textures[i]->Bind(i);
 		shader->SetUniform1i(((m_textureTypeName[(int)this->msp_Textures[i]->GetType()] + str_indexNr).c_str()), i);
 	}
-	m_va.Bind();
-	if (this->m_ibo_data && !compatible_glDrawArrays)
-	{	// ATTENTION !! GLCall is a MACRO so is more than 1 line of code. Use scope {}.
-		GLCall(glDrawElements(GL_TRIANGLES, m_i_count, GL_UNSIGNED_INT, 0));
-	}
-	else
-	{
-		GLCall(glDrawArrays(GL_TRIANGLES, 0, m_v_count));// m_v_count
-	}
+}
+
+void Mesh::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout, unsigned int attrP_offset)
+{
+	m_va.AddBuffer(vb, layout, attrP_offset);
+
+	// to insert in layout information
+	GLCall(glVertexAttribDivisor(3, 1));
+	GLCall(glVertexAttribDivisor(4, 1));
+	GLCall(glVertexAttribDivisor(5, 1));
+	GLCall(glVertexAttribDivisor(6, 1));
 }
 
 void Mesh::setupMesh()

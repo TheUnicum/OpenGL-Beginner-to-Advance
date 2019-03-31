@@ -55,8 +55,8 @@ namespace test {
 		
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 
-		unsigned int m_amount = 1000;
-		glm::mat4 m_modelMatrices[1000];
+		unsigned int m_amount;
+		glm::mat4* m_modelMatrices; //glm::mat4 m_modelMatrices[1000];
 	};
 
 }

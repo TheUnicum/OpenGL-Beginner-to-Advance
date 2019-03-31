@@ -24,7 +24,10 @@ public:
 	Model(const std::string& path) { loadModel(path); }
 	// draws the model, and thus all its meshes
 	void Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays = false);
+	// draws the model Nr Times, and thus all its meshes
+	void Draw(std::shared_ptr<Shader> shader, unsigned int instance_count, bool compatible_glDrawArrays = false);
 
+	void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout, unsigned int attrP_offset);
 private:
 	/* Funcitons */
 	// loads model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
@@ -36,17 +39,13 @@ private:
 	std::shared_ptr<Mesh> processMesh(aiMesh* mesh, const aiScene* scene);
 
 	// checks all material textures of a given type and loads the textures if they're not loaded yet.
-	// 
+	// the required info is returned as a Texture struct.
 	std::vector<std::shared_ptr<Texture>> loadMaterialTextures(aiMaterial* mat, aiTextureType type, TextureType textureType);
 
 private:
 	/* Model Data */
 	std::vector<std::shared_ptr<Texture>> msp_texture_loaded;	// store all the texture loaded so far, optimization to make 
 																// sure texture aren't loaded more than once.
-	//---std::vector<std::shared_ptr<Mesh>> m_meshes;
-	std::string m_directory;
-
-public:
 	std::vector<std::shared_ptr<Mesh>> m_meshes;
-
+	std::string m_directory;
 };

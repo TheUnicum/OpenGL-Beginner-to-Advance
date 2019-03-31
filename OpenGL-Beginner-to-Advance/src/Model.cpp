@@ -7,6 +7,11 @@ void Model::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
 		m_meshes[i]->Draw(shader, compatible_glDrawArrays);
 }
 
+void Model::Draw(std::shared_ptr<Shader> shader, unsigned int instance_count, bool compatible_glDrawArrays)
+{
+	for (unsigned int i = 0; i < m_meshes.size(); i++)
+		m_meshes[i]->Draw(shader, instance_count, compatible_glDrawArrays);
+}
 
 void Model::loadModel(const std::string & path)
 {
@@ -182,5 +187,23 @@ std::vector<std::shared_ptr<Texture>> Model::loadMaterialTextures(aiMaterial* ma
 	}
 
 	return textures;
+}
+
+void Model::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout, unsigned int attrP_offset)
+{
+	for (unsigned int i = 0; i < m_meshes.size(); i++)
+	{
+		m_meshes[i]->AddBuffer(vb, layout, attrP_offset);
+
+		/*
+		m_meshes[i]->m_va.AddBuffer(vb, layout, AttrP_offset);
+
+		// to insert in layout information
+		GLCall(glVertexAttribDivisor(3, 1));
+		GLCall(glVertexAttribDivisor(4, 1));
+		GLCall(glVertexAttribDivisor(5, 1));
+		GLCall(glVertexAttribDivisor(6, 1));
+		*/
+	}
 }
 

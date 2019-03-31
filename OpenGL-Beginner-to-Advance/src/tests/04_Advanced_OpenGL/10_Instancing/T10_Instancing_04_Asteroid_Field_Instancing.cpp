@@ -27,6 +27,8 @@ namespace test {
 		m_model_Rock = std::make_unique<Model>("res/objects/rock/rock.obj");
 
 		// ---------------------
+		m_amount = 1000;
+		m_modelMatrices = (glm::mat4*)alloca(m_amount * sizeof(glm::mat4));
 		srand(glfwGetTime()); // initialize random seed	
 		float radius = 50.0;
 		float offset = 2.5f;
@@ -61,6 +63,15 @@ namespace test {
 		layout2.Push<float>(4);
 		layout2.Push<float>(4);
 		layout2.Push<float>(4);
+		m_model_Rock->AddBuffer(*m_VertexBuffer, layout2, 3);
+
+		/*
+		// -----------------------------------------------------------------------------
+		Old method!!! 
+		with by setting "public member"
+		MESH (m_va, m_indices)
+		MODEL (m_meshes)
+		// -----------------------------------------------------------------------------
 		for (unsigned int i = 0; i < m_model_Rock->m_meshes.size(); i++)
 		{
 			m_model_Rock->m_meshes[i]->m_va.AddBuffer(*m_VertexBuffer, layout2, 3);
@@ -69,6 +80,8 @@ namespace test {
 			GLCall(glVertexAttribDivisor(5, 1));
 			GLCall(glVertexAttribDivisor(6, 1));
 		}
+		*/
+		// Old method!!! ----------------------------------------------------------------
 
 		//  VSync / Enabel & Disable
 		glfwSwapInterval(1);
@@ -111,7 +124,7 @@ namespace test {
 		GLCall(glEnable(GL_DEPTH_TEST));
 
 		// Disable blending for manual discard-----------------------------
-		//GLCall(glDisable(GL_BLEND));
+		// GLCall(glDisable(GL_BLEND));
 
 		//  MODEL MATRIX Correct order
 		// - translation
@@ -143,13 +156,25 @@ namespace test {
 		m_ShaderInstance->Bind();
 		m_ShaderInstance->SetUniformMat4f("u_view", view);
 		m_ShaderInstance->SetUniformMat4f("u_proj", proj);
+
+		m_model_Rock->Draw(m_ShaderInstance, m_amount);
+
+		/*
+		// -----------------------------------------------------------------------------
+		Old method!!!
+		with by setting "public member"
+		MESH (m_va, m_indices)
+		MODEL (m_meshes)
+		// -----------------------------------------------------------------------------
 		for (unsigned int i = 0; i < m_model_Rock->m_meshes.size(); i++)
 		{
 			m_model_Rock->m_meshes[i]->m_va.Bind();
 			glDrawElementsInstanced(
-				GL_TRIANGLES, m_model_Rock->m_meshes[i]->m_indices.size(), GL_UNSIGNED_INT, 0, m_amount
+				GL_TRIANGLES, m_model_Rock->m_meshes[i]->GetIndexCount(), GL_UNSIGNED_INT, 0, m_amount
 			);
 		}
+		*/
+		// Old method!!! ----------------------------------------------------------------
 
 	}
 
