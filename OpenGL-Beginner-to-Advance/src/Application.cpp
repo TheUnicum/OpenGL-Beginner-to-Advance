@@ -96,6 +96,8 @@
 #include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_04_Exploding.h"
 #include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_05_Fur_Normal.h"
 
+#include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_01_Multi_Quad.h"
+#include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_02_InstancedA.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -148,7 +150,11 @@ int main(void)
 	if (glewInit() != GLEW_OK)
 		std::cout << "Error!" << std::endl;
 	
+	// GL info :
 	std::cout << glGetString(GL_VERSION) << std::endl;
+	int data;
+	glGetIntegerv(GL_MAX_VERTEX_UNIFORM_COMPONENTS, &data);
+	std::cout << "MAX Vertex Uniform components: " << data << std::endl;
 
 	{	// make a scope to force delete a VertexBuffer before context windows get distroyed
 		glEnable(GL_BLEND);
@@ -324,6 +330,11 @@ int main(void)
 		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_05_Fur_Normal>("GeoS 05 - Normal Vectors");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_09_Geometry_Shader);
 
+		// 10 Instancing
+		test::TestMenu* TM_10_Instancing = new test::TestMenu(currentTest, "Instancing");
+		TM_10_Instancing->RegisterTest<test::T10_Instancing_01_Multi_Quad>("Inst. 01 - Hundred 2D quads");
+		TM_10_Instancing->RegisterTest<test::T10_Instancing_02_InstancedA>("Inst. 02 - Instanced Array");
+		TM_04_Advanced_OpenGL->RegisterMenu(*TM_10_Instancing);
 
 		//-----------------------------
 		//-----------------------------

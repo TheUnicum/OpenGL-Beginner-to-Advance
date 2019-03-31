@@ -12,7 +12,8 @@ VertexArray::~VertexArray()
 	GLCall(glDeleteVertexArrays(1, &m_RendererID));
 }
 
-void VertexArray::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout, const std::shared_ptr<IndexBuffer> ib)
+void VertexArray::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout,
+							const std::shared_ptr<IndexBuffer> ib, unsigned int AttrP_offset)
 {
 	Bind();
 	vb.Bind();
@@ -23,10 +24,16 @@ void VertexArray::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & 
 	for (unsigned int i = 0; i < elements.size(); i++)
 	{
 		const auto& element = elements[i];
-		GLCall(glEnableVertexAttribArray(i));
-		GLCall(glVertexAttribPointer(i, element.count, element.type, element.normalize, layout.GetStride(), (const void*)(offset)));
+		GLCall(glEnableVertexAttribArray(i + AttrP_offset));
+		GLCall(glVertexAttribPointer(i + AttrP_offset, element.count, element.type, element.normalize, layout.GetStride(), (const void*)(offset)));
 		offset += element.count * VertexBufferElement::GetSizeOfType(element.type);
 	}
+}
+
+void VertexArray::AddBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout,
+							unsigned int AttrP_offset, const std::shared_ptr<IndexBuffer> ib)
+{
+	this->AddBuffer(vb, layout, ib, AttrP_offset);
 }
 
 void VertexArray::Bind() const

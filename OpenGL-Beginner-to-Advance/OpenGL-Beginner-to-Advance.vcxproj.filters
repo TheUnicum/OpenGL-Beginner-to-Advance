@@ -243,6 +243,12 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_05_Fur_Normal.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_01_Multi_Quad.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -721,6 +727,8 @@
     <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_03_House_X.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_04_Exploding.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_05_Fur_Normal.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\10_Instancing\S10_Instancing_01_Multi_Quad.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\10_Instancing\S10_Instancing_02_InstancedA.Shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility.h">
@@ -1735,6 +1743,15 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_05_Fur_Normal.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_01_Multi_Quad.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
