@@ -1,9 +1,9 @@
-#include "T09_GeometryShader_02_Line.h"
+#include "T09_GeometryShader_05_Fur_Normal.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T09_GeometryShader_02_Line::T09_GeometryShader_02_Line()
+	T09_GeometryShader_05_Fur_Normal::T09_GeometryShader_05_Fur_Normal()
 		: m_f_fov(45.0f),
 		m_b_firstMouse(true),
 		m_mouse_lock(false),
@@ -11,27 +11,22 @@ namespace test {
 		m_framebufferWidth(WINDOW_WIDTH), m_framebufferHeight(WINDOW_HEIGHT)
 	{
 		// Initialize camera
-		m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
+		m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 10.0f, 14.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
 		m_camera->ProcessMouseMovement(0, 0);
 
 		#include "E00_cube_vertices.h"
-
-		m_VertexBuffer = std::make_unique<VertexBuffer>(points_2v_3c, 4 * (2 + 3) * sizeof(float));
-		VertexBufferLayout layout;
-		layout.Push<float>(2);	// position in plane
-		layout.Push<float>(3);	// color
-		m_VAO = std::make_unique<VertexArray>();
-		m_VAO->AddBuffer(*m_VertexBuffer, layout);
-				
-		m_Shader = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/09_GeometryShader/S09_GeometryShader_02_Line.vs",
-			"src/tests/04_Advanced_OpenGL/09_GeometryShader/S09_GeometryShader_02_Line.gs",
-			"src/tests/04_Advanced_OpenGL/09_GeometryShader/S09_GeometryShader_02_Line.fs");
+		
+		m_Shader = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/09_GeometryShader/S09_GeometryShader_04_Exploding.Shader");
+		m_ShaderFur = std::make_unique<Shader>("src/tests/04_Advanced_OpenGL/09_GeometryShader/S09_GeometryShader_05_Fur_Normal.Shader");
+		
+		// NEW Model----------------------------------------------------------------------------------------
+		m_model = std::make_unique<Model>("res/objects/nanosuit/nanosuit.obj");
 
 		//  VSync / Enabel & Disable
 		glfwSwapInterval(1);
 	}
 
-	T09_GeometryShader_02_Line::~T09_GeometryShader_02_Line()
+	T09_GeometryShader_05_Fur_Normal::~T09_GeometryShader_05_Fur_Normal()
 	{
 		glfwSwapInterval(0);
 
@@ -40,11 +35,11 @@ namespace test {
 		GLCall(glFrontFace(GL_CCW));
 	}
 
-	void T09_GeometryShader_02_Line::OnUpdate(float deltaTime)
+	void T09_GeometryShader_05_Fur_Normal::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T09_GeometryShader_02_Line::OnRender(GLFWwindow* window)
+	void T09_GeometryShader_05_Fur_Normal::OnRender(GLFWwindow* window)
 	{
 		if (m_mouse_disable != m_mouse_disable_i_1)
 		{
@@ -82,17 +77,44 @@ namespace test {
 		glm::mat4 proj(1.0f);
 		glm::mat4 mvp;
 
-		//view = m_camera->GetViewMatrix();
-		//proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
+		view = m_camera->GetViewMatrix();
+		proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
 
-		glEnable(GL_PROGRAM_POINT_SIZE);
-		m_Shader->Bind();
-		GLCall(glDrawArrays(GL_POINTS, 0, 4));// m_v_count
+
+		// Model
+		{
+			model = glm::mat4(1.f);
+			m_Shader->Bind();
+
+			// MVP
+			mvp = proj * view * model;
+			m_Shader->SetUniformMat4f("u_mvp", mvp);
+			m_Shader->SetUniform1f("u_time", glm::radians(-90.0f)); // set Zero 0
+
+			m_model->Draw(m_Shader);
+		}
+
+		// Model // fury
+		{
+			model = glm::mat4(1.f);
+			m_ShaderFur->Bind();
+
+			// MVP
+			mvp = proj * view * model;
+
+			m_ShaderFur->SetUniformMat4f("u_proj", proj);
+			m_ShaderFur->SetUniformMat4f("u_view", view);
+			m_ShaderFur->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(model))));
+
+			m_ShaderFur->SetUniformMat4f("u_mvp", mvp);
+
+			m_model->Draw(m_ShaderFur);
+		}
 	}
 
-	void T09_GeometryShader_02_Line::OnImGuiRender()
+	void T09_GeometryShader_05_Fur_Normal::OnImGuiRender()
 	{
-		ImGui::Text("GeometryShader - 02");
+		ImGui::Text("GeometryShader - 03");
 		IMGUI_FPS;
 
 		ImGui::Text("Press M to active/disable mouse!");
@@ -107,15 +129,12 @@ namespace test {
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
 
 		ImGui::Text(" ");
-		ImGui::Text("Improved Shader CLASS");
-		ImGui::Text("2st use of Geometry Shader");
-		ImGui::Text("Use 3 differente Shaders");
-		ImGui::Text(" - Vertex");
-		ImGui::Text(" - Geometry");
-		ImGui::Text(" - Fragment");
+		ImGui::Text("Remember:");
+		ImGui::Text("S09_GeometryShader_03_House_X");
+		ImGui::Text("is a pass-through geometry shader");
 	}
 
-	void T09_GeometryShader_02_Line::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T09_GeometryShader_05_Fur_Normal::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -155,7 +174,7 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T09_GeometryShader_02_Line::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T09_GeometryShader_05_Fur_Normal::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 		if (!window)
 		{
@@ -166,7 +185,7 @@ namespace test {
 		glViewport(0, 0, width, height);
 	}
 
-	void T09_GeometryShader_02_Line::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T09_GeometryShader_05_Fur_Normal::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 

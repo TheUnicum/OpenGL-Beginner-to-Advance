@@ -213,6 +213,7 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_02_Line.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_03_House.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_04_Exploding.cpp" />
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_05_Fur_Normal.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -309,6 +310,7 @@
     <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_03_House.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_03_House_X.Shader" />
     <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_04_Exploding.Shader" />
+    <None Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\S09_GeometryShader_05_Fur_Normal.Shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />
@@ -523,6 +525,7 @@
     <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_02_Line.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_03_House.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_04_Exploding.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_05_Fur_Normal.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

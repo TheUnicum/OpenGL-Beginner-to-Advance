@@ -94,6 +94,7 @@
 #include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_02_Line.h"
 #include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_03_House.h"
 #include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_04_Exploding.h"
+#include "tests/04_Advanced_OpenGL/09_GeometryShader/T09_GeometryShader_05_Fur_Normal.h"
 
 
 // Functions Declaration
@@ -320,6 +321,7 @@ int main(void)
 		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_02_Line>("GeoS 02 - 3 Files, V-G-F");
 		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_03_House>("GeoS 03 - Build a House");
 		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_04_Exploding>("GeoS 04 - Exploding object");
+		TM_09_Geometry_Shader->RegisterTest<test::T09_GeometryShader_05_Fur_Normal>("GeoS 05 - Normal Vectors");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_09_Geometry_Shader);
 
 

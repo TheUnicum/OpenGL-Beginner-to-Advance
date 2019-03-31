@@ -103,6 +103,10 @@ namespace test {
 		ImGui::Text(" ");
 
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
+
+		ImGui::Text(" ");
+		ImGui::Text("Improved Shader CLASS");
+		ImGui::Text("1st use of Geometry Shader");
 	}
 
 	void T09_GeometryShader_01_Line::OnProcessInput(GLFWwindow * window, float deltaTime)
