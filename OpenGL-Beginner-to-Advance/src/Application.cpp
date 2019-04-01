@@ -104,6 +104,8 @@
 
 #include "tests/04_Advanced_OpenGL/11_AntiAliasing/T11_AntiAliasing_01.h"
 
+#include "tests/05_Advanced_Lighting/01_Advanced_Lighting/T01_Advanced_Lighting_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -283,7 +285,6 @@ int main(void)
 		//-----------------------------
 		// 04 Advanced OpenGL
 		//-----------------------------
-
 		test::TestMenu* TM_04_Advanced_OpenGL = new test::TestMenu(currentTest, "Advanced OpenGL");
 
 		// 01 Depth testing
@@ -348,10 +349,20 @@ int main(void)
 		TM_10_Instancing->RegisterTest<test::T10_Instancing_05_Asteroid_Field_Tests>("Inst. 05 - Asteroid_Field Tests");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_10_Instancing);
 
-		// Anti Aliasing
+		// 11 Anti Aliasing
 		test::TestMenu* TM_11_Anti_Aliasing = new test::TestMenu(currentTest, "Anti Aliasing");
-		TM_11_Anti_Aliasing->RegisterTest < test::T11_AntiAliasing_01>("AntiAliasing 01 - Base");
+		TM_11_Anti_Aliasing->RegisterTest<test::T11_AntiAliasing_01>("AntiAliasing 01 - Base");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_11_Anti_Aliasing);
+
+		//-----------------------------
+		// 05 Advanced Lighting
+		//-----------------------------
+		test::TestMenu* TM_05_Advanced_Lighting = new test::TestMenu(currentTest, "Advanced Lighting");
+
+		// 01 Advanced Lighting
+		test::TestMenu* TM_11_Advanced_Lighting = new test::TestMenu(currentTest, "Advanced Lighting");
+		TM_11_Advanced_Lighting->RegisterTest<test::T01_Advanced_Lighting_01>("AdvancedL. 01 - Blind-Phong");
+		TM_05_Advanced_Lighting->RegisterMenu(*TM_11_Advanced_Lighting);
 
 		//-----------------------------
 		//-----------------------------
@@ -362,6 +373,7 @@ int main(void)
 		testMenu->RegisterMenu(*TM_02_Lighting);
 		testMenu->RegisterMenu(*TM_03_Model_Loading);
 		testMenu->RegisterMenu(*TM_04_Advanced_OpenGL);
+		testMenu->RegisterMenu(*TM_05_Advanced_Lighting);
 
 		while (!glfwWindowShouldClose(window))
 		{
