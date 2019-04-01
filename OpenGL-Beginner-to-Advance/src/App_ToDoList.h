@@ -2,6 +2,11 @@
 
 /*
 
+posponed:
+- Lighting/Multiple-lights
+- Advanced-OpenGL/Anti-Aliasing (MSAA Anti Aliasin and Framebuffers)
+
+Improvements
 - Cubomaps: make a test with multiple skyboxes to chose.
 - Abstract <uniform buffers>
 

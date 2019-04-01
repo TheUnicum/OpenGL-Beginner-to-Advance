@@ -102,6 +102,8 @@
 #include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_04_Asteroid_Field_Instancing.h"
 #include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_05_Asteroid_Field_Tests.h"
 
+#include "tests/04_Advanced_OpenGL/11_AntiAliasing/T11_AntiAliasing_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -127,6 +129,10 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //GLFW_OPENGL_COMPAT_PROFILE
 	//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+	// Anti Aliasing Hint
+	// To Enable MultiSample Anti Aliasing uncomment this line before create a Window!
+	//glfwWindowHint(GLFW_SAMPLES, 4);
 
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(960, 540, "Hello World", NULL, NULL);
@@ -341,6 +347,11 @@ int main(void)
 		TM_10_Instancing->RegisterTest<test::T10_Instancing_04_Asteroid_Field_Instancing>("Inst. 04 - Asteroid_Field Inst.");
 		TM_10_Instancing->RegisterTest<test::T10_Instancing_05_Asteroid_Field_Tests>("Inst. 05 - Asteroid_Field Tests");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_10_Instancing);
+
+		// Anti Aliasing
+		test::TestMenu* TM_11_Anti_Aliasing = new test::TestMenu(currentTest, "Anti Aliasing");
+		TM_11_Anti_Aliasing->RegisterTest < test::T11_AntiAliasing_01>("AntiAliasing 01 - Base");
+		TM_04_Advanced_OpenGL->RegisterMenu(*TM_11_Anti_Aliasing);
 
 		//-----------------------------
 		//-----------------------------
