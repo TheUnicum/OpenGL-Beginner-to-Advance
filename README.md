@@ -39,3 +39,6 @@ Setting up a test:Framebuffer. (Multiple)
 
 Setting up a test:Cubemaps <Reflection>
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v13.png)
+
+Setting up a test:Instancing <An asteroid field>
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v14.png)

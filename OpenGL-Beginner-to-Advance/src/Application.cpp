@@ -100,6 +100,7 @@
 #include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_02_InstancedA.h"
 #include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_03_Asteroid_Field_Base.h"
 #include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_04_Asteroid_Field_Instancing.h"
+#include "tests/04_Advanced_OpenGL/10_Instancing/T10_Instancing_05_Asteroid_Field_Tests.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -338,6 +339,7 @@ int main(void)
 		TM_10_Instancing->RegisterTest<test::T10_Instancing_02_InstancedA>("Inst. 02 - Instanced Array");
 		TM_10_Instancing->RegisterTest<test::T10_Instancing_03_Asteroid_Field_Base>("Inst. 03 - Asteroid_Field_Base");
 		TM_10_Instancing->RegisterTest<test::T10_Instancing_04_Asteroid_Field_Instancing>("Inst. 04 - Asteroid_Field Inst.");
+		TM_10_Instancing->RegisterTest<test::T10_Instancing_05_Asteroid_Field_Tests>("Inst. 05 - Asteroid_Field Tests");
 		TM_04_Advanced_OpenGL->RegisterMenu(*TM_10_Instancing);
 
 		//-----------------------------

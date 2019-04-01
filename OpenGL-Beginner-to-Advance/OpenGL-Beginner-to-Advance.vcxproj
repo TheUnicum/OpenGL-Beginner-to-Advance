@@ -218,6 +218,7 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_03_Asteroid_Field_Base.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.cpp" />
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -454,6 +455,7 @@
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_03_Asteroid_Field_Base.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />
