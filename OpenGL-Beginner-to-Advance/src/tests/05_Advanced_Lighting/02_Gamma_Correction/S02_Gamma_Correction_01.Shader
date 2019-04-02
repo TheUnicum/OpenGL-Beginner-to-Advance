@@ -49,7 +49,7 @@ struct Light {
 	vec3 diffuse;
 	vec3 specular;
 };
-uniform Light light;
+uniform Light light[4];
 
 uniform int u_b_ambient;
 uniform int u_b_diffuse;
@@ -57,15 +57,18 @@ uniform int u_b_specular;
 
 uniform bool u_b_blinn;
 uniform bool u_b_specular_texture;
+uniform bool u_b_gamma;
+uniform float u_f_gamma;
+uniform bool u_b_quadratic;
 
-void main()
+vec3 BlinnPhong(int index)
 {
 	// ambient
-	vec3 ambient = light.ambient  * vec3(texture(material.diffuse1, fs_in.TexCoords)) * u_b_ambient;
+	vec3 ambient = light[index].ambient  * vec3(texture(material.diffuse1, fs_in.TexCoords)) * u_b_ambient;
 
 	// diffuse
 	vec3 norm = normalize(fs_in.Normal);
-	vec3 lightDir = normalize(light.position - fs_in.FragPos);
+	vec3 lightDir = normalize(light[index].position - fs_in.FragPos);
 	float diff = max(dot(norm, lightDir), 0.0f);
 	vec3 diffuse = diff * vec3(texture(material.diffuse1, fs_in.TexCoords)) * u_b_diffuse;
 
@@ -86,11 +89,34 @@ void main()
 	// Define if use a speculaMap or a vec3(1.0f) for specular-lighting
 	vec3 specular;
 	if (u_b_specular_texture)
-		specular = light.specular * spec * vec3(texture(material.specular1, fs_in.TexCoords)) * u_b_specular;
+		specular = light[index].specular * spec * vec3(texture(material.specular1, fs_in.TexCoords)) * u_b_specular;
 	else
-		specular = light.specular * spec  * u_b_specular;
+		specular = light[index].specular * spec  * u_b_specular;
 
-	vec3 result = ambient + diffuse + specular;
+	float distance = length(light[index].position - fs_in.FragPos);
+	
+	float attenuation = min(1.0 / (u_b_quadratic ? distance * distance : distance), 1);
+	//float attenuation = min( (1.0 / (distance)), 1);
+
+
+	diffuse *= attenuation;
+	specular *= attenuation;
+
+	return ambient + diffuse + specular;
+}
+
+void main()
+{
+	vec3 result = vec3(0.0);
+	for (int i = 0; i < 4; ++i)
+		result += BlinnPhong(i);
+
+	if (u_b_gamma)
+	{
+		float gamma = u_f_gamma;// 2.2;
+		result = pow(result, vec3(1.0 / gamma));
+	}
+
 	FragColor = vec4(result, 1.0f);
 };
 

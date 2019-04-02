@@ -106,6 +106,8 @@
 
 #include "tests/05_Advanced_Lighting/01_Advanced_Lighting/T01_Advanced_Lighting_01.h"
 
+#include "tests/05_Advanced_Lighting/02_Gamma_Correction/T02_Gamma_Correction_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -360,9 +362,14 @@ int main(void)
 		test::TestMenu* TM_05_Advanced_Lighting = new test::TestMenu(currentTest, "Advanced Lighting");
 
 		// 01 Advanced Lighting
-		test::TestMenu* TM_11_Advanced_Lighting = new test::TestMenu(currentTest, "Advanced Lighting");
-		TM_11_Advanced_Lighting->RegisterTest<test::T01_Advanced_Lighting_01>("AdvancedL. 01 - Blind-Phong");
-		TM_05_Advanced_Lighting->RegisterMenu(*TM_11_Advanced_Lighting);
+		test::TestMenu* TM_01_Advanced_Lighting = new test::TestMenu(currentTest, "Advanced Lighting");
+		TM_01_Advanced_Lighting->RegisterTest<test::T01_Advanced_Lighting_01>("AdvancedL. 01 - Blind-Phong");
+		TM_05_Advanced_Lighting->RegisterMenu(*TM_01_Advanced_Lighting);
+
+		// 02 Gamma Correction
+		test::TestMenu* TM_02_Gamma_Correction = new test::TestMenu(currentTest, "Gamma Correction");
+		TM_02_Gamma_Correction->RegisterTest<test::T02_Gamma_Correction_01>("Gamme Correction 01");
+		TM_05_Advanced_Lighting->RegisterMenu(*TM_02_Gamma_Correction);
 
 		//-----------------------------
 		//-----------------------------

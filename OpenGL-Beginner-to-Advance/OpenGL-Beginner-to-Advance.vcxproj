@@ -221,6 +221,7 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.cpp" />
     <ClCompile Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.cpp" />
     <ClCompile Include="src\tests\05_Advanced_Lighting\01_Advanced_Lighting\T01_Advanced_Lighting_01.cpp" />
+    <ClCompile Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\T02_Gamma_Correction_01.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -458,9 +459,12 @@
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_03_Asteroid_Field_Base.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.h" />
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.h" />
     <ClInclude Include="src\tests\05_Advanced_Lighting\01_Advanced_Lighting\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\05_Advanced_Lighting\01_Advanced_Lighting\T01_Advanced_Lighting_01.h" />
+    <ClInclude Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\T02_Gamma_Correction_01.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

@@ -42,3 +42,6 @@ Setting up a test:Cubemaps <Reflection>
 
 Setting up a test:Instancing <An asteroid field>
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v14.png)
+
+Setting up a test:Gamma Correction
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v15.png)
