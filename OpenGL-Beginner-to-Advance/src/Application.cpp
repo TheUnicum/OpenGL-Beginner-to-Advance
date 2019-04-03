@@ -108,6 +108,8 @@
 
 #include "tests/05_Advanced_Lighting/02_Gamma_Correction/T02_Gamma_Correction_01.h"
 
+#include "tests/05_Advanced_Lighting/03_Shadows/01_Shadow_Mapping/T01_SM_01_DepthMap.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -370,6 +372,22 @@ int main(void)
 		test::TestMenu* TM_02_Gamma_Correction = new test::TestMenu(currentTest, "Gamma Correction");
 		TM_02_Gamma_Correction->RegisterTest<test::T02_Gamma_Correction_01>("Gamme Correction 01");
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_02_Gamma_Correction);
+
+		//-----------------------------
+		// 03 Shadows (inner menu)
+		//-----------------------------
+		test::TestMenu* TM_03_ShadowsMENU = new test::TestMenu(currentTest, "Shadows");
+
+		test::TestMenu* TM_01_Shadows_Mapping = new test::TestMenu(currentTest, "Shadows Mapping");
+		TM_01_Shadows_Mapping->RegisterTest<test::T01_SM_01_DepthMap>("SM 01 - The depth map");
+		TM_03_ShadowsMENU->RegisterMenu(*TM_01_Shadows_Mapping);
+
+
+		test::TestMenu* TM_02_Point_Shadows = new test::TestMenu(currentTest, "Point Shadows");
+		//...
+		TM_03_ShadowsMENU->RegisterMenu(*TM_02_Point_Shadows);
+
+		TM_05_Advanced_Lighting->RegisterMenu(*TM_03_ShadowsMENU);
 
 		//-----------------------------
 		//-----------------------------

@@ -54,6 +54,26 @@ bool FrameBuffer::Initialize(int width, int height)
 	return complete;
 }
 
+bool FrameBuffer::InitializeDepthMap(int width, int height)
+{
+	// 1- framebuffer configuration 
+	Bind();
+	// 2- create a Depth map attachment texture
+	m_texture.Initialize(width, height, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT);
+	// 3- attach it to currently bound framebuffer object
+	GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_texture.GetID(), 0));
+	// 4- A framebuffer object however is not complete without a color buffer 
+	// so we need to explicitly tell OpenGL we're not going to render any color data
+	GLCall(glDrawBuffer(GL_NONE));
+	GLCall(glReadBuffer(GL_NONE));
+	// 5- Now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+	bool complete = IsComplete();
+	// 6- Unbind FrameBuffer and reset to default
+	Unbind();
+
+	return complete;
+}
+
 bool FrameBuffer::IsComplete() const
 {
 	return (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);

@@ -75,6 +75,21 @@
     <ClCompile Include="src\FrameBuffer.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\Test.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\TestClearColor.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\01_Advanced_Lighting\T01_Advanced_Lighting_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\T02_Gamma_Correction_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_01_DepthMap.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
     <ClCompile Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
@@ -249,22 +264,10 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\tests\Test.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\TestClearColor.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\05_Advanced_Lighting\01_Advanced_Lighting\T01_Advanced_Lighting_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\T02_Gamma_Correction_01.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1458,6 +1461,30 @@
     <ClInclude Include="src\App_ToDoList.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\tests\Test.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\TestClearColor.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\01_Advanced_Lighting\T01_Advanced_Lighting_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\01_Advanced_Lighting\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\T02_Gamma_Correction_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_01_DepthMap.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
     <ClInclude Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
@@ -1689,31 +1716,13 @@
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\tests\Test.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\TestClearColor.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\05_Advanced_Lighting\01_Advanced_Lighting\T01_Advanced_Lighting_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\05_Advanced_Lighting\01_Advanced_Lighting\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\T02_Gamma_Correction_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
