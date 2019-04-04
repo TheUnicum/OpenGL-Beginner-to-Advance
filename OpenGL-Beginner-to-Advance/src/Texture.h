@@ -23,6 +23,7 @@ private:
 	int m_Width, m_Height, m_BPP;
 	TextureType m_type;
 	int m_target;
+	bool m_flip_vertically;
 public:
 	// Default empty constructor
 	Texture();
@@ -32,11 +33,13 @@ public:
 		int min_filter = GL_LINEAR,
 		int mag_filter = GL_LINEAR,
 		int wrap_s = GL_CLAMP_TO_EDGE,
-		int wrap_t = GL_CLAMP_TO_EDGE);
+		int wrap_t = GL_CLAMP_TO_EDGE,
+		bool flip_vertically = true);
 
 	// Intermediate constructor for MESH/MODEL files.
 	Texture(const std::string& path,
 		TextureType textureType,
+		bool flip_vertically = true,
 		int min_filter = GL_LINEAR_MIPMAP_LINEAR,
 		int mag_filter = GL_LINEAR,
 		int wrap_s = GL_REPEAT,		// important for loading MODEL: Texture MUST NOT BE CLAMPED TO EDGE!!!!!!

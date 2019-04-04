@@ -224,6 +224,7 @@
     <ClCompile Include="src\tests\05_Advanced_Lighting\02_Gamma_Correction\T02_Gamma_Correction_01.cpp" />
     <ClCompile Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_01_DepthMap.cpp" />
     <ClCompile Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_02_RenderingShadows.cpp" />
+    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_01_Base.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -470,6 +471,8 @@
     <ClInclude Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_01_DepthMap.h" />
     <ClInclude Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_02_RenderingShadows.h" />
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_01_Base.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

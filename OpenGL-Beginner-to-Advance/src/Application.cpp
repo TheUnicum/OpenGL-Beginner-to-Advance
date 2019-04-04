@@ -111,6 +111,8 @@
 #include "tests/05_Advanced_Lighting/03_Shadows/01_Shadow_Mapping/T01_SM_01_DepthMap.h"
 #include "tests/05_Advanced_Lighting/03_Shadows/01_Shadow_Mapping/T01_SM_02_RenderingShadows.h"
 
+#include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_01_Base.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -390,6 +392,12 @@ int main(void)
 		TM_03_ShadowsMENU->RegisterMenu(*TM_02_Point_Shadows);
 
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_03_ShadowsMENU);
+
+		// 04 Normal Mapping
+		test::TestMenu* TM_04_Normal_Mapping = new test::TestMenu(currentTest, "Normal Mapping");
+		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_01_Base>("Normal Mapping");
+		TM_05_Advanced_Lighting->RegisterMenu(*TM_04_Normal_Mapping);
+
 
 		//-----------------------------
 		//-----------------------------

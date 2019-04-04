@@ -12,13 +12,14 @@ Texture::Texture()
 	GLCall(glGenTextures(1, &m_RendererID));
 }
 
-Texture::Texture(const std::string & path, int min_filter, int mag_filter, int wrap_s, int wrap_t)
+Texture::Texture(const std::string & path, int min_filter, int mag_filter, int wrap_s, int wrap_t, bool flip_vertically)
 	: m_RendererID(0), m_FilePath(path), m_LocalBuffer(nullptr),
 	m_Width(0), m_Height(0), m_BPP(0),
 	m_type(TextureType::DIFFUSE),
-	m_target(GL_TEXTURE_2D)
+	m_target(GL_TEXTURE_2D),
+	m_flip_vertically(flip_vertically)
 {
-	stbi_set_flip_vertically_on_load(true);
+	stbi_set_flip_vertically_on_load(flip_vertically);// (true);
 	m_LocalBuffer = stbi_load(path.c_str(), &m_Width, &m_Height,&m_BPP, 4);
 
 	GLCall(glGenTextures(1, &m_RendererID));
@@ -40,8 +41,8 @@ Texture::Texture(const std::string & path, int min_filter, int mag_filter, int w
 		std::cout << "ERROR::Failed to load Texture!" << std::endl;
 }
 
-Texture::Texture(const std::string & path, TextureType textureType, int min_filter, int mag_filter, int wrap_s, int wrap_t)
-	: Texture(path, min_filter, mag_filter, wrap_s, wrap_t) { m_type = textureType; }
+Texture::Texture(const std::string & path, TextureType textureType, bool flip_vertically, int min_filter, int mag_filter, int wrap_s, int wrap_t)
+	: Texture(path, min_filter, mag_filter, wrap_s, wrap_t, flip_vertically) { m_type = textureType; }
 
 Texture::~Texture()
 {
