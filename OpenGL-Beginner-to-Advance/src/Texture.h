@@ -5,6 +5,8 @@
 
 #include "Utility.h"
 
+#include "glm/glm.hpp"
+
 enum class TextureType
 {
 	NONE = -1, DIFFUSE = 0, SPECULAR = 1, EMISSION = 2, NORMAL = 3, HEIGHT = 4, AMBIENT = 5
@@ -52,7 +54,8 @@ public:
 		int min_filter = GL_LINEAR,
 		int mag_filter = GL_LINEAR,
 		int wrap_s = GL_REPEAT,	// default value
-		int wrap_t = GL_REPEAT);
+		int wrap_t = GL_REPEAT,
+		glm::vec4 borderColor = glm::vec4(-1.0f));
 
 	void LoadCubemap(std::vector<std::string>& faces, std::string directory);
 

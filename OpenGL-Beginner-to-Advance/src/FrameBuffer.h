@@ -23,6 +23,6 @@ public:
 	void TextureBind(unsigned int slot = 0) const;
 
 	bool Initialize(int width, int height);
-	bool InitializeDepthMap(int width, int height);
+	bool InitializeDepthMap(int width, int height, bool low_quality = false);
 	bool IsComplete() const;
 };

@@ -16,4 +16,11 @@ Improvements
 - VertexArray add get_max_element in layout for adding new layout glVertexAttribPointer
 
 
+// Shadow T01_[SM_02_RenderingShadows]
+Fare un test per tutte le options
+	Texture DepthMap dimension Widht & Height
+	Bias (None, Fixed, dinamic)
+	Over sampling Texture(GL_CLAMP_TO_BORDER) see (!m_fbo.InitializeDepthMap(width, height, false or true))
+-Orthographic vs projection
+
 */

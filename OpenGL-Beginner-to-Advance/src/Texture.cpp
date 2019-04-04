@@ -59,7 +59,7 @@ void Texture::Unbind() const
 	GLCall(glBindTexture(m_target, 0));
 }
 
-void Texture::Initialize(int width, int height, int internalFormat, int dataFormat, int min_filter, int mag_filter, int wrap_s, int wrap_t)
+void Texture::Initialize(int width, int height, int internalFormat, int dataFormat, int min_filter, int mag_filter, int wrap_s, int wrap_t, glm::vec4 borderColor)
 {
 	m_LocalBuffer = nullptr;
 	m_Width = width;
@@ -73,6 +73,13 @@ void Texture::Initialize(int width, int height, int internalFormat, int dataForm
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag_filter)); // GL_LINEAR
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_s)); // GL_REPEAT
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_t)); // GL_REPEAT
+
+	// Optimization for Shadow Mapping
+	if (borderColor != glm::vec4(-1.0f))
+	{
+		GLCall(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, &borderColor.x));
+	}
+
 	Unbind();
 }
 

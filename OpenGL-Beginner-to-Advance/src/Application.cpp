@@ -109,6 +109,7 @@
 #include "tests/05_Advanced_Lighting/02_Gamma_Correction/T02_Gamma_Correction_01.h"
 
 #include "tests/05_Advanced_Lighting/03_Shadows/01_Shadow_Mapping/T01_SM_01_DepthMap.h"
+#include "tests/05_Advanced_Lighting/03_Shadows/01_Shadow_Mapping/T01_SM_02_RenderingShadows.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -380,6 +381,7 @@ int main(void)
 
 		test::TestMenu* TM_01_Shadows_Mapping = new test::TestMenu(currentTest, "Shadows Mapping");
 		TM_01_Shadows_Mapping->RegisterTest<test::T01_SM_01_DepthMap>("SM 01 - The depth map");
+		TM_01_Shadows_Mapping->RegisterTest<test::T01_SM_02_RenderingShadows>("SM 02 - Rendering shadows");
 		TM_03_ShadowsMENU->RegisterMenu(*TM_01_Shadows_Mapping);
 
 

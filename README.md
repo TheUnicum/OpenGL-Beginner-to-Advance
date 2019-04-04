@@ -45,3 +45,6 @@ Setting up a test:Instancing <An asteroid field>
 
 Setting up a test:Gamma Correction
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v15.png)
+
+Setting up a test:Rendering Shadows
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v16.png)

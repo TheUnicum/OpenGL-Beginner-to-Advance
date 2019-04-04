@@ -54,12 +54,16 @@ bool FrameBuffer::Initialize(int width, int height)
 	return complete;
 }
 
-bool FrameBuffer::InitializeDepthMap(int width, int height)
+bool FrameBuffer::InitializeDepthMap(int width, int height, bool low_quality)
 {
 	// 1- framebuffer configuration 
 	Bind();
 	// 2- create a Depth map attachment texture
-	m_texture.Initialize(width, height, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT);
+	if (low_quality)
+		m_texture.Initialize(width, height, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT);
+	else
+		m_texture.Initialize(width, height, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_LINEAR, GL_LINEAR,
+			GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER, glm::vec4(1.0f));
 	// 3- attach it to currently bound framebuffer object
 	GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_texture.GetID(), 0));
 	// 4- A framebuffer object however is not complete without a color buffer 
