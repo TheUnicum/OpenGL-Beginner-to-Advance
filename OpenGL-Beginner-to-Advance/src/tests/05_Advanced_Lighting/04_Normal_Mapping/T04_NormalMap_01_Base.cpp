@@ -13,7 +13,8 @@ namespace test {
 		m_lightPos(glm::vec3(0.5f, +1.0f, .3f)),
 		m_b_light_move_active(false),
 		m_b_ambient(true), m_b_diffuse(true), m_b_specular(true),
-		m_i_NormalMap_opt(0)
+		m_i_NormalMap_opt(0),
+		m_b_NorMap_diffuse(true), m_b_NorMap_specular(true)
 	{
 		// Initialize camera
 		m_camera = std::make_unique<Camera>(glm::vec3(0.f, 0.f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.f, 0.f);
@@ -200,6 +201,10 @@ namespace test {
 			m_ShaderMesh->SetUniform1i("u_i_NormalMap_opt", m_i_NormalMap_opt);
 			m_ShaderMesh->SetUniform1i("u_i_half_Width", int(m_framebufferWidth / 2));
 
+			m_ShaderMesh->SetUniform1i("u_b_NorMap_diffuse", m_b_NorMap_diffuse);
+			m_ShaderMesh->SetUniform1i("u_b_NorMap_specular", m_b_NorMap_specular);
+
+
 			// Draw MESH
 			m_mesh->Draw(m_ShaderMesh);
 
@@ -235,6 +240,9 @@ namespace test {
 
 		ImGui::SliderInt("Normal Map opt", &m_i_NormalMap_opt, 0, 2);
 		ImGui::Checkbox("Light move active", &m_b_light_move_active);
+		//ImGui::Checkbox("Nor.Map. diffuse" &m_b_NorMap_diffuse);
+		ImGui::Checkbox("Nor.Map. diffuse", &m_b_NorMap_diffuse);
+		ImGui::Checkbox("Nor.Map. specular", &m_b_NorMap_specular);
 	}
 
 	void T04_NormalMap_01_Base::OnProcessInput(GLFWwindow * window, float deltaTime)

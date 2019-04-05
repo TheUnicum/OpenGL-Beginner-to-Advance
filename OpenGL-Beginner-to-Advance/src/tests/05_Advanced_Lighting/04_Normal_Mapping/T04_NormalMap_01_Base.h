@@ -70,6 +70,7 @@ namespace test {
 		std::vector<std::shared_ptr<Texture>> msp_Textures;
 
 		int m_i_NormalMap_opt;
+		bool m_b_NorMap_diffuse, m_b_NorMap_specular;
 
 	};
 

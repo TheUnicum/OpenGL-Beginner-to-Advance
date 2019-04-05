@@ -57,6 +57,8 @@ uniform int u_b_specular;
 
 uniform int u_i_NormalMap_opt;
 uniform int u_i_half_Width;
+uniform bool u_b_NorMap_diffuse;
+uniform bool u_b_NorMap_specular;
 
 void main()
 {
@@ -65,12 +67,8 @@ void main()
 	// trasnsform normal vector to range [-1, +1]
 	normal = normalize(normal * 2 - 1.0f);
 
-
-	// ambient
-	vec3 ambient = light.ambient * vec3(texture(material.diffuse1, TexCoords)) * u_b_ambient;
-
+	// Option Active Normal & NormalMap
 	vec3 norm;
-	// diffuse
 	if (u_i_NormalMap_opt == 0)
 		norm = normalize(Normal);
 	else if (u_i_NormalMap_opt == 1)
@@ -82,17 +80,32 @@ void main()
 		else
 			norm = normalize(Normal);
 	}
+	//----------------------------
+
+	// ambient
+	vec3 ambient = light.ambient * vec3(texture(material.diffuse1, TexCoords)) * u_b_ambient;
+
+	// diffuse
+	vec3 NormalActive;
+	if (u_b_NorMap_diffuse)
+		NormalActive = norm;
+	else
+		NormalActive = normalize(Normal);
 
 	vec3 lightDir = normalize(light.position - FragPos);
-	float diff = max(dot(norm, lightDir), 0.0f);
+	float diff = max(dot(NormalActive, lightDir), 0.0f);
 	vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse1, TexCoords)) * u_b_diffuse;
 
 	// specular
-	vec3 viewDir = normalize(u_viewPos - FragPos);
-	vec3 reflectDir = reflect(-lightDir, norm);  // Normal
-	vec3 halfwayDir = normalize(lightDir + viewDir);
-	float spec = pow(max(dot(Normal, halfwayDir), 0.0), 32.0);
+	if (u_b_NorMap_specular)
+		NormalActive = norm;
+	else
+		NormalActive = normalize(Normal);
 
+	vec3 viewDir = normalize(u_viewPos - FragPos);
+	vec3 reflectDir = reflect(-lightDir, NormalActive);  // Normal
+	vec3 halfwayDir = normalize(lightDir + viewDir);
+	float spec = pow(max(dot(NormalActive, halfwayDir), 0.0), 32.0); //Normal
 	vec3 specular = light.specular * spec * u_b_specular;
 
 
