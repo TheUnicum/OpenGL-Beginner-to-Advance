@@ -4,10 +4,13 @@
 layout(location = 0) in vec4 aPos;
 layout(location = 1) in vec3 aNormal;
 layout(location = 2) in vec2 aTexCoords;
+layout(location = 3) in vec3 aTangent;
+layout(location = 4) in vec3 aBitangent;
 
 out vec3 FragPos;
 out vec3 Normal;
 out vec2 TexCoords;
+out mat3 TBN;
 
 uniform mat4 u_mvp;
 uniform mat4 u_model;
@@ -16,6 +19,11 @@ uniform mat3 u_transInvers_model;
 
 void main()
 {
+	vec3 T = normalize(vec3(u_model * vec4(aTangent, 0.0f)));
+	vec3 B = normalize(vec3(u_model * vec4(aBitangent, 0.0f)));
+	vec3 N = normalize(vec3(u_model * vec4(aNormal, 0.0f)));
+	TBN = mat3(T, B, N);
+
 	FragPos = vec3(u_model * aPos);
 	Normal = u_transInvers_model * aNormal;
 	TexCoords = aTexCoords;
@@ -30,6 +38,7 @@ out vec4 FragColor;
 in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoords;
+in mat3 TBN;
 
 struct Material {
 	sampler2D diffuse1;
@@ -66,6 +75,7 @@ void main()
 	vec3 normal = texture(material.normal1, TexCoords).rgb;
 	// trasnsform normal vector to range [-1, +1]
 	normal = normalize(normal * 2 - 1.0f);
+	vec3 normal_TS = normalize(TBN * normal);
 
 	// Option Active Normal & NormalMap
 	vec3 norm;
@@ -73,13 +83,23 @@ void main()
 		norm = normalize(Normal);
 	else if (u_i_NormalMap_opt == 1)
 		norm = normalize(normal);
-	else
+	else if (u_i_NormalMap_opt == 2)
 	{
 		if (gl_FragCoord.x < u_i_half_Width)
 			norm = normalize(normal);
 		else
 			norm = normalize(Normal);
 	}
+	else if (u_i_NormalMap_opt == 3)
+	{
+	if (gl_FragCoord.x < u_i_half_Width)
+		norm = normalize(normal);
+	else
+		norm = normalize(normal_TS);
+	}
+	else if (u_i_NormalMap_opt == 4)
+		norm = normalize(normal_TS);
+
 	//----------------------------
 
 	// ambient

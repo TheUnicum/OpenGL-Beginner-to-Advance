@@ -112,6 +112,7 @@
 #include "tests/05_Advanced_Lighting/03_Shadows/01_Shadow_Mapping/T01_SM_02_RenderingShadows.h"
 
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_01_Base.h"
+#include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_02_TangentSpace.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -396,6 +397,7 @@ int main(void)
 		// 04 Normal Mapping
 		test::TestMenu* TM_04_Normal_Mapping = new test::TestMenu(currentTest, "Normal Mapping");
 		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_01_Base>("Normal Mapping");
+		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_02_TangentSpace>("Nor.Map Tangent Space");
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_04_Normal_Mapping);
 
 
