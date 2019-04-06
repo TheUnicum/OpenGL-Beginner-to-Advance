@@ -282,6 +282,9 @@
     <ClCompile Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_04_Optimization.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1750,6 +1753,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_04_Optimization.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

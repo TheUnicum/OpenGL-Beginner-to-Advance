@@ -1,9 +1,9 @@
-#include "T04_NormalMap_03_MeshTB.h"
+#include "T04_NormalMap_04_Optimization.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T04_NormalMap_03_MeshTB::T04_NormalMap_03_MeshTB()
+	T04_NormalMap_04_Optimization::T04_NormalMap_04_Optimization()
 		: m_f_fov(45.0f),
 		m_b_depth_test_active(true), m_b_depth_test_active_i_1(false),
 		m_b_firstMouse(true),
@@ -137,19 +137,19 @@ namespace test {
 		msp_Textures.push_back(msp_mTexture1);
 
 		m_mesh = std::make_unique<Mesh>(vertices_quad_3v_3n_2t_3T_3B, vec_quad_indices, msp_Textures);
-		m_ShaderMesh = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/04_Normal_Mapping/S04_NormalMap_03_MeshTB.Shader");
+		m_ShaderMesh = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/04_Normal_Mapping/S04_NormalMap_04_Optimization.Shader");
 		m_ShaderLight = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/04_Normal_Mapping/S00_Color_01a_Light.Shader");
 	}
 
-	T04_NormalMap_03_MeshTB::~T04_NormalMap_03_MeshTB()
+	T04_NormalMap_04_Optimization::~T04_NormalMap_04_Optimization()
 	{
 	}
 
-	void T04_NormalMap_03_MeshTB::OnUpdate(float deltaTime)
+	void T04_NormalMap_04_Optimization::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T04_NormalMap_03_MeshTB::OnRender(GLFWwindow* window)
+	void T04_NormalMap_04_Optimization::OnRender(GLFWwindow* window)
 	{
 		if (m_b_depth_test_active != m_b_depth_test_active_i_1)
 		{
@@ -282,7 +282,7 @@ namespace test {
 
 	}
 
-	void T04_NormalMap_03_MeshTB::OnImGuiRender()
+	void T04_NormalMap_04_Optimization::OnImGuiRender()
 	{
 		ImGui::Text("Normal Mapping 03 - Mesh2 & VertexTB");
 		IMGUI_FPS;
@@ -302,7 +302,7 @@ namespace test {
 		ImGui::Text("2 : Normal Map / None");
 		ImGui::Text("3 : Normal Map / Nor.Map Tangent Space");
 		ImGui::Text("4 : Nor.Map Tangent Space");
-		ImGui::SliderInt("NM opt:", &m_i_NormalMap_opt, 0, 4);
+		ImGui::SliderInt("NM opt:", &m_i_NormalMap_opt, 0, 2);
 		ImGui::Checkbox("Light move active", &m_b_light_move_active);
 		ImGui::Checkbox("Nor.Map. diffuse", &m_b_NorMap_diffuse);
 		ImGui::Checkbox("Nor.Map. specular", &m_b_NorMap_specular);
@@ -312,7 +312,7 @@ namespace test {
 		ImGui::SliderFloat3("Quad orientation", &m_quad_orientation[0], -45, 45);
 	}
 
-	void T04_NormalMap_03_MeshTB::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T04_NormalMap_04_Optimization::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -352,7 +352,7 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T04_NormalMap_03_MeshTB::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T04_NormalMap_04_Optimization::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 		if (!window)
 		{
@@ -363,7 +363,7 @@ namespace test {
 		glViewport(0, 0, width, height);
 	}
 
-	void T04_NormalMap_03_MeshTB::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T04_NormalMap_04_Optimization::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 
@@ -382,7 +382,7 @@ namespace test {
 		if (!m_mouse_lock)
 			m_camera->ProcessMouseMovement(xoffset, yoffset);
 	}
-	void T04_NormalMap_03_MeshTB::ManualCalculationTangentAndBitanget(float * ptr_quad)
+	void T04_NormalMap_04_Optimization::ManualCalculationTangentAndBitanget(float * ptr_quad)
 	{
 		// positions 
 		glm::vec3 pos1(-1.0f,  1.0f, 0.0f);
