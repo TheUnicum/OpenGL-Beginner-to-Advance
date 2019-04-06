@@ -113,6 +113,7 @@
 
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_01_Base.h"
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_02_TangentSpace.h"
+#include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_03_MeshTB.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -192,6 +193,7 @@ int main(void)
 		//-----------------------------
 		// 01_Getting_started
 		//-----------------------------
+
 		test::TestMenu* TM_01_Getting_started = new test::TestMenu(currentTest, "Getting started");
 		TM_01_Getting_started->RegisterTest<test::TestClearColor>("Clear Color test");
 
@@ -398,6 +400,7 @@ int main(void)
 		test::TestMenu* TM_04_Normal_Mapping = new test::TestMenu(currentTest, "Normal Mapping");
 		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_01_Base>("Normal Mapping");
 		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_02_TangentSpace>("Nor.Map Tangent Space");
+		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_03_MeshTB>("Nor.Map with Mesh2 & VertexTB");
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_04_Normal_Mapping);
 
 

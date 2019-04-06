@@ -90,6 +90,18 @@
     <ClCompile Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_01_DepthMap.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_02_RenderingShadows.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_01_Base.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_02_TangentSpace.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_03_MeshTB.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
     <ClCompile Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
@@ -268,15 +280,6 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_02_RenderingShadows.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_01_Base.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_02_TangentSpace.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1494,6 +1497,21 @@
     <ClInclude Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_01_DepthMap.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_02_RenderingShadows.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_01_Base.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_02_TangentSpace.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_03_MeshTB.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
     <ClInclude Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
@@ -1732,18 +1750,6 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\05_Advanced_Lighting\03_Shadows\01_Shadow_Mapping\T01_SM_02_RenderingShadows.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_01_Base.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_02_TangentSpace.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

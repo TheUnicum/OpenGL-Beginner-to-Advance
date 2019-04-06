@@ -6,25 +6,23 @@
 #include <GLFW/glfw3.h>
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures)
+	: m_vertices(vertices), m_indices(indices), msp_Textures(textures),
+	m_v_count(vertices.size()), m_i_count(indices.size()), m_ibo_data((bool)indices.size())
 {
-	this->m_vertices = vertices;
-	this->m_indices = indices;
-	this->msp_Textures = textures;
-
-	this->m_v_count = vertices.size();
-	this->m_i_count = indices.size();
-	this->m_ibo_data = (bool)indices.size();
-
 	// Now that we have all the required data, set the vertex buffers and its attribute pointer.
 	this->setupMesh();
-
 	// Preset the uniform names used int the (mesh).Shader
-	this->m_textureTypeName[(int)TextureType::DIFFUSE] = "material.diffuse";
-	this->m_textureTypeName[(int)TextureType::SPECULAR] = "material.specular";
-	this->m_textureTypeName[(int)TextureType::EMISSION] = "material.emission";
-	this->m_textureTypeName[(int)TextureType::NORMAL] = "material.normal";
-	this->m_textureTypeName[(int)TextureType::HEIGHT] = "material.height";
-	this->m_textureTypeName[(int)TextureType::AMBIENT] = "material.ambient";
+	this->presetUniformNames();
+}
+
+Mesh::Mesh(std::vector<VertexTB> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures)
+	: m_verticesTB(vertices), m_indices(indices), msp_Textures(textures),
+	m_v_count(vertices.size()), m_i_count(indices.size()), m_ibo_data((bool)indices.size())
+{
+	// Now that we have all the required data, set the vertex buffers and its attribute pointer.
+	this->setupMeshTB();
+	// Preset the uniform names used int the (mesh).Shader
+	this->presetUniformNames();
 }
 
 void Mesh::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
@@ -117,11 +115,48 @@ void Mesh::setupMesh()
 	m_va.Unbind();
 }
 
+void Mesh::setupMeshTB()
+{
+	m_vb = std::make_unique<VertexBuffer>(&m_verticesTB[0], m_verticesTB.size() * sizeof(VertexTB));
+	if (m_ibo_data) // if ibo data generate IndexBuffer and link to the VertexArray
+		m_ibo = std::make_shared<IndexBuffer>(&m_indices[0], m_indices.size());
+
+	VertexBufferLayout layout;
+	layout.Push<float>(sizeof(VertexTB::Position) / sizeof(float));
+	layout.Push<float>(sizeof(VertexTB::Normal) / sizeof(float));
+	layout.Push<float>(sizeof(VertexTB::TexCoords) / sizeof(float));
+	layout.Push<float>(sizeof(VertexTB::Tangent) / sizeof(float));
+	layout.Push<float>(sizeof(VertexTB::Bitangent) / sizeof(float));
+	m_va.AddBuffer(*m_vb, layout, m_ibo);
+	m_va.Unbind();
+}
+
+void Mesh::presetUniformNames()
+{
+	// Preset the uniform names used int the (mesh).Shader
+	this->m_textureTypeName[(int)TextureType::DIFFUSE] = "material.diffuse";
+	this->m_textureTypeName[(int)TextureType::SPECULAR] = "material.specular";
+	this->m_textureTypeName[(int)TextureType::EMISSION] = "material.emission";
+	this->m_textureTypeName[(int)TextureType::NORMAL] = "material.normal";
+	this->m_textureTypeName[(int)TextureType::HEIGHT] = "material.height";
+	this->m_textureTypeName[(int)TextureType::AMBIENT] = "material.ambient";
+}
+
 // utility overload for iostream Vertex Data
 std::ostream& operator<<(std::ostream& stream, const Vertex& vertex)
 {
 	stream << "Pos:(" << vertex.Position.x << ", " << vertex.Position.y << ", " << vertex.Position.z <<
 		"), Normal:(" << vertex.Normal.x << ", " << vertex.Normal.y << ", " << vertex.Normal.z <<
 		"), TexCoords:(" << vertex.TexCoords.x << ", " << vertex.TexCoords.y << ")";
+	return stream;
+}
+
+std::ostream & operator<<(std::ostream & stream, const VertexTB & vertex)
+{
+	stream << "Pos:(" << vertex.Position.x << ", " << vertex.Position.y << ", " << vertex.Position.z <<
+		"), Normal:(" << vertex.Normal.x << ", " << vertex.Normal.y << ", " << vertex.Normal.z <<
+		"), TexCoords:(" << vertex.TexCoords.x << ", " << vertex.TexCoords.y <<
+		"), Tangent:(" << vertex.Tangent.x << ", " << vertex.Tangent.y << ", " << vertex.Tangent.z <<
+		"), Bitangent:(" << vertex.Bitangent.x << ", " << vertex.Bitangent.y << ", " << vertex.Bitangent.z << ")";
 	return stream;
 }

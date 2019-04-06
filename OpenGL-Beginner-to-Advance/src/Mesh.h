@@ -29,11 +29,27 @@ struct Vertex
 		:Position(vertex.Position), Normal(vertex.Normal), TexCoords(vertex.TexCoords) {}
 };
 
+struct VertexTB
+{
+	glm::vec3 Position;
+	glm::vec3 Normal;
+	glm::vec2 TexCoords;
+	glm::vec3 Tangent;
+	glm::vec3 Bitangent;
+
+	VertexTB(glm::vec3 pos, glm::vec3 norm, glm::vec2 texC, glm::vec3 tang, glm::vec3 bitang)
+		:Position(pos), Normal(norm), TexCoords(texC), Tangent(tang), Bitangent(bitang) {}
+
+	VertexTB(const VertexTB& vertex)
+		:Position(vertex.Position), Normal(vertex.Normal), TexCoords(vertex.TexCoords),
+		Tangent(vertex.Tangent), Bitangent(vertex.Bitangent) {}
+};
 
 class Mesh
 {
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
+	Mesh(std::vector<VertexTB> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
 	void Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays = false);
 	void Draw(std::shared_ptr<Shader> shader, unsigned int instance_count, bool compatible_glDrawArrays = false);
 
@@ -47,10 +63,14 @@ public:
 	inline unsigned int GetIndexCount() const { return m_i_count; }
 private:
 	void setupMesh();
+	void setupMeshTB();
+	// Preset the uniform names used int the (mesh).Shader
+	void presetUniformNames();
 
 private:
 	/* Mesh Data */
 	std::vector<Vertex> m_vertices;
+	std::vector<VertexTB> m_verticesTB;
 	std::vector<unsigned int> m_indices;
 	std::vector<std::shared_ptr<Texture>> msp_Textures;
 	// VertexArray & VertexBuffer
@@ -65,3 +85,4 @@ private:
 
 // utility overload
 std::ostream& operator<<(std::ostream& stream, const Vertex& vertex);
+std::ostream& operator<<(std::ostream& stream, const VertexTB& vertex);
