@@ -13,7 +13,7 @@ void Model::Draw(std::shared_ptr<Shader> shader, unsigned int instance_count, bo
 		m_meshes[i]->Draw(shader, instance_count, compatible_glDrawArrays);
 }
 
-void Model::loadModel(const std::string & path)
+void Model::loadModel(const std::string & path, bool calcTangentSpace)
 {
 	// read file via ASSIMP
 	// aiProcess_Triangulate       : transform all the model's primitive shapes to triangles
@@ -57,7 +57,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 std::shared_ptr<Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	// data to fill
-	std::vector<Vertex> vertices;
+	std::vector<VertexTB> vertices; //std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<std::shared_ptr<Texture>> sp_textures;
 
@@ -65,8 +65,8 @@ std::shared_ptr<Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		//Vertex vertex(glm::vec3(0.0f), glm::vec3(0.0f), glm::vec2(1.0f));
-		glm::vec3 pos, norm;
-		glm::vec2 texCoord;
+		glm::vec3 v_pos, v_norm, v_tang, v_bitang;
+		glm::vec2 v_texCoord;
 		
 		glm::vec3 vector;	// we declare a placeholder vector since assimp its own vector class that doesn't
 							// directly convert to glm's vec3 class so we transfer the data to this palceholder glm::vec3 first
@@ -75,13 +75,13 @@ std::shared_ptr<Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		vector.y = mesh->mVertices[i].y;
 		vector.z = mesh->mVertices[i].z;
 		//vertex.Position = vector;
-		pos = vector;
+		v_pos = vector;
 		// normals
 		vector.x = mesh->mNormals[i].x;
 		vector.y = mesh->mNormals[i].y;
 		vector.z = mesh->mNormals[i].z;
 		//vertex.Normal = vector;
-		norm = vector;
+		v_norm = vector;
 		// texture coordinates
 		if (mesh->mTextureCoords[0]) // does the mesh contains texture coordinates?
 		{
@@ -91,28 +91,27 @@ std::shared_ptr<Mesh> Model::processMesh(aiMesh* mesh, const aiScene* scene)
 			vec.x = mesh->mTextureCoords[0][i].x;
 			vec.y = mesh->mTextureCoords[0][i].y;
 			//vertex.TexCoords = vec;
-			texCoord = vec;
+			v_texCoord = vec;
 		}
 		else
 		{
 			//vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-			texCoord = glm::vec2(0.0f, 0.0f);
+			v_texCoord = glm::vec2(0.0f, 0.0f);
 		}
 		// tangent
-		//vector.x = mesh->mTangents[i].x;
-		//vector.y = mesh->mTangents[i].y;
-		//vector.z = mesh->mTangents[i].z;
-		//	vertex. = vector;
+		vector.x = mesh->mTangents[i].x;
+		vector.y = mesh->mTangents[i].y;
+		vector.z = mesh->mTangents[i].z;
+		v_tang = vector;
 		// bitangent
-		//vector.x = mesh->mBitangents[i].x;
-		//vector.y = mesh->mBitangents[i].y;
-		//vector.z = mesh->mBitangents[i].z;
-		//	vertex. = vector;
+		vector.x = mesh->mBitangents[i].x;
+		vector.y = mesh->mBitangents[i].y;
+		vector.z = mesh->mBitangents[i].z;
+		v_bitang = vector;
 
-		vertices.emplace_back(pos, norm, texCoord);
+		//vertices.emplace_back(v_pos, v_norm, v_texCoord);
+		vertices.emplace_back(v_pos, v_norm, v_texCoord, v_tang, v_bitang);
 		//vertices.push_back(vertex);
-
-
 	}
 
 	// now walk through each mesh's faces (a face is a mesh its triangle)

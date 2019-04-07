@@ -48,3 +48,6 @@ Setting up a test:Gamma Correction
 
 Setting up a test:Rendering Shadows
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v16.png)
+
+Setting up a test:Normal Mapping (Complex objects)
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v17.png)

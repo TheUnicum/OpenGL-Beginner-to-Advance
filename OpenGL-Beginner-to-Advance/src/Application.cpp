@@ -115,6 +115,7 @@
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_02_TangentSpace.h"
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_03_MeshTB.h"
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_04_Optimization.h"
+#include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_05_Model.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -403,6 +404,7 @@ int main(void)
 		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_02_TangentSpace>("Nor.Map Tangent Space");
 		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_03_MeshTB>("Nor.Map with Mesh2 & VertexTB");
 		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_04_Optimization>("Nor.Map : Shader Optimization");
+		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_05_Model>("Nor.Map : Model");
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_04_Normal_Mapping);
 
 

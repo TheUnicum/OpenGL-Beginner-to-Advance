@@ -228,6 +228,7 @@
     <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_02_TangentSpace.cpp" />
     <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_03_MeshTB.cpp" />
     <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_04_Optimization.cpp" />
+    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_05_Model.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -479,6 +480,7 @@
     <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_02_TangentSpace.h" />
     <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_03_MeshTB.h" />
     <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_04_Optimization.h" />
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_05_Model.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

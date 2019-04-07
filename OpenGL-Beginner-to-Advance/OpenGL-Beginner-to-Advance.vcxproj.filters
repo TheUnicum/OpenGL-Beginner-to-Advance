@@ -102,6 +102,93 @@
     <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_03_MeshTB.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_04_Optimization.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_05_Model.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\T02_StencilTesting.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_02_Order.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\04_FaceCulling\T04_FaceCulling_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_02.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_03_Abstract_A.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_04_Abstract_B.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_02_Reflection.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_03_Model2.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_02_FragCoord.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_03_UniformBuff.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_01_Line.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_02_Line.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_03_House.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_04_Exploding.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_05_Fur_Normal.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_01_Multi_Quad.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_03_Asteroid_Field_Base.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
     <ClCompile Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
@@ -199,90 +286,6 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\tests\03_Model_Loading\03_Model\T03_Model_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\T02_StencilTesting.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_02_Order.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\04_FaceCulling\T04_FaceCulling_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_02.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_03_Abstract_A.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_04_Abstract_B.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_02_Reflection.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_03_Model2.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_02_FragCoord.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_03_UniformBuff.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_01_Line.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_02_Line.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_03_House.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_04_Exploding.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_05_Fur_Normal.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_01_Multi_Quad.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_03_Asteroid_Field_Base.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_04_Optimization.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1515,6 +1518,123 @@
     <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_03_MeshTB.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_04_Optimization.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_05_Model.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\T02_StencilTesting.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_02_Order.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\04_FaceCulling\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\04_FaceCulling\T04_FaceCulling_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_02.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_03_Abstract_A.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_04_Abstract_B.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_02_Reflection.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_03_Model2.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_02_FragCoord.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_03_UniformBuff.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_01_Line.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_02_Line.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_03_House.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_04_Exploding.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_05_Fur_Normal.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_01_Multi_Quad.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_03_Asteroid_Field_Base.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
     <ClInclude Include="src\tests\01_Getting_started\04_HelloTriangle\T04_HelloTriangle.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
@@ -1642,120 +1762,6 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\03_Model_Loading\03_Model\T03_Model_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\01_DepthTesting\T01_DepthTesting.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\02_StencilTesting\T02_StencilTesting.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\03_Blending\T03_Blending_02_Order.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\04_FaceCulling\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\04_FaceCulling\T04_FaceCulling_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_02.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_03_Abstract_A.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_04_Abstract_B.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\05_Framebuffers\T05_Framebuffers_05_Multi.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_02_Reflection.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\06_Cubemaps\T06_Cubemaps_03_Model2.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_02_FragCoord.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\08_Advanced_GLSL\T08_Advanced_GLSL_03_UniformBuff.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_01_Line.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_02_Line.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_03_House.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_04_Exploding.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\09_GeometryShader\T09_GeometryShader_05_Fur_Normal.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_01_Multi_Quad.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_02_InstancedA.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_03_Asteroid_Field_Base.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_04_Asteroid_Field_Instancing.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\10_Instancing\T10_Instancing_05_Asteroid_Field_Tests.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\E00_cube_vertices.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\04_Advanced_OpenGL\11_AntiAliasing\T11_AntiAliasing_01.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tests\05_Advanced_Lighting\04_Normal_Mapping\T04_NormalMap_04_Optimization.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

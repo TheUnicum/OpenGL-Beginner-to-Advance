@@ -17,11 +17,12 @@
 
 #include <iostream>
 
+
 class Model
 {
 public:
 	/* Functions */
-	Model(const std::string& path) { loadModel(path); }
+	Model(const std::string& path, bool calcTangentSpace = false) { loadModel(path, calcTangentSpace); }
 	// draws the model, and thus all its meshes
 	void Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays = false);
 	// draws the model Nr Times, and thus all its meshes
@@ -31,7 +32,7 @@ public:
 private:
 	/* Funcitons */
 	// loads model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-	void loadModel(const std::string& path);
+	void loadModel(const std::string& path, bool calcTangentSpace);
 
 	// process a node in a recursive fashion. Processes each individual mesh located at the node 
 	// and repeats this  process on its children nodes (if any)
