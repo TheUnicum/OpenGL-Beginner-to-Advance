@@ -118,6 +118,7 @@
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_05_Model.h"
 
 #include "tests/05_Advanced_Lighting/05_Parallax_Mapping/T05_ParallaxMap_01_Base.h"
+#include "tests/05_Advanced_Lighting/05_Parallax_Mapping/T05_ParallaxMap_02_SteepPM.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -412,6 +413,7 @@ int main(void)
 		// 05 Parallax Mapping
 		test::TestMenu* TM_05_Parallax_Mapping = new test::TestMenu(currentTest, "Parallax Mapping");
 		TM_05_Parallax_Mapping->RegisterTest<test::T05_ParallaxMap_01_Base>("Parallax Mapping 01 - Base");
+		TM_05_Parallax_Mapping->RegisterTest<test::T05_ParallaxMap_02_SteepPM>("PM 02 - Steep Parallax Mapping");
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_05_Parallax_Mapping);
 
 		//-----------------------------

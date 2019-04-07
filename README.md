@@ -51,3 +51,6 @@ Setting up a test:Rendering Shadows
 
 Setting up a test:Normal Mapping (Complex objects)
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v17.png)
+
+Setting up a test:Parallax Mapping (Steep & Parallax Occlusion Mapping)
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v18.png)
