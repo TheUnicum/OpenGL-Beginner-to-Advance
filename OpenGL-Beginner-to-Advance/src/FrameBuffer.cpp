@@ -29,7 +29,7 @@ void FrameBuffer::TextureBind(unsigned int slot /*= 0*/) const
 // Initialize FBO standard:
 // 1- Attachment texture 
 // 2- depth/stencil RenderBuffer
-bool FrameBuffer::Initialize(int width, int height)
+bool FrameBuffer::Initialize(int width, int height, int internalFormat)
 {
 	// - We have to attach at least one buffer(color, depth or stencil buffer).
 	// - There should be at least one color attachment.
@@ -39,7 +39,7 @@ bool FrameBuffer::Initialize(int width, int height)
 	// 1- framebuffer configuration 
 	Bind();
 	// 2- create a color attachment texture
-	m_texture.Initialize(width, height);
+	m_texture.Initialize(width, height, internalFormat);
 	// 3- attach it to currently bound framebuffer object
 	GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture.GetID(), 0));
 	// 4- create a render buffer object for depth and stencil attachment ( we won't be sampling these)

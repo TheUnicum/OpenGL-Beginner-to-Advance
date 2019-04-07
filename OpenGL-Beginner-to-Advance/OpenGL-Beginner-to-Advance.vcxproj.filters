@@ -294,6 +294,9 @@
     <ClCompile Include="src\tests\05_Advanced_Lighting\05_Parallax_Mapping\T05_ParallaxMap_02_SteepPM.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\06_HDR\T06_HDR_01_Base.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1777,6 +1780,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\05_Advanced_Lighting\05_Parallax_Mapping\T05_ParallaxMap_02_SteepPM.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\06_HDR\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\06_HDR\T06_HDR_01_Base.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

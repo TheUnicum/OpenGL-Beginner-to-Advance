@@ -120,6 +120,8 @@
 #include "tests/05_Advanced_Lighting/05_Parallax_Mapping/T05_ParallaxMap_01_Base.h"
 #include "tests/05_Advanced_Lighting/05_Parallax_Mapping/T05_ParallaxMap_02_SteepPM.h"
 
+#include "tests/05_Advanced_Lighting/06_HDR/T06_HDR_01_Base.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -415,6 +417,11 @@ int main(void)
 		TM_05_Parallax_Mapping->RegisterTest<test::T05_ParallaxMap_01_Base>("Parallax Mapping 01 - Base");
 		TM_05_Parallax_Mapping->RegisterTest<test::T05_ParallaxMap_02_SteepPM>("PM 02 - Steep Parallax Mapping");
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_05_Parallax_Mapping);
+
+		// 06 HDR (high Dynamic range)
+		test::TestMenu* TM_06_HDR = new test::TestMenu(currentTest, "High Dybanic Range (HDR)");
+		TM_06_HDR->RegisterTest<test::T06_HDR_01_Base>("HDR 01 - Base");
+		TM_05_Advanced_Lighting->RegisterMenu(*TM_06_HDR);
 
 		//-----------------------------
 		//-----------------------------

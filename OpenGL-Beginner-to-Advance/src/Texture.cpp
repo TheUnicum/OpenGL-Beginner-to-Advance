@@ -69,7 +69,16 @@ void Texture::Initialize(int width, int height, int internalFormat, int dataForm
 	m_target = GL_TEXTURE_2D;
 
 	Bind();
-	GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_UNSIGNED_BYTE, nullptr));
+	// Implementation for HDR (High Dynamic Range) Floating Point framebuffer
+	if ((internalFormat == GL_RGBA16F) || (internalFormat == GL_RGBA32F))
+	{
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_FLOAT, nullptr));
+	}
+	else
+	{
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_UNSIGNED_BYTE, nullptr));
+	}
+
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_filter)); // GL_LINEAR
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag_filter)); // GL_LINEAR
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_s)); // GL_REPEAT
