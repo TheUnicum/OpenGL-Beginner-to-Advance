@@ -117,6 +117,8 @@
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_04_Optimization.h"
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_05_Model.h"
 
+#include "tests/05_Advanced_Lighting/05_Parallax_Mapping/T05_ParallaxMap_01_Base.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -407,6 +409,10 @@ int main(void)
 		TM_04_Normal_Mapping->RegisterTest<test::T04_NormalMap_05_Model>("Nor.Map : Model");
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_04_Normal_Mapping);
 
+		// 05 Parallax Mapping
+		test::TestMenu* TM_05_Parallax_Mapping = new test::TestMenu(currentTest, "Parallax Mapping");
+		TM_05_Parallax_Mapping->RegisterTest<test::T05_ParallaxMap_01_Base>("Parallax Mapping 01 - Base");
+		TM_05_Advanced_Lighting->RegisterMenu(*TM_05_Parallax_Mapping);
 
 		//-----------------------------
 		//-----------------------------
