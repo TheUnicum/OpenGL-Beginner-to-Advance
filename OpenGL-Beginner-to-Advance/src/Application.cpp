@@ -122,6 +122,8 @@
 
 #include "tests/05_Advanced_Lighting/06_HDR/T06_HDR_01_Base.h"
 
+#include "tests/05_Advanced_Lighting/07_Bloom/T07_Bloom_01_Base.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -422,6 +424,11 @@ int main(void)
 		test::TestMenu* TM_06_HDR = new test::TestMenu(currentTest, "High Dybanic Range (HDR)");
 		TM_06_HDR->RegisterTest<test::T06_HDR_01_Base>("HDR 01 - Base");
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_06_HDR);
+
+		// 07 Bloom
+		test::TestMenu* TM_07_Bloom = new test::TestMenu(currentTest, "Bloom");
+		TM_07_Bloom->RegisterTest<test::T07_Bloom_01_Base>("Bloom 01 - Base");
+		TM_05_Advanced_Lighting->RegisterMenu(*TM_07_Bloom);
 
 		//-----------------------------
 		//-----------------------------
