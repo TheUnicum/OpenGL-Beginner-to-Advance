@@ -13,10 +13,11 @@ namespace test {
 
 		//HDR High Dynamic Range
 		m_i_Tone_mapping_Type(0), m_f_hdr_expose(1.0f),
-		m_b_disable_Floating_point_fb(false), m_b_disable_Floating_point_fb_i_1(false)
+		m_b_disable_Floating_point_fb(false), m_b_disable_Floating_point_fb_i_1(false),
+		m_i_fbo_colorbuffer_selected(0), m_b_bloom(false), m_b_bloom_debug(false), m_i_bloom_intensity(10)
 	{
 		// Initialize camera
-		m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 90.f, 0.f);
+		m_camera = std::make_unique<Camera>(glm::vec3(-8.0f, 2.0f, 2.0f), glm::vec3(0.0f, 1.0f, 0.0f), -20.f, 0.f);
 		//m_camera->ResetYawPitch();
 		m_camera->ProcessMouseMovement(0, 0);
 
@@ -87,6 +88,16 @@ namespace test {
 
 		// FrameBuffer
 		FramebufferSetup(m_framebufferWidth, m_framebufferHeight);
+		
+;
+		//m_pingPongFBOs.push_back(std::make_shared<FrameBuffer>());
+		//m_pingPongFBOs.push_back(std::make_shared<FrameBuffer>());
+		//if (!m_pingPongFBOs[0]->Initialize(m_framebufferWidth, m_framebufferHeight, GL_RGB16F, 1))
+		//	std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
+		//if (!m_pingPongFBOs[1]->Initialize(m_framebufferWidth, m_framebufferHeight, GL_RGB16F, 1))
+		//	std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
+
+		//m_fbo_double.Initialize(m_framebufferWidth, m_framebufferHeight, GL_RGB16F, 2);
 
 
 		// Quad already x[-1, 1], y[-1, 1]
@@ -97,6 +108,21 @@ namespace test {
 		m_ScreenVAO = std::make_unique<VertexArray>();
 		m_ScreenVAO->AddBuffer(*m_ScreenVBO, layout);
 		m_ShaderScreen = std::make_unique<Shader>("src/tests/05_Advanced_Lighting/07_Bloom/S07_Bloom_01_Base_Screeen.Shader");
+		m_ShaderBlur = std::make_unique<Shader>("src/tests/05_Advanced_Lighting/07_Bloom/S07_Bloom_01_Blur.Shader");
+		m_ShaderFinal = std::make_unique<Shader>("src/tests/05_Advanced_Lighting/07_Bloom/S07_Bloom_01_Final_Blending.Shader");
+
+		//unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+		
+		////char* message = (char*)alloca(length * sizeof(char));
+		//int length = 2;
+		//unsigned int* attachments = (unsigned int*)alloca(length * sizeof(unsigned int));
+		//for (unsigned int i = 0; i < length; i++)
+		//	attachments[i] = GL_COLOR_ATTACHMENT0 + i;
+		////unsigned int attachments1[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+		//glDrawBuffers(2, attachments);
+
+
+		//Lenum drawBuffers[] = { GL_NONE, GL_NONE, GL_NONE, GL_NONE, GL_COLOR_ATTACHMENT4 };
 
 	}
 
@@ -169,7 +195,8 @@ namespace test {
 		// Framebuffer A (Draw Scene into texture/renderbuffer)
 		//--------------------------------------------------------------------------------------------
 		// bind to framebuffer and draw scene as we normally would to color texture
-		m_fbo.Bind();
+		//m_fbo.Bind();
+		m_fbo_double.Bind();
 		glEnable(GL_DEPTH_TEST); // Enable depth testing (is disabled for rendering screen-space quad)
 
 		//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -276,13 +303,44 @@ namespace test {
 			}
 		}
 
+		m_fbo_double.Unbind();
+
+		//--------------------------------------------------------------------------------------------
+		// 2. blur bright fragment with two-pass Gaussian Blur
+		//--------------------------------------------------------------------------------------------
+
+		glDisable(GL_DEPTH_TEST);
+		bool horizontal = true, first_iteration = true;
+		unsigned int amount = 50;
+		amount = m_i_bloom_intensity * 2;
+		m_ShaderBlur->Bind();
+		for (unsigned int i = 0; i < amount; i++)
+		{
+			m_pingPongFBOs[horizontal]->Bind();
+			m_ShaderBlur->SetUniform1i("u_horizontal", horizontal);
+			if (first_iteration)
+			{
+				m_fbo_double.m_textures[1]->Bind(0);
+				first_iteration = false;
+			}
+			else
+				m_pingPongFBOs[!horizontal]->m_textures[0]->Bind(0);
+			
+			m_ScreenVAO->Bind();
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+		
+			horizontal = !horizontal;
+		}
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 
 		//--------------------------------------------------------------------------------------------
 		// Framebuffer B (Draw Texture in a quad!)
 		//--------------------------------------------------------------------------------------------
 
 		// now bind back to the default framebuffer and draw a quad plane with the attached framebuffer
-		m_fbo.Unbind();
+		//m_fbo.Unbind();
+		//m_fbo_double.Unbind();
 		glDisable(GL_DEPTH_TEST);	//  disable depth test so screen-space quad isn't discard due depth test.
 		
 		// clear all relevant buffers
@@ -291,15 +349,36 @@ namespace test {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 
-		m_ShaderScreen->Bind();
-
-		m_ShaderScreen->SetUniform1i("u_i_Tone_mapping_Type", m_i_Tone_mapping_Type);
-		m_ShaderScreen->SetUniform1f("u_f_hdr_expose", m_f_hdr_expose);
-
-		m_ScreenVAO->Bind();
-		// use the color attachment texture as the texture of the quad plane
-		m_fbo.TextureBind(0);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		if (m_b_bloom_debug)
+		{
+			m_ShaderScreen->Bind();
+			
+			m_ShaderScreen->SetUniform1i("u_i_Tone_mapping_Type", m_i_Tone_mapping_Type);
+			m_ShaderScreen->SetUniform1f("u_f_hdr_expose", m_f_hdr_expose);
+			
+			m_ScreenVAO->Bind();
+			// use the color attachment texture as the texture of the quad plane
+			//m_fbo.TextureBind(0);
+			//m_fbo_double.TextureBind(0);
+			if (m_i_fbo_colorbuffer_selected == 2)
+				m_pingPongFBOs[0]->m_textures[0]->Bind(0);
+			else
+				m_fbo_double.m_textures[m_i_fbo_colorbuffer_selected]->Bind(0);
+				
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+		}
+		else
+		{
+			m_ShaderFinal->Bind();
+			m_ShaderFinal->SetUniform1f("u_f_hdr_expose", m_f_hdr_expose);
+			m_ShaderFinal->SetUniform1f("u_b_bloom", m_b_bloom);
+			m_ScreenVAO->Bind();
+			m_fbo_double.m_textures[0]->Bind(0);
+			m_ShaderFinal->SetUniform1i("scene", 0);
+			m_pingPongFBOs[0]->m_textures[0]->Bind(1);
+			m_ShaderFinal->SetUniform1i("bloomBlur", 1);
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+		}
 
 
 	}
@@ -322,6 +401,14 @@ namespace test {
 		ImGui::SliderInt("Type:", &m_i_Tone_mapping_Type, 0, 2);
 		ImGui::SliderFloat("Expose", &m_f_hdr_expose, 0.1f, 10.0f);
 		ImGui::Checkbox("Disable float point FB", &m_b_disable_Floating_point_fb);
+		
+		ImGui::Text("COLOR_ATTACHMENT");
+		ImGui::SliderInt("nr:", &m_i_fbo_colorbuffer_selected, 0, 2);
+
+		ImGui::Checkbox("Bloom Active", &m_b_bloom);
+		ImGui::Checkbox("Bloom Debug", &m_b_bloom_debug);
+		ImGui::Text("Bloom Intensity");
+		ImGui::SliderInt("BI:", &m_i_bloom_intensity, 1, 30);
 
 		ImGui::Text("Options:");
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
@@ -404,8 +491,20 @@ namespace test {
 	void T07_Bloom_01_Base::FramebufferSetup(int width, int height)
 	{
 		int internal_format = m_b_disable_Floating_point_fb ? GL_RGB : GL_RGBA32F;// GL_RGBA16F;
-		if (!m_fbo.Initialize(width, height, internal_format))// , GL_RGBA16F))
+		if (!m_fbo_double.Initialize(width, height, internal_format, 2))// , GL_RGBA16F))
 			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
+
+		if (m_pingPongFBOs.size() == 0)
+		{
+			m_pingPongFBOs.push_back(std::make_shared<FrameBuffer>());
+			m_pingPongFBOs.push_back(std::make_shared<FrameBuffer>());
+		}
+
+		if (!m_pingPongFBOs[0]->Initialize(width, height, internal_format, 1))
+			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
+		if (!m_pingPongFBOs[1]->Initialize(width, height, internal_format, 1))
+			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
+
 	}
 
 	void T07_Bloom_01_Base::DrawCube(std::shared_ptr<Shader> shader, glm::mat4 proj, glm::mat4 view, glm::mat4 model)

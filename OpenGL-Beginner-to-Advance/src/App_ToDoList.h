@@ -23,4 +23,13 @@ Fare un test per tutte le options
 	Over sampling Texture(GL_CLAMP_TO_BORDER) see (!m_fbo.InitializeDepthMap(width, height, false or true))
 -Orthographic vs projection
 
+
+// 07 Bloom
+Check the :
+	T07_Bloom_01_Base::FramebufferSetup
+	bool FrameBuffer::Initialize(int width, int height, int internalFormat, int nr_of_colorBuffers)
+	m_textures.push_back(_texture_temp);
+
+	Important not to create & push new (ptr)Texture every change of window resolution
+
 */

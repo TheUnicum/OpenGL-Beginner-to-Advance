@@ -54,6 +54,45 @@ bool FrameBuffer::Initialize(int width, int height, int internalFormat)
 	return complete;
 }
 
+bool FrameBuffer::Initialize(int width, int height, int internalFormat, int nr_of_colorBuffers)
+{
+	// 1- framebuffer configuration 
+	Bind();
+	for (unsigned int i = 0; i < nr_of_colorBuffers; i++)
+	{
+		// 2- create a color attachment texture
+		//std::shared_ptr<Texture> _texture_temp = std::make_shared<Texture>();
+		//_texture_temp->Initialize(width, height, GL_RGB16F, GL_RGB, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+		//m_textures.push_back(_texture_temp);
+		while (m_textures.size() < nr_of_colorBuffers)
+		{
+			std::shared_ptr<Texture> _texture_temp = std::make_shared<Texture>();
+			m_textures.push_back(_texture_temp);
+		}
+		m_textures[i]->Initialize(width, height, GL_RGB16F, GL_RGB, GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+
+		// 3- attach it to currently bound framebuffer object
+		GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_textures[i]->GetID(), 0));
+	}
+	// 4- create a render buffer object for depth and stencil attachment ( we won't be sampling these)
+	m_rbo.Initialize(width, height);
+	// 5- attach it to currently bound framebuffer object
+	GLCall(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo.GetID()));
+	// 6- Now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+	
+	//unsigned int attachments[nr] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, ..... };
+	unsigned int* attachments = (unsigned int*)alloca(nr_of_colorBuffers * sizeof(unsigned int));
+	for (unsigned int i = 0; i < nr_of_colorBuffers; i++)
+		attachments[i] = GL_COLOR_ATTACHMENT0 + i;
+	glDrawBuffers(nr_of_colorBuffers, attachments);
+	
+	bool complete = IsComplete();
+	// 7- Unbind FrameBuffer and reset to default
+	Unbind();
+
+	return complete;
+}
+
 bool FrameBuffer::InitializeDepthMap(int width, int height, bool low_quality)
 {
 	// 1- framebuffer configuration 

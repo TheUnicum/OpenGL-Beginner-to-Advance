@@ -65,7 +65,7 @@ namespace test {
 		bool m_b_VSync_disabled, m_b_VSync_disabled_i_1;
 
 		// Framebuffers
-		std::unique_ptr<Shader> m_ShaderScreen;
+		std::unique_ptr<Shader> m_ShaderScreen, m_ShaderBlur, m_ShaderFinal;
 		std::unique_ptr<VertexBuffer> m_ScreenVBO;
 		std::unique_ptr<VertexArray> m_ScreenVAO;
 
@@ -76,14 +76,22 @@ namespace test {
 		// Abstracting
 		Texture m_fbp_texture;
 		RenderBuffer m_fbo_rbuffer;
-		FrameBuffer m_fbo;
+		FrameBuffer m_fbo_double;
+		int m_i_fbo_colorbuffer_selected;
+
+		std::vector<std::shared_ptr<FrameBuffer>> m_pingPongFBOs;
 
 
 		int m_i_Tone_mapping_Type;
 		float m_f_hdr_expose;
 		bool m_b_disable_Floating_point_fb, m_b_disable_Floating_point_fb_i_1;
 
+		bool m_b_bloom, m_b_bloom_debug;
+		int m_i_bloom_intensity;
+
 		void DrawCube(std::shared_ptr<Shader> shader, glm::mat4 proj, glm::mat4 view, glm::mat4 model);
+
+
 
 	};
 

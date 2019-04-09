@@ -12,7 +12,8 @@ private:
 	int m_Width, m_Height;
 	Texture m_texture;
 	RenderBuffer m_rbo;
-
+public:
+	std::vector<std::shared_ptr<Texture>> m_textures;
 public:
 	FrameBuffer();
 	~FrameBuffer();
@@ -23,6 +24,7 @@ public:
 	void TextureBind(unsigned int slot = 0) const;
 
 	bool Initialize(int width, int height, int internalFormat = GL_RGB);
+	bool Initialize(int width, int height, int internalFormat, int nr_of_colorBuffers);
 	bool InitializeDepthMap(int width, int height, bool low_quality = false);
 	bool IsComplete() const;
 };
