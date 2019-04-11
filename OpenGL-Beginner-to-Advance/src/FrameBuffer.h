@@ -21,10 +21,13 @@ public:
 	void Bind() const;
 	void Unbind() const;
 
+	inline unsigned int GetID() const { return m_RendererID; }
+
 	void TextureBind(unsigned int slot = 0) const;
 
 	bool Initialize(int width, int height, int internalFormat = GL_RGB);
 	bool Initialize(int width, int height, int internalFormat, int nr_of_colorBuffers);
 	bool InitializeDepthMap(int width, int height, bool low_quality = false);
+	bool InitializeGBuffer(int width, int height);
 	bool IsComplete() const;
 };

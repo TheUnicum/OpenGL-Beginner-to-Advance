@@ -117,6 +117,56 @@ bool FrameBuffer::InitializeDepthMap(int width, int height, bool low_quality)
 	return complete;
 }
 
+bool FrameBuffer::InitializeGBuffer(int width, int height)
+{
+	int nr_of_colorBuffers = 3;
+
+	// 1- framebuffer configuration 
+	Bind();
+
+	// The first Initialized fill the Textures' vector
+	while (m_textures.size() < nr_of_colorBuffers)
+	{
+		std::shared_ptr<Texture> _texture_temp = std::make_shared<Texture>();
+		m_textures.push_back(_texture_temp);
+	}
+
+	// 2- Create a color attachment textures 
+	// &
+	// 3- attach it to currently bound framebuffer object
+
+	// - position color buffer [gPosition]
+	m_textures[0]->Initialize(width, height, GL_RGB16F, GL_RGB, GL_NEAREST, GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+	GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 0, GL_TEXTURE_2D, m_textures[0]->GetID(), 0));
+
+	// - normal color buffer [gNormal]
+	m_textures[1]->Initialize(width, height, GL_RGB16F, GL_RGB, GL_NEAREST, GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+	GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 1, GL_TEXTURE_2D, m_textures[1]->GetID(), 0));
+
+	// - color + specular color buffer [gAlbedoSpec]
+	m_textures[2]->Initialize(width, height, GL_RGBA, GL_RGBA, GL_NEAREST, GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+	GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + 2, GL_TEXTURE_2D, m_textures[2]->GetID(), 0));
+
+
+	// 4- create a render buffer object for depth and stencil attachment ( we won't be sampling these)
+	m_rbo.Initialize(width, height);
+	// 5- attach it to currently bound framebuffer object
+	GLCall(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_rbo.GetID()));
+	// 6- Now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+
+	//unsigned int attachments[nr] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, ..... };
+	unsigned int* attachments = (unsigned int*)alloca(nr_of_colorBuffers * sizeof(unsigned int));
+	for (unsigned int i = 0; i < nr_of_colorBuffers; i++)
+		attachments[i] = GL_COLOR_ATTACHMENT0 + i;
+	glDrawBuffers(nr_of_colorBuffers, attachments);
+
+	bool complete = IsComplete();
+	// 7- Unbind FrameBuffer and reset to default
+	Unbind();
+
+	return complete;
+}
+
 bool FrameBuffer::IsComplete() const
 {
 	return (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);

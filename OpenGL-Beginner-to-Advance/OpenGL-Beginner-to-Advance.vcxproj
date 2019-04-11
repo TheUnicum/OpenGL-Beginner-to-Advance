@@ -233,6 +233,7 @@
     <ClCompile Include="src\tests\05_Advanced_Lighting\05_Parallax_Mapping\T05_ParallaxMap_02_SteepPM.cpp" />
     <ClCompile Include="src\tests\05_Advanced_Lighting\06_HDR\T06_HDR_01_Base.cpp" />
     <ClCompile Include="src\tests\05_Advanced_Lighting\07_Bloom\T07_Bloom_01_Base.cpp" />
+    <ClCompile Include="src\tests\05_Advanced_Lighting\08_Deferred_Shading\T08_DeferredShader_01.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -492,6 +493,8 @@
     <ClInclude Include="src\tests\05_Advanced_Lighting\06_HDR\T06_HDR_01_Base.h" />
     <ClInclude Include="src\tests\05_Advanced_Lighting\07_Bloom\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\05_Advanced_Lighting\07_Bloom\T07_Bloom_01_Base.h" />
+    <ClInclude Include="src\tests\05_Advanced_Lighting\08_Deferred_Shading\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\05_Advanced_Lighting\08_Deferred_Shading\T08_DeferredShader_01.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

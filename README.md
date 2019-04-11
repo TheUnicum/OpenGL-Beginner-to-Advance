@@ -54,3 +54,9 @@ Setting up a test:Normal Mapping (Complex objects)
 
 Setting up a test:Parallax Mapping (Steep & Parallax Occlusion Mapping)
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v18.png)
+
+Setting up a test:Bloom
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v19.png)
+
+Setting up a test:Deferred Shading
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v20.png)
