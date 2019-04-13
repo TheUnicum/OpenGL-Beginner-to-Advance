@@ -126,6 +126,8 @@
 
 #include "tests/05_Advanced_Lighting/08_Deferred_Shading/T08_DeferredShader_01.h"
 
+#include "tests/05_Advanced_Lighting/09_SSAO/T09_SSAO_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -436,6 +438,11 @@ int main(void)
 		test::TestMenu* TM_08_Deferred_Shading = new test::TestMenu(currentTest, "Deferred Shading");
 		TM_08_Deferred_Shading->RegisterTest<test::T08_DeferredShader_01>("DeferredS 01 - Base");
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_08_Deferred_Shading);
+
+		// 09 SSAO Screen-space ambient occlusion
+		test::TestMenu* TM_09_SSAO = new test::TestMenu(currentTest, "SSAO");
+		TM_09_SSAO->RegisterTest<test::T09_SSAO_01>("SSAO 01 - Base");
+		TM_05_Advanced_Lighting->RegisterMenu(*TM_09_SSAO);
 
 		//-----------------------------
 		//-----------------------------

@@ -303,6 +303,9 @@
     <ClCompile Include="src\tests\05_Advanced_Lighting\08_Deferred_Shading\T08_DeferredShader_01.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\05_Advanced_Lighting\09_SSAO\T09_SSAO_01.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1804,6 +1807,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\05_Advanced_Lighting\08_Deferred_Shading\T08_DeferredShader_01.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\09_SSAO\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\05_Advanced_Lighting\09_SSAO\T09_SSAO_01.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

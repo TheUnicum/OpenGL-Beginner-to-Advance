@@ -70,7 +70,7 @@ void Texture::Initialize(int width, int height, int internalFormat, int dataForm
 
 	Bind();
 	// Implementation for HDR (High Dynamic Range) Floating Point framebuffer
-	if ((internalFormat == GL_RGBA16F) || (internalFormat == GL_RGBA32F))
+	if ((internalFormat == GL_RGBA16F) || (internalFormat == GL_RGBA32F) || (internalFormat == GL_RED))
 	{
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_FLOAT, nullptr));
 	}

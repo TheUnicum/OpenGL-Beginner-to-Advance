@@ -29,5 +29,6 @@ public:
 	bool Initialize(int width, int height, int internalFormat, int nr_of_colorBuffers);
 	bool InitializeDepthMap(int width, int height, bool low_quality = false);
 	bool InitializeGBuffer(int width, int height);
+	bool InitializeGBufferSSAO(int width, int height);
 	bool IsComplete() const;
 };
