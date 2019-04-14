@@ -52,7 +52,7 @@ namespace test {
 
 		// MESH members
 		std::unique_ptr<Mesh> m_mesh, m_mesh_quad, m_mesh_grass, m_mesh_grass_Clamped;
-		std::shared_ptr<Shader> m_ShaderMesh;
+		//---std::shared_ptr<Shader> m_ShaderMesh;
 		std::shared_ptr<Texture> msp_mTexture0, msp_mTexture1, msp_mTexture2;
 		std::vector<std::shared_ptr<Texture>> msp_Textures;
 		// Floor
@@ -61,18 +61,14 @@ namespace test {
 
 		// MODEL
 		std::unique_ptr<Model> m_model;
-		std::vector<glm::vec3> m_objectPositions;
-
-		std::vector<glm::vec3> m_lightPositions;
-		std::vector<glm::vec3> m_lightColors;
-		unsigned int NR_LIGHTS = 32;
+		std::shared_ptr<Shader> m_ShaderScreen;
 
 		// Disable VSync 
 		bool m_b_VSync_disabled, m_b_VSync_disabled_i_1;
 
 		// Framebuffers
-		std::shared_ptr<Shader> m_ShaderScreen;
-		std::shared_ptr<Shader> m_ShaderGeometryPass, m_ShaderLightingPass, m_ShaderLightBox;
+		std::shared_ptr<Shader> m_ShaderLightBox;
+		std::shared_ptr<Shader> m_ShaderGeometryPass, m_ShaderSSAOPass, m_ShaderBlurPass, m_ShaderLightPass;
 		std::unique_ptr<VertexBuffer> m_ScreenVBO;
 		std::unique_ptr<VertexArray> m_ScreenVAO;
 
@@ -84,7 +80,7 @@ namespace test {
 		// Abstracting
 		Texture m_fbp_texture;
 		RenderBuffer m_fbo_rbuffer;
-		FrameBuffer m_fbo, m_fbo_gBuffer;
+		FrameBuffer m_fbo_gBuffer; // m_fbo
 
 		int m_i_deferred_Shader_debug;
 
@@ -92,10 +88,19 @@ namespace test {
 
 		// SSAO
 		std::vector<glm::vec3> m_ssaoKernel, m_ssaoNoise;
-		std::unique_ptr<Texture> m_noiseTexture;
+		std::unique_ptr<Texture> m_noiseTexture;	// ToDo list!!!
+		unsigned int m_i_noiseTexture;
 		FrameBuffer m_fbo_ssaoFBO, m_fbo_ssaoBlurFBO;
 
+		// SSAO light Pos & Color
+		glm::vec3 m_lightPos, m_lightColor;
+
 		inline float lerp(float a, float b, float f) { return a + f * (b - a); }
+
+		// 
+		int m_i_kernelSize, m_i_kernelSize_i_1, m_i_power;
+		float m_f_radius, m_f_bias;
+		void generateSamleKernel(int sampleNr);
 	};
 
 }

@@ -236,6 +236,7 @@ float quadScreenVertices_2v_2t[] = {
 
 float cube_Unitario_vertices_3v_3n_2t[] = {
 	// back face
+	// positions          // normals           // texture coords
 	-1.0f, -1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
 	 1.0f,  1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 1.0f, 1.0f, // top-right
 	 1.0f, -1.0f, -1.0f,  0.0f,  0.0f, -1.0f, 1.0f, 0.0f, // bottom-right         

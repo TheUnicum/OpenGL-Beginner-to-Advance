@@ -10,7 +10,10 @@ namespace test {
 		m_mouse_lock(false),
 		m_b_VSync_disabled(false), m_b_VSync_disabled_i_1(false),
 		m_i_postproc_effect(0),
-		m_framebufferWidth(WINDOW_WIDTH), m_framebufferHeight(WINDOW_HEIGHT)
+		m_framebufferWidth(WINDOW_WIDTH), m_framebufferHeight(WINDOW_HEIGHT),
+
+		m_lightPos(glm::vec3(2.0f, 4.0f, -2.0f)), m_lightColor(glm::vec3(0.2f, 0.2f, 0.7f)),
+		m_i_kernelSize(64), m_f_radius(0.5f), m_f_bias(0.025f), m_i_power(1)
 	{
 		// Initialize camera
 		m_camera = std::make_unique<Camera>(glm::vec3(-1.5f, 2.0f, 4.0f), glm::vec3(0.0f, 1.0f, 0.0f), -75.f, -20.f);
@@ -69,7 +72,7 @@ namespace test {
 
 		std::vector<unsigned int> indices0;
 		m_mesh = std::make_unique<Mesh>(vertices_3v_3n_2t, indices0, msp_Textures);
-		m_ShaderMesh = std::make_unique<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_DeferredShader_01.Shader");
+		//m_ShaderMesh = std::make_unique<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_DeferredShader_01.Shader");
 
 
 
@@ -141,32 +144,6 @@ namespace test {
 		//m_model = std::make_unique<Model>("res/objects/nanosuit_reflection/nanosuit.obj");
 		m_model = std::make_unique<Model>("res/objects/nanosuit/nanosuit.obj");
 
-		m_objectPositions.push_back(glm::vec3(-3.0, -3.0, -3.0));
-		m_objectPositions.push_back(glm::vec3(0.0, -3.0, -3.0));
-		m_objectPositions.push_back(glm::vec3(3.0, -3.0, -3.0));
-		m_objectPositions.push_back(glm::vec3(-3.0, -3.0, 0.0));
-		m_objectPositions.push_back(glm::vec3(0.0, -3.0, 0.0));
-		m_objectPositions.push_back(glm::vec3(3.0, -3.0, 0.0));
-		m_objectPositions.push_back(glm::vec3(-3.0, -3.0, 3.0));
-		m_objectPositions.push_back(glm::vec3(0.0, -3.0, 3.0));
-		m_objectPositions.push_back(glm::vec3(3.0, -3.0, 3.0));
-
-		// lighing info
-		// ------------
-		std::srand(13);
-		for (unsigned int i = 0; i < NR_LIGHTS; i++)
-		{
-			// calculate slightly random offsets
-			float xPos = ((rand() % 100) / 100.0) * 6.0 - 3.0;
-			float yPos = ((rand() % 100) / 100.0) * 6.0 - 4.0;
-			float zPos = ((rand() % 100) / 100.0) * 6.0 - 3.0;
-			m_lightPositions.push_back(glm::vec3(xPos, yPos, zPos));
-			// also calculate random color
-			float rColor = ((rand() % 100) / 200.0f) + 0.5; // between 0.5 and 1.0
-			float gColor = ((rand() % 100) / 200.0f) + 0.5; // between 0.5 and 1.0
-			float bColor = ((rand() % 100) / 200.0f) + 0.5; // between 0.5 and 1.0
-			m_lightColors.push_back(glm::vec3(rColor, gColor, bColor));
-		}
 
 
 		// FrameBuffer
@@ -183,44 +160,21 @@ namespace test {
 		m_ShaderScreen = std::make_unique<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_DeferredShader_01_Screeen.Shader");
 
 		m_ShaderGeometryPass = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_SSAO_01_pt1_gBuffer.Shader");
-		m_ShaderLightingPass = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_SSAO_01_pt2_ssao.Shader");
-		m_ShaderLightBox = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_SSAO_01_pt4_LightingPass.Shader");
+		m_ShaderSSAOPass = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_SSAO_01_pt2_ssao.Shader");
+		m_ShaderBlurPass = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_SSAO_01_pt3_blur.Shader");
+		m_ShaderLightPass = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_SSAO_01_pt4_LightingPass.Shader");
 
-
-
-		// SSAO
-
-		// also create framebuffer to hold SSAO processing stage
-		// -----------------------------------------------------
-		// SSAO color buffer
-		if (!m_fbo_ssaoFBO.Initialize(m_framebufferWidth, m_framebufferHeight, GL_RED))
-			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
-		// and blur stage
-		if (!m_fbo_ssaoBlurFBO.Initialize(m_framebufferWidth, m_framebufferHeight, GL_RED))
-			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
-
+		m_ShaderLightBox = std::make_shared<Shader>("src/tests/05_Advanced_Lighting/09_SSAO/S08_SSAO_01_pt5_LightBox.Shader");
 
 		// generate sample kernel
 		// ----------------------
-		std::uniform_real_distribution<float> randomFloats(0.0f, 1.0f); // generate random floats between 0.0f and 1.0f
-		std::default_random_engine generator;
-		for (unsigned int i = 0; i < 64; i++)
-		{
-			glm::vec3 sample(
-				randomFloats(generator) * 2.0f - 1.0f,
-				randomFloats(generator) * 2.0f - 1.0f,
-				randomFloats(generator));
-			sample = glm::normalize(sample);
-			float scale = float(i) / 64.0f;
+		generateSamleKernel(m_i_kernelSize);
 
-			// scale samples s.t. they're more aligned to center of kernel
-			scale = lerp(1.0f, 1.0f, scale * scale);
-			sample *= scale;
-			m_ssaoKernel.push_back(sample);
-		}
 
 		// generate noise texture
 		// ----------------------
+		std::uniform_real_distribution<float> randomFloats(0.0f, 1.0f); // generate random floats between 0.0f and 1.0f
+		std::default_random_engine generator;
 		for (unsigned int i = 0; i < 16; i++)
 		{
 			glm::vec3 noise(
@@ -229,9 +183,16 @@ namespace test {
 				0.0f); // rotate around z-axis (in tangent space)
 			m_ssaoNoise.push_back(noise);
 		}
-		m_noiseTexture = std::make_unique<Texture>();
-		m_noiseTexture->Initialize(4, 4, GL_RGB16F, GL_RGB, GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT);
-
+		//m_noiseTexture = std::make_unique<Texture>();
+		//m_noiseTexture->Initialize(4, 4, GL_RGB16F, GL_RGB, GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT);
+		//m_i_noiseTexture
+		glGenTextures(1, &m_i_noiseTexture);
+		glBindTexture(GL_TEXTURE_2D, m_i_noiseTexture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, 4, 4, 0, GL_RGB, GL_FLOAT, &m_ssaoNoise[0]);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	}
 
 	T09_SSAO_01::~T09_SSAO_01()
@@ -283,6 +244,15 @@ namespace test {
 			m_b_VSync_disabled_i_1 = m_b_VSync_disabled;
 		}
 
+		// Change sample kernel number
+		if (m_i_kernelSize != m_i_kernelSize_i_1)
+		{
+			generateSamleKernel(m_i_kernelSize);
+			m_i_kernelSize_i_1 = m_i_kernelSize;
+		}
+
+
+
 		// Disable blending for manual discard-----------------------------
 		GLCall(glDisable(GL_BLEND));
 
@@ -292,18 +262,6 @@ namespace test {
 		// - scale
 		float inv_ratio_aspect = (float)m_framebufferWidth / (float)m_framebufferHeight;
 
-		//--------------------------------------------------------------------------------------------
-		// Framebuffer A (Draw Scene into texture/renderbuffer)
-		//--------------------------------------------------------------------------------------------
-		// bind to framebuffer and draw scene as we normally would to color texture
-		//m_fbo.Bind();
-		m_fbo_gBuffer.Bind();
-		glEnable(GL_DEPTH_TEST); // Enable depth testing (is disabled for rendering screen-space quad)
-
-		glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
 		// Global Variables
 		glm::mat4 model(1.0f);
 		glm::mat4 view(1.0f);
@@ -311,12 +269,17 @@ namespace test {
 		glm::mat4 mvp;
 
 		view = m_camera->GetViewMatrix();
-		proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 100.0f);
+		proj = glm::perspective(glm::radians(m_f_fov), inv_ratio_aspect, 0.1f, 50.0f);
 
-		// 1. geometry pass: render scene's geometry/color data into buffer
+		// 1. geometry pass: render scene's geometry/color data into gbuffer
+		// ----------------------------------------------------------------
 		{	// Mesh 1st Cube
-			//m_fbo.Bind();
-			//m_ShaderMesh->Bind();
+			m_fbo_gBuffer.Bind();
+			glEnable(GL_DEPTH_TEST); // Enable depth testing (is disabled for rendering screen-space quad)
+			glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			// Active Shader
 			m_ShaderGeometryPass->Bind();
 
 			// room cube
@@ -327,7 +290,7 @@ namespace test {
 			m_ShaderGeometryPass->SetUniformMat4f("u_mvp", mvp);
 			m_ShaderGeometryPass->SetUniformMat4f("u_model", model);
 			m_ShaderGeometryPass->SetUniformMat4f("u_view", view);
-			m_ShaderGeometryPass->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(model))));
+			m_ShaderGeometryPass->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(view * model))));
 			m_ShaderGeometryPass->SetUniform1i("u_b_inverse_normals", true);
 			m_mesh->Draw(m_ShaderGeometryPass);
 
@@ -337,33 +300,30 @@ namespace test {
 			model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 			model = glm::scale(model, glm::vec3(0.5f));
 			mvp = proj * view * model;
-
 			m_ShaderGeometryPass->SetUniformMat4f("u_mvp", mvp);
 			m_ShaderGeometryPass->SetUniformMat4f("u_model", model);
 			m_ShaderGeometryPass->SetUniformMat4f("u_view", view);
-			m_ShaderGeometryPass->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(model))));
+			m_ShaderGeometryPass->SetUniformMat3f("u_transInvers_model", glm::mat3(glm::transpose(glm::inverse(view * model))));
 			m_ShaderGeometryPass->SetUniform1i("u_b_inverse_normals", false);
-
 			m_model->Draw(m_ShaderGeometryPass);
+
+			m_fbo_gBuffer.Unbind();
 		}
 
-
-
+		// 0.0 debug gbuffer texture rendering to a quad!
+		//--------------------------------------------------------------------------------------------
+		// Framebuffer B (Draw Texture in a quad!)
+		//--------------------------------------------------------------------------------------------
 		if (m_i_deferred_Shader_debug == 0)
 		{
-			//--------------------------------------------------------------------------------------------
-			// Framebuffer B (Draw Texture in a quad!)
-			//--------------------------------------------------------------------------------------------
-
 			// now bind back to the default framebuffer and draw a quad plane with the attached framebuffer
 			//m_fbo.Unbind();
-			m_fbo_gBuffer.Unbind();
+			//m_fbo_gBuffer.Unbind();
 			glDisable(GL_DEPTH_TEST);	//  disable depth test so screen-space quad isn't discard due depth test.
 
 			// clear all relevant buffers
 			// set clear color to white (not really necessery actually, since we won't be able to see behind the quad anyways)
-			//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-			glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
+			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			RenderFramebufferTexture(glm::vec3(0.5), glm::vec3(-0.5f, +0.5f, 0.0f), ((m_i_postproc_effect + 0) % 7), 0);
@@ -374,77 +334,130 @@ namespace test {
 
 		if (m_i_deferred_Shader_debug > 0)
 		{
-			m_fbo_gBuffer.Unbind();
-			//glDisable(GL_DEPTH_TEST);	//  disable depth test so screen-space quad isn't discard due depth test.
-
-			// clear all relevant buffers
-			// set clear color to white (not really necessery actually, since we won't be able to see behind the quad anyways)
-			//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-			glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			
-			m_ShaderLightingPass->Bind();
-			m_fbo_gBuffer.m_textures[0]->Bind(0);
-			m_fbo_gBuffer.m_textures[1]->Bind(1);
-			m_fbo_gBuffer.m_textures[2]->Bind(2);
-			m_ShaderLightingPass->SetUniform1i("gPosition", 0);
-			m_ShaderLightingPass->SetUniform1i("gNormal", 1);
-			m_ShaderLightingPass->SetUniform1i("gAlbedoSpec", 2);
-
-			// send light relevant uniforms
-			for (unsigned int i = 0; i < m_lightPositions.size(); i++)
+			// 2. generate SSAO texture
+			// ------------------------
+			if (true)
 			{
-				m_ShaderLightingPass->SetUniform3fv("lights[" + std::to_string(i) + "].Position", m_lightPositions[i]);
-				m_ShaderLightingPass->SetUniform3fv("lights[" + std::to_string(i) + "].Color", m_lightColors[i]);
-				// Update attenuation parameters and calculate radius
-				const float constant = 1.0f; // note that we don't send this to the shader, we assume it is always 1.0 (in our case)
-				const float linear = 0.7f;
-				const float quadratic = 1.8f;
-				m_ShaderLightingPass->SetUniform1f("lights[" + std::to_string(i) + "].Linear", linear);
-				m_ShaderLightingPass->SetUniform1f("lights[" + std::to_string(i) + "].Quadratic", quadratic);
+				bool b_only_blur = false;
+				if (m_i_deferred_Shader_debug == 1)
+					b_only_blur = true; // is not necessary
+				else
+					m_fbo_ssaoFBO.Bind();
+
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+				// Active Shader
+				m_ShaderSSAOPass->Bind();
+
+				// send kernel + rotation
+				for (unsigned int i = 0; i < m_i_kernelSize; i++)
+					m_ShaderSSAOPass->SetUniform3fv("samples[" + std::to_string(i) + "]", m_ssaoKernel[i]);
+				m_ShaderSSAOPass->SetUniformMat4f("u_proj", proj);
+
+				// Active Texture
+				m_fbo_gBuffer.m_textures[0]->Bind(0);
+				m_fbo_gBuffer.m_textures[1]->Bind(1);
+				glActiveTexture(GL_TEXTURE2);
+				glBindTexture(GL_TEXTURE_2D, m_i_noiseTexture);
+				m_ShaderSSAOPass->SetUniform1i("gPosition", 0);
+				m_ShaderSSAOPass->SetUniform1i("gNormal", 1);
+				m_ShaderSSAOPass->SetUniform1i("texNoise", 2);
+
+				glm::vec2 noiseScale = glm::vec2((float)m_framebufferWidth / 4.0f, (float)m_framebufferHeight / 4.0f);
+				m_ShaderSSAOPass->SetUniform2fv("u_noiseScale", noiseScale);
+
+				m_ShaderSSAOPass->SetUniform1i("u_i_kernelSize", m_i_kernelSize);
+				m_ShaderSSAOPass->SetUniform1f("u_f_radius", m_f_radius);
+				m_ShaderSSAOPass->SetUniform1f("u_f_bias", m_f_bias);
+				m_ShaderSSAOPass->SetUniform1i("u_i_power", m_i_power);
+
+				// Render Quad!
+				m_ScreenVAO->Bind();
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+
+				m_fbo_ssaoFBO.Unbind();
 			}
 
-			// View position
-			m_ShaderLightingPass->SetUniform3fv("u_viewPos", m_camera->GetCamPosition());
-
-			m_ScreenVAO->Bind();
-			glDrawArrays(GL_TRIANGLES, 0, 6);
-		}
-
-
-		if (m_i_deferred_Shader_debug > 1)
-		{
-			// 2.5. copy content of geometry's depth buffer to default framebuffer's depth buffer
-			// ----------------------------------------------------------------------------------
-			glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo_gBuffer.GetID());
-			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0); // write to default framebuffer
-			// blit to default framebuffer. Note that this may or may not work as the internal formats of both the FBO and default framebuffer have to match.
-			// the internal formats are implementation defined. This works on all of my systems, but if it doesn't on yours you'll likely have to write to the 		
-			// depth buffer in another shader stage (or somehow see to match the default framebuffer's internal format with the FBO's internal format).
-			glBlitFramebuffer(0, 0, m_framebufferWidth, m_framebufferHeight, 0, 0, m_framebufferWidth, m_framebufferHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-
-			// 3. render lights on top of scene
-			// --------------------------------
-			m_ShaderLightBox->Bind();
-			for (unsigned int i = 0; i < m_lightPositions.size(); i++)
+			// 3. blur SSAO texture to remove noise
+			// ------------------------------------
+			if (m_i_deferred_Shader_debug > 1)
 			{
+				if (m_i_deferred_Shader_debug > 2)
+					m_fbo_ssaoBlurFBO.Bind();
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+				// Active Shader
+				m_ShaderBlurPass->Bind();
+
+				// Active Texture
+				m_fbo_ssaoFBO.TextureBind(0);
+				m_ShaderBlurPass->SetUniform1i("ssaoInput", 0);
+
+				// Render Quad!
+				m_ScreenVAO->Bind();
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+
+				m_fbo_ssaoBlurFBO.Unbind();
+			}
+
+			// 4. ligthing pass: traditional deferred Blinn-Phong lighting with added screen-space ambient occlusion
+			// -----------------------------------------------------------------------------------------------------
+			if (m_i_deferred_Shader_debug > 2)
+			{
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+				// Active Shader
+				m_ShaderLightPass->Bind();
+
+				// send light relevant uniforms
+				glm::vec3 lightPosView = glm::vec3(view * glm::vec4(m_lightPos, 1.0));
+				m_ShaderLightPass->SetUniform3fv("light.Position", lightPosView);
+				m_ShaderLightPass->SetUniform3fv("light.Color", m_lightColor);
+
+				// send light relevant parameters
+				const float constant = 1.0f; // not that we don't send this to the shader, we assume it is always 1.0 (in our case)
+				const float linear = 0.09f;
+				const float quadratic = 0.032;
+				m_ShaderLightPass->SetUniform1f("light.Linear", linear);
+				m_ShaderLightPass->SetUniform1f("light.Quadratic", quadratic);
+
+				// Active Texture
+				m_fbo_gBuffer.m_textures[0]->Bind(0);
+				m_fbo_gBuffer.m_textures[1]->Bind(1);
+				m_fbo_gBuffer.m_textures[2]->Bind(2);
+				m_ShaderLightPass->SetUniform1i("gPosition", 0);
+				m_ShaderLightPass->SetUniform1i("gNormal", 1);
+				m_ShaderLightPass->SetUniform1i("gAlbedo", 2);
+				m_fbo_ssaoBlurFBO.TextureBind(3);
+				m_ShaderLightPass->SetUniform1i("ssao", 3);
+
+				// Render Quad!
+				m_ScreenVAO->Bind();
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+			}
+
+			//// 3. render lights on top of scene
+			// --------------------------------
+			if (true)
+			{
+				glClear(GL_DEPTH_BUFFER_BIT);
+
+				// Active Shader
+				m_ShaderLightBox->Bind();
+
 				// Model Matrix
 				model = glm::mat4(1.0f);
-				model = glm::translate(model, m_lightPositions[i]);
+				model = glm::translate(model, m_lightPos);
 				model = glm::scale(model, glm::vec3(0.125f));
 				mvp = proj * view * model;
-
 				m_ShaderLightBox->SetUniformMat4f("u_mvp", mvp);
-				m_ShaderLightBox->SetUniform3fv("u_lightColor", m_lightColors[i]);
+				m_ShaderLightBox->SetUniform3fv("u_lightColor", m_lightColor);
 
+				// Render Cube light!
 				m_mesh->Draw(m_ShaderLightBox);
 			}
 
 		}
-
 	}
 
 	void T09_SSAO_01::OnImGuiRender()
@@ -459,19 +472,27 @@ namespace test {
 		ImGui::SliderFloat("FOV", &m_f_fov, 20.0f, 80.0f);
 
 		ImGui::Text("PostProcessor Options:");
-		ImGui::Text("0 - None");
-		ImGui::Text("1 - Inversion");
-		ImGui::Text("2 - Grayscale");
-		ImGui::Text("3 - Grayscale(weighted average)");
-		ImGui::Text("4 - Kernel A (16)");
-		ImGui::Text("5 - Kernel B (16)");
-		ImGui::Text("6 - Blur");
-		ImGui::Text("7 - Edge detection");
+		//ImGui::Text("0 - None");
+		//ImGui::Text("1 - Inversion");
+		//ImGui::Text("2 - Grayscale");
+		//ImGui::Text("3 - Grayscale(weighted average)");
+		//ImGui::Text("4 - Kernel A (16)");
+		//ImGui::Text("5 - Kernel B (16)");
+		//ImGui::Text("6 - Blur");
+		//ImGui::Text("7 - Edge detection");
 		ImGui::SliderInt("Num:", &m_i_postproc_effect, 0, 7);
 
 		ImGui::Text("");
-		ImGui::Text("Deferred Shader");
-		ImGui::SliderInt("opt:", &m_i_deferred_Shader_debug, 0, 2);
+		ImGui::Text("SSAO");
+		ImGui::SliderInt("opt:", &m_i_deferred_Shader_debug, 0, 3);
+
+		// 
+		ImGui::Text("");
+		ImGui::Text("Options_");
+		ImGui::SliderInt("kernelSize", &m_i_kernelSize, 2, 256);
+		ImGui::SliderFloat("Radius", &m_f_radius, 0.1f, 2.0f);
+		ImGui::SliderFloat("Bias", &m_f_bias, 0.0f, 0.2f);
+		ImGui::SliderInt("Power", &m_i_power, 0.5, 8);
 
 		ImGui::Text("Options:");
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
@@ -552,11 +573,16 @@ namespace test {
 	
 	void T09_SSAO_01::FramebufferSetup(int width, int height)
 	{
-		if (!m_fbo.Initialize(width, height))
-			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
-
+		// gBuffer
 		if (!m_fbo_gBuffer.InitializeGBuffer(width, height))
 			std::cout << "ERROR::FRAMEBUFFERS:: GBUFFER is not complete!" << std::endl;
+		// SSAO
+		if (!m_fbo_ssaoFBO.Initialize(width, height, GL_RED))
+			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
+		// and blur stage
+		if (!m_fbo_ssaoBlurFBO.Initialize(width, height, GL_RED))
+			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
+
 	}
 
 	void T09_SSAO_01::RenderFramebufferTexture(glm::vec3 scale, glm::vec3 position, int index, int color_attch_Nr)
@@ -573,12 +599,35 @@ namespace test {
 
 		m_ScreenVAO->Bind();
 		// use the color attachment texture as the texture of the quad plane
-		//m_fbo.TextureBind(0);
 		if (color_attch_Nr < 2)
 			m_fbo_gBuffer.m_textures[color_attch_Nr]->Bind(0);
 		else
 			m_fbo_gBuffer.m_textures[2]->Bind(0);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
+	}
+
+	void T09_SSAO_01::generateSamleKernel(int sampleNr)
+	{
+		m_ssaoKernel.clear();
+
+		std::uniform_real_distribution<float> randomFloats(0.0f, 1.0f); // generate random floats between 0.0f and 1.0f
+		std::default_random_engine generator;
+		for (unsigned int i = 0; i < sampleNr; ++i)
+		{
+			glm::vec3 sample(
+				randomFloats(generator) * 2.0f - 1.0f,
+				randomFloats(generator) * 2.0f - 1.0f,
+				randomFloats(generator));
+			sample = glm::normalize(sample);
+			sample *= randomFloats(generator);
+			float scale = float(i) / sampleNr;
+
+			// scale samples s.t. they're more aligned to center of kernel
+			scale = lerp(1.0f, 1.0f, scale * scale);
+			sample *= scale;
+			m_ssaoKernel.push_back(sample);
+		}
+		std::cout << "generate Sample Kernel: " << m_ssaoKernel.size() << std::endl;
 	}
 }
 

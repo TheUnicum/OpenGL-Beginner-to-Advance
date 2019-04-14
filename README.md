@@ -60,3 +60,6 @@ Setting up a test:Bloom
 
 Setting up a test:Deferred Shading
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v20.png)
+
+Setting up a test:SSAO (Screen-Space Ambient Occlusion)
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v21.png)

@@ -13,58 +13,66 @@ void main()
 };
 
 
-
 #shader fragment
 #version 330 core
+//out float FragColor;
 out vec4 FragColor;
 
 in vec2 TexCoords;
 
 uniform sampler2D gPosition;
 uniform sampler2D gNormal;
-uniform sampler2D gAlbedoSpec;
+uniform sampler2D texNoise;
 
-struct Light {
-	vec3 Position;
-	vec3 Color;
-	
-	float Linear;
-	float Quadratic;
-};
-const int NR_LIGHTS = 32;
-uniform Light lights[NR_LIGHTS];
-uniform vec3 u_viewPos;
+uniform vec3 samples[256]; // 64
+
+// parameters (you'd probably want to use them as uniforms to more easily tweak effect)
+uniform int u_i_kernelSize;	//int kernelSize = 64;
+uniform float u_f_radius;	//float radius = 0.5;
+uniform float u_f_bias;		//float bias = 0.025;
+
+uniform int u_i_power;
+
+// tile noise texture over sceen based on screen dimension divided by noise size
+uniform vec2 u_noiseScale;	//const vec2 noiseScale = vec2(960.0f / 4.0f, 540.0f / 4.0f);
+
+uniform mat4 u_proj;
 
 void main()
 {
-	// retrive data from gbuffer
-	vec3 FragPos = texture(gPosition, TexCoords).rgb;
-	vec3 Normal = texture(gNormal, TexCoords).rgb;
-	vec3 Diffuse = texture(gAlbedoSpec, TexCoords).rgb;
-	float Specular = texture(gAlbedoSpec, TexCoords).a;
+	// get input for SSAO algorithm
+	vec3 fragPos = texture(gPosition, TexCoords).xyz;
+	vec3 normal = normalize(texture(gNormal, TexCoords).rgb);
+	vec3 randomVec = normalize(texture(texNoise, TexCoords * u_noiseScale).xyz);
 
-	// then calculate lighting as usual
-	vec3 lighting = Diffuse * 0.1; // hard-coded ambient component
-	vec3 viewDir = normalize(u_viewPos - FragPos);
-	for (int i = 0; i < NR_LIGHTS; i++)
+	// create TBN change-of-basis matrix: from tangent-space to view-space
+	vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
+	vec3 bitangent = cross(normal, tangent);
+	mat3 TBN = mat3(tangent, bitangent, normal);
+
+	// iterate over the sample kernel and calculate occlusion factor
+	float occlusion = 0.0f;
+	for (int i = 0; i < u_i_kernelSize; i++)
 	{
-		// diffuse
-		vec3 lightDir = normalize(lights[i].Position - FragPos);
-		vec3 diffuse = max(dot(Normal, lightDir), 0.0) * Diffuse * lights[i].Color;
-		// specular
-		vec3 halfwayDir = normalize(lightDir + viewDir);
-		float spec = pow(max(dot(Normal, halfwayDir), 0.0), 16.0);
-		vec3 specular = lights[i].Color * spec * Specular;
-		// attenuation
-		float distance = length(lights[i].Position - FragPos);
-		float attenuation = 1.0 / (1.0 + lights[i].Linear * distance + lights[i].Quadratic * distance * distance);
-		diffuse *= attenuation;
-		specular *= attenuation;
-		lighting += diffuse + specular;
+		// get sample position
+		vec3 sample = TBN * samples[i]; // from tangent to view-space
+		sample = fragPos + sample * u_f_radius;
 
+		// project sample position (to sample texture) (to get position on screen/texture)
+		vec4 offset = vec4(sample, 1.0f);
+		offset = u_proj * offset; // from view to clip-space
+		offset.xyz /= offset.w; // perspective divide
+		offset.xyz = offset.xyz * 0.5f + 0.5f; // transform to range 0.0 - 1.0
+
+		// get sample depth
+		float sampleDepth = texture(gPosition, offset.xy).z; // get depth value of kernel sample
+
+		// range check & accumulate
+		float rangeCheck = smoothstep(0.0, 1.0, u_f_radius / abs(fragPos.z - sampleDepth));
+		occlusion += (sampleDepth >= sample.z + u_f_bias ? 1.0f : 0.0f) * rangeCheck;
 	}
-
-	FragColor = vec4(lighting, 1.0f);
-
+	occlusion = 1.0f - (occlusion / u_i_kernelSize);
+	occlusion = pow(occlusion, u_i_power);
+	FragColor = vec4(occlusion);
 };
 
