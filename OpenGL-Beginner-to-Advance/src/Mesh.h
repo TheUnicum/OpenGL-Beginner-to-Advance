@@ -50,7 +50,7 @@ class Mesh
 public:
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
 	Mesh(std::vector<VertexTB> vertices, std::vector<unsigned int> indices, std::vector<std::shared_ptr<Texture>> textures);
-	void Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays = false);
+	void Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays = false, int mode = GL_TRIANGLES);
 	void Draw(std::shared_ptr<Shader> shader, unsigned int instance_count, bool compatible_glDrawArrays = false);
 
 	void SetMaterialUniforms(std::shared_ptr<Shader> shader);

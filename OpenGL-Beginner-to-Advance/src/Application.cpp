@@ -128,6 +128,8 @@
 
 #include "tests/05_Advanced_Lighting/09_SSAO/T09_SSAO_01.h"
 
+#include "tests/06_PBR/02_PBR_Lighting/T02_PBR_Lighting_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -445,6 +447,16 @@ int main(void)
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_09_SSAO);
 
 		//-----------------------------
+		// 06 PBR - Physically Based Rendering
+		//-----------------------------
+		test::TestMenu* TM_06_PBR = new test::TestMenu(currentTest, "Physically based rendering (PBR)");
+
+		// 02 Lighting
+		test::TestMenu* TM_02_PBR_Lighting = new test::TestMenu(currentTest, "PBR - Lighting");
+		TM_02_PBR_Lighting->RegisterTest<test::T02_PBR_Lighting_01>("PBR-Lighting 01 - Base");
+		TM_06_PBR->RegisterMenu(*TM_02_PBR_Lighting);
+
+		//-----------------------------
 		//-----------------------------
 		// Main Menu
 		//-----------------------------
@@ -454,6 +466,7 @@ int main(void)
 		testMenu->RegisterMenu(*TM_03_Model_Loading);
 		testMenu->RegisterMenu(*TM_04_Advanced_OpenGL);
 		testMenu->RegisterMenu(*TM_05_Advanced_Lighting);
+		testMenu->RegisterMenu(*TM_06_PBR);
 
 		while (!glfwWindowShouldClose(window))
 		{

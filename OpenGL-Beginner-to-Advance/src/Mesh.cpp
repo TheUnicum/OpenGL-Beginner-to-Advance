@@ -25,18 +25,18 @@ Mesh::Mesh(std::vector<VertexTB> vertices, std::vector<unsigned int> indices, st
 	this->presetUniformNames();
 }
 
-void Mesh::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays)
+void Mesh::Draw(std::shared_ptr<Shader> shader, bool compatible_glDrawArrays, int mode)
 {
 	SetMaterialUniforms(shader); // shader Bind inside Function
 	m_va.Bind();
 
 	if (this->m_ibo_data && !compatible_glDrawArrays)
 	{	// ATTENTION !! GLCall is a MACRO so is more than 1 line of code. Use scope {}.
-		GLCall(glDrawElements(GL_TRIANGLES, m_i_count, GL_UNSIGNED_INT, 0));
+		GLCall(glDrawElements(mode, m_i_count, GL_UNSIGNED_INT, 0));
 	}
 	else
 	{
-		GLCall(glDrawArrays(GL_TRIANGLES, 0, m_v_count));// m_v_count
+		GLCall(glDrawArrays(mode, 0, m_v_count));// m_v_count
 	}
 }
 
