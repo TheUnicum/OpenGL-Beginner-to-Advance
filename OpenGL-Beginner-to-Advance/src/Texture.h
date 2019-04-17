@@ -9,7 +9,9 @@
 
 enum class TextureType
 {
-	NONE = -1, DIFFUSE = 0, SPECULAR = 1, EMISSION = 2, NORMAL = 3, HEIGHT = 4, AMBIENT = 5
+	NONE = -1, DIFFUSE = 0, SPECULAR = 1, EMISSION = 2, NORMAL = 3, HEIGHT = 4, AMBIENT = 5,
+	ALBEDO = 6, METALLIC = 7, ROUGHNESS = 8, AO = 9,
+	MAX_COUNT = 12 // useful for std::string m_textureTypeName[(int)TextureType::MAX_COUNT]; on Mesh.h
 };
 
 class Texture

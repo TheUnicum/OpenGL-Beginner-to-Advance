@@ -236,6 +236,7 @@
     <ClCompile Include="src\tests\05_Advanced_Lighting\08_Deferred_Shading\T08_DeferredShader_01.cpp" />
     <ClCompile Include="src\tests\05_Advanced_Lighting\09_SSAO\T09_SSAO_01.cpp" />
     <ClCompile Include="src\tests\06_PBR\02_PBR_Lighting\T02_PBR_Lighting_01.cpp" />
+    <ClCompile Include="src\tests\06_PBR\02_PBR_Lighting\T02_PBR_Lighting_02_Textures.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -501,6 +502,7 @@
     <ClInclude Include="src\tests\05_Advanced_Lighting\09_SSAO\T09_SSAO_01.h" />
     <ClInclude Include="src\tests\06_PBR\02_PBR_Lighting\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\06_PBR\02_PBR_Lighting\T02_PBR_Lighting_01.h" />
+    <ClInclude Include="src\tests\06_PBR\02_PBR_Lighting\T02_PBR_Lighting_02_Textures.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />

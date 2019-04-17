@@ -38,7 +38,7 @@ Texture::Texture(const std::string & path, int min_filter, int mag_filter, int w
 	if (m_LocalBuffer)
 		stbi_image_free(m_LocalBuffer);
 	else
-		std::cout << "ERROR::Failed to load Texture!" << std::endl;
+		std::cout << "ERROR::Failed to load Texture! :" << path << std::endl;
 }
 
 Texture::Texture(const std::string & path, TextureType textureType, bool flip_vertically, int min_filter, int mag_filter, int wrap_s, int wrap_t)

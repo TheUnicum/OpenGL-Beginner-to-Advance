@@ -63,3 +63,6 @@ Setting up a test:Deferred Shading
 
 Setting up a test:SSAO (Screen-Space Ambient Occlusion)
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v21.png)
+
+Setting up a test:PBR (Physically Based Rendering)
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v22.png)

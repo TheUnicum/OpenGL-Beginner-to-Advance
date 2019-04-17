@@ -67,6 +67,11 @@ void Mesh::SetMaterialUniforms(std::shared_ptr<Shader> shader)
 	unsigned int normalNr = 1;
 	unsigned int heightNr = 1;
 	unsigned int ambientNr = 1;
+	// New from PBR
+	unsigned int albedoNr = 1;
+	unsigned int metallicNr = 1;
+	unsigned int roughnessNr = 1;
+	unsigned int aoNr = 1;
 
 	for (unsigned int i = 0; i < msp_Textures.size(); i++)
 	{
@@ -83,6 +88,15 @@ void Mesh::SetMaterialUniforms(std::shared_ptr<Shader> shader)
 			str_indexNr = std::to_string(heightNr++);
 		else if (this->msp_Textures[i]->GetType() == TextureType::AMBIENT)
 			str_indexNr = std::to_string(ambientNr++);
+		// New from PBR
+		else if (this->msp_Textures[i]->GetType() == TextureType::ALBEDO)
+			str_indexNr = std::to_string(albedoNr++);
+		else if (this->msp_Textures[i]->GetType() == TextureType::METALLIC)
+			str_indexNr = std::to_string(metallicNr++);
+		else if (this->msp_Textures[i]->GetType() == TextureType::ROUGHNESS)
+			str_indexNr = std::to_string(roughnessNr++);
+		else if (this->msp_Textures[i]->GetType() == TextureType::AO)
+			str_indexNr = std::to_string(aoNr++);
 
 		// Now set the sampler to the correct texture unit
 		this->msp_Textures[i]->Bind(i);
@@ -140,6 +154,11 @@ void Mesh::presetUniformNames()
 	this->m_textureTypeName[(int)TextureType::NORMAL] = "material.normal";
 	this->m_textureTypeName[(int)TextureType::HEIGHT] = "material.height";
 	this->m_textureTypeName[(int)TextureType::AMBIENT] = "material.ambient";
+	// New from PBR
+	this->m_textureTypeName[(int)TextureType::ALBEDO] = "material.albedo";
+	this->m_textureTypeName[(int)TextureType::METALLIC] = "material.metallic";
+	this->m_textureTypeName[(int)TextureType::ROUGHNESS] = "material.roughness";
+	this->m_textureTypeName[(int)TextureType::AO] = "material.ao";
 }
 
 // utility overload for iostream Vertex Data

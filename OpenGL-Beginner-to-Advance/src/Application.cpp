@@ -129,6 +129,7 @@
 #include "tests/05_Advanced_Lighting/09_SSAO/T09_SSAO_01.h"
 
 #include "tests/06_PBR/02_PBR_Lighting/T02_PBR_Lighting_01.h"
+#include "tests/06_PBR/02_PBR_Lighting/T02_PBR_Lighting_02_Textures.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -454,6 +455,7 @@ int main(void)
 		// 02 Lighting
 		test::TestMenu* TM_02_PBR_Lighting = new test::TestMenu(currentTest, "PBR - Lighting");
 		TM_02_PBR_Lighting->RegisterTest<test::T02_PBR_Lighting_01>("PBR-Lighting 01 - Base");
+		TM_02_PBR_Lighting->RegisterTest<test::T02_PBR_Lighting_02_Textures>("PBR-Lighting 02 - Textures");
 		TM_06_PBR->RegisterMenu(*TM_02_PBR_Lighting);
 
 		//-----------------------------

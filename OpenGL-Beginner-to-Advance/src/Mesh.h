@@ -79,7 +79,7 @@ private:
 	std::shared_ptr<IndexBuffer> m_ibo;
 	//utility
 	unsigned int m_v_count, m_i_count;
-	std::string m_textureTypeName[6];
+	std::string m_textureTypeName[(int)TextureType::MAX_COUNT];
 	bool m_ibo_data;
 };
 
