@@ -70,7 +70,7 @@ void Texture::Initialize(int width, int height, int internalFormat, int dataForm
 
 	Bind();
 	// Implementation for HDR (High Dynamic Range) Floating Point framebuffer
-	if ((internalFormat == GL_RGBA16F) || (internalFormat == GL_RGBA32F) || (internalFormat == GL_RED))
+	if ((internalFormat == GL_RGBA16F) || (internalFormat == GL_RGBA32F) || (internalFormat == GL_DEPTH_COMPONENT) || (internalFormat == GL_RED))
 	{
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_Width, m_Height, 0, dataFormat, GL_FLOAT, nullptr));
 	}
@@ -88,6 +88,47 @@ void Texture::Initialize(int width, int height, int internalFormat, int dataForm
 	if (borderColor != glm::vec4(-1.0f))
 	{
 		GLCall(glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, &borderColor.x));
+	}
+
+	Unbind();
+}
+
+void Texture::InitializeCube(int width, int height,
+	int internalFormat, int dataFormat,
+	int min_filter, int mag_filter,
+	int wrap_s, int wrap_t, int wrap_r,
+	glm::vec4 borderColor)
+{
+	m_LocalBuffer = nullptr;
+	m_Width = width;
+	m_Height = height;
+	m_BPP = 0;
+	m_target = GL_TEXTURE_CUBE_MAP;
+
+	Bind();
+
+	for (unsigned int i = 0; i < 6; i++)
+	{
+		// Implementation for HDR (High Dynamic Range) Floating Point framebuffer
+		int data_type;
+		if ((internalFormat == GL_RGBA16F) || (internalFormat == GL_RGBA32F) || (internalFormat == GL_DEPTH_COMPONENT) || (internalFormat == GL_RED))
+			data_type = GL_FLOAT;
+		else
+			data_type = GL_UNSIGNED_BYTE;
+
+		GLCall(glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat, m_Width, m_Height, 0, dataFormat, data_type, NULL));
+	}
+
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, min_filter));
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, mag_filter));
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, wrap_s));
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, wrap_t));
+	GLCall(glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, wrap_t));
+
+	// Optimization for Shadow Mapping
+	if (borderColor != glm::vec4(-1.0f))
+	{
+		GLCall(glTexParameterfv(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_BORDER_COLOR, &borderColor.x));
 	}
 
 	Unbind();

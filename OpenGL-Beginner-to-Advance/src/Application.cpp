@@ -111,6 +111,8 @@
 #include "tests/05_Advanced_Lighting/03_Shadows/01_Shadow_Mapping/T01_SM_01_DepthMap.h"
 #include "tests/05_Advanced_Lighting/03_Shadows/01_Shadow_Mapping/T01_SM_02_RenderingShadows.h"
 
+#include "tests/05_Advanced_Lighting/03_Shadows/02_Point_Shadows/T02_PM_01_Base.h"
+
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_01_Base.h"
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_02_TangentSpace.h"
 #include "tests/05_Advanced_Lighting/04_Normal_Mapping/T04_NormalMap_03_MeshTB.h"
@@ -400,14 +402,15 @@ int main(void)
 		//-----------------------------
 		test::TestMenu* TM_03_ShadowsMENU = new test::TestMenu(currentTest, "Shadows");
 
+		// 01 Shadow Mapping
 		test::TestMenu* TM_01_Shadows_Mapping = new test::TestMenu(currentTest, "Shadows Mapping");
 		TM_01_Shadows_Mapping->RegisterTest<test::T01_SM_01_DepthMap>("SM 01 - The depth map");
 		TM_01_Shadows_Mapping->RegisterTest<test::T01_SM_02_RenderingShadows>("SM 02 - Rendering shadows");
 		TM_03_ShadowsMENU->RegisterMenu(*TM_01_Shadows_Mapping);
 
-
+		// 02 Point Shadows
 		test::TestMenu* TM_02_Point_Shadows = new test::TestMenu(currentTest, "Point Shadows");
-		//...
+		TM_02_Point_Shadows->RegisterTest<test::T02_PM_01_Base>("PS 01 - Point Shadows Base");
 		TM_03_ShadowsMENU->RegisterMenu(*TM_02_Point_Shadows);
 
 		TM_05_Advanced_Lighting->RegisterMenu(*TM_03_ShadowsMENU);

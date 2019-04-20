@@ -117,6 +117,31 @@ bool FrameBuffer::InitializeDepthMap(int width, int height, bool low_quality)
 	return complete;
 }
 
+bool FrameBuffer::InitializeDepthCubeMap(int width, int height, bool low_quality)
+{
+	// 1- framebuffer configuration
+	Bind();
+	// 2- create a Depth CUBO map attachment texture
+	if (low_quality)
+		m_texture.InitializeCube(width, height, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT,
+			GL_NEAREST, GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+	else
+		m_texture.InitializeCube(width, height, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT,
+			GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+	// 3- attach it to currently bound framebuffer object
+	GLCall(glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, m_texture.GetID(), 0));
+	// 4- A framebuffer object however is not complete without a color buffer
+	// so we need to explicitly tell OpenGL we're not going to render any color data
+	GLCall(glDrawBuffer(GL_NONE));
+	GLCall(glReadBuffer(GL_NONE));
+	// 5- Now that we actually created the framebuffer and added all attachmentes we want to check if it is actually complete now
+	bool complete = IsComplete();
+	// 6- Unbind FrameBuffer and reset to default
+	Unbind();
+
+	return complete;
+}
+
 bool FrameBuffer::InitializeGBuffer(int width, int height)
 {
 	int nr_of_colorBuffers = 3;

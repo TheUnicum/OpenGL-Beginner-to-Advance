@@ -52,7 +52,7 @@ public:
 	void Bind(unsigned int slot = 0) const;
 	void Unbind() const;
 
-	// Initilalize for custom/framebuffer textures.
+	// Initilalize for custom/framebuffer textures. <could be useful change name in Initialize2D(...)>
 	void Initialize(int width, int height,
 		int internalFormat = GL_RGB,
 		int dataFormat = GL_RGB,
@@ -60,6 +60,17 @@ public:
 		int mag_filter = GL_LINEAR,
 		int wrap_s = GL_REPEAT,	// default value
 		int wrap_t = GL_REPEAT,
+		glm::vec4 borderColor = glm::vec4(-1.0f));
+
+	// Initialize for custom/framebuffer CUBO textures.
+	void InitializeCube(int width, int height,
+		int internalFormat = GL_DEPTH_COMPONENT,
+		int dataFormat = GL_DEPTH_COMPONENT,
+		int min_filter = GL_LINEAR,
+		int mag_filter = GL_LINEAR,
+		int wrap_s = GL_REPEAT,
+		int wrap_t = GL_REPEAT,
+		int wrap_r = GL_REPEAT,
 		glm::vec4 borderColor = glm::vec4(-1.0f));
 
 	void LoadCubemap(std::vector<std::string>& faces, std::string directory);
