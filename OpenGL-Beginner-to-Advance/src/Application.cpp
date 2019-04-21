@@ -133,6 +133,8 @@
 #include "tests/06_PBR/02_PBR_Lighting/T02_PBR_Lighting_01.h"
 #include "tests/06_PBR/02_PBR_Lighting/T02_PBR_Lighting_02_Textures.h"
 
+#include "tests/06_PBR/03_IBL/01_Diffuse_irradiance/T01_Diffuse_irradiance_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -460,6 +462,18 @@ int main(void)
 		TM_02_PBR_Lighting->RegisterTest<test::T02_PBR_Lighting_01>("PBR-Lighting 01 - Base");
 		TM_02_PBR_Lighting->RegisterTest<test::T02_PBR_Lighting_02_Textures>("PBR-Lighting 02 - Textures");
 		TM_06_PBR->RegisterMenu(*TM_02_PBR_Lighting);
+
+		//-----------------------------
+		// 03 IBL - Image Based Irradiance
+		//-----------------------------
+		test::TestMenu* TM_03_IBL = new test::TestMenu(currentTest, "Image Based Irradiance (IBR)");
+
+		// 01 Diffuse irradiance
+		test::TestMenu* TM_01_Diffuse_irradiance = new test::TestMenu(currentTest, "Diffuse irradiance");
+		TM_01_Diffuse_irradiance->RegisterTest<test::T01_Diffuse_irradiance_01>("Diffuse irradiance 01 - Base");
+		TM_03_IBL->RegisterMenu(*TM_01_Diffuse_irradiance);
+
+		TM_06_PBR->RegisterMenu(*TM_03_IBL);
 
 		//-----------------------------
 		//-----------------------------

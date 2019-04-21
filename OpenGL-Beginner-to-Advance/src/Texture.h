@@ -22,6 +22,7 @@ private:
 	std::string m_Directory;
 	std::vector<std::string> m_FilePaths;
 	unsigned char* m_LocalBuffer;
+	float* m_fp_LocalBuffer;
 	int m_Width, m_Height, m_BPP;
 	TextureType m_type;
 	int m_target;
@@ -74,6 +75,7 @@ public:
 		glm::vec4 borderColor = glm::vec4(-1.0f));
 
 	void LoadCubemap(std::vector<std::string>& faces, std::string directory);
+	void LoadHdr(const std::string& path);
 
 	inline unsigned int GetID() const { return m_RendererID; }
 	inline int GetWidth() const { return m_Width; }

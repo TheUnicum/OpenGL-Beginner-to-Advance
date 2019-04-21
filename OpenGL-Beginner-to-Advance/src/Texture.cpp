@@ -176,3 +176,34 @@ void Texture::LoadCubemap(std::vector<std::string>& faces, std::string directory
 	
 	Unbind();
 }
+
+void Texture::LoadHdr(const std::string& path)
+{
+	m_FilePath = path;
+	m_fp_LocalBuffer = nullptr;
+	m_target = GL_TEXTURE_2D;
+
+	stbi_set_flip_vertically_on_load(true);
+	m_fp_LocalBuffer = stbi_loadf(path.c_str(), &m_Width, &m_Height, &m_BPP, 0);
+
+	if (m_fp_LocalBuffer)
+	{
+		Bind();
+		// note how we specify the texture's data value to be float
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, m_Width, m_Height, 0, GL_RGB, GL_FLOAT, m_fp_LocalBuffer)); 
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+		stbi_image_free(m_fp_LocalBuffer);
+
+		Unbind();
+	}
+	else
+	{
+		std::cout << "ERROR::Failed to load HDR Texture! :" << path << std::endl;
+	}
+
+}
