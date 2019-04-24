@@ -134,6 +134,7 @@
 #include "tests/06_PBR/02_PBR_Lighting/T02_PBR_Lighting_02_Textures.h"
 
 #include "tests/06_PBR/03_IBL/01_Diffuse_irradiance/T01_Diffuse_irradiance_01.h"
+#include "tests/06_PBR/03_IBL/01_Diffuse_irradiance/T01_Diffuse_irradiance_02.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -471,6 +472,7 @@ int main(void)
 		// 01 Diffuse irradiance
 		test::TestMenu* TM_01_Diffuse_irradiance = new test::TestMenu(currentTest, "Diffuse irradiance");
 		TM_01_Diffuse_irradiance->RegisterTest<test::T01_Diffuse_irradiance_01>("Diffuse irradiance 01 - Base");
+		TM_01_Diffuse_irradiance->RegisterTest<test::T01_Diffuse_irradiance_02>("Diffuse irradiance 02 - Map");
 		TM_03_IBL->RegisterMenu(*TM_01_Diffuse_irradiance);
 
 		TM_06_PBR->RegisterMenu(*TM_03_IBL);
