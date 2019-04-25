@@ -131,6 +131,10 @@ void Texture::InitializeCube(int width, int height,
 		GLCall(glTexParameterfv(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_BORDER_COLOR, &borderColor.x));
 	}
 
+	// Automatically generate MipMap if GL_TEXTURE_MIN_FILTER is setted to GL_LINEAR_MIPMAP_LINEAR !
+	if (min_filter == GL_LINEAR_MIPMAP_LINEAR)
+		GLCall(glGenerateMipmap(GL_TEXTURE_CUBE_MAP));
+
 	Unbind();
 }
 

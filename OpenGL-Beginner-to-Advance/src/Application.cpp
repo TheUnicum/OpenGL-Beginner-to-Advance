@@ -136,6 +136,8 @@
 #include "tests/06_PBR/03_IBL/01_Diffuse_irradiance/T01_Diffuse_irradiance_01.h"
 #include "tests/06_PBR/03_IBL/01_Diffuse_irradiance/T01_Diffuse_irradiance_02.h"
 
+#include "tests/06_PBR/03_IBL/02_Specular_IBL/T02_SpecIBL_01.h"
+
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -474,6 +476,11 @@ int main(void)
 		TM_01_Diffuse_irradiance->RegisterTest<test::T01_Diffuse_irradiance_01>("Diffuse irradiance 01 - Base");
 		TM_01_Diffuse_irradiance->RegisterTest<test::T01_Diffuse_irradiance_02>("Diffuse irradiance 02 - Map");
 		TM_03_IBL->RegisterMenu(*TM_01_Diffuse_irradiance);
+
+		// 02 Specular IBL
+		test::TestMenu* TM_02_Specular_IBL = new test::TestMenu(currentTest, "Specular IBL");
+		TM_02_Specular_IBL->RegisterTest<test::T02_SpecIBL_01>("Spec.IBL 01 - Base");
+		TM_03_IBL->RegisterMenu(*TM_02_Specular_IBL);
 
 		TM_06_PBR->RegisterMenu(*TM_03_IBL);
 
