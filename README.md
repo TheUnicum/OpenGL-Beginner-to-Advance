@@ -66,3 +66,6 @@ Setting up a test:SSAO (Screen-Space Ambient Occlusion)
 
 Setting up a test:PBR (Physically Based Rendering)
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v22.png)
+
+Setting up a test:PBR + Specular IBL
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v23.png)

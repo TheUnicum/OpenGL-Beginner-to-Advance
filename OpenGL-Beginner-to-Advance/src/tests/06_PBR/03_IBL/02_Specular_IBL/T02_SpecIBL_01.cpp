@@ -14,9 +14,12 @@ namespace test {
 
 		m_hdrEnvMapCubeWidth(512), m_hdrEnvMapCubeHeight(512),
 		m_irradianceMapCubeWidth(32), m_irradianceMapCubeHeight(32),
-		m_b_irradianceLighting(false), m_b_show_hdrEnvMapCube(false),
+		m_b_show_hdrEnvMapCube(false), //m_b_irradianceLighting(false),
 		// pre-filter cubemap
-		m_preFilterMapCubeWidth(128), m_preFilterMapCubeHeight(128), m_f_preFilterMipMap_level(0.0f), m_i_select_Cube_Map(0)
+		m_preFilterMapCubeWidth(128), m_preFilterMapCubeHeight(128), m_f_preFilterMipMap_level(0.0f), m_i_select_Cube_Map(0),
+		// brdf Lut Texture 2D
+		m_brdfLUTTMap2DWidth(512), m_brdfLUTTMap2DHeight(512),
+		m_i_sel_irradianceLighting(0)
 	{
 		// Initialize camera
 		m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 30.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
@@ -85,6 +88,10 @@ namespace test {
 			"src/tests/06_PBR/03_IBL/02_Specular_IBL/S02_SpecIBL_01_IrradianceCubemap.Shader");
 		m_ShaderPreFilterToCubemap = std::make_unique<Shader>(
 			"src/tests/06_PBR/03_IBL/02_Specular_IBL/S02_SpecIBL_01_PreFilterCubemap.Shader");
+
+		m_ShaderbrdfToTexture2D = std::make_unique<Shader>(
+			"src/tests/06_PBR/03_IBL/02_Specular_IBL/S02_SpecIBL_01_BrdfCubemap.Shader");
+
 		m_ShaderBackground = std::make_unique<Shader>(
 			"src/tests/06_PBR/03_IBL/02_Specular_IBL/S02_SpecIBL_01_Background.Shader");
 
@@ -132,6 +139,13 @@ namespace test {
 		m_prefilteredCubeMap->InitializeCube(m_preFilterMapCubeWidth, m_preFilterMapCubeHeight, GL_RGB16F, GL_RGB,
 			GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR,	// be sure to set minification filer to mip_linear
 			GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+
+		// pbr:: generate a 2D LUT from the BRDF equations used.
+		// pre-allocate enough memory for the LUT texture.
+		m_brdfLUTTexture2D = std::make_shared<Texture>();
+		m_brdfLUTTexture2D->Initialize(m_brdfLUTTMap2DWidth, m_brdfLUTTMap2DHeight, GL_RG16F, GL_RG,
+			GL_LINEAR, GL_LINEAR,
+			GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
 		// pbr: set up projection and view matrices for capturing data onto the 6 cubemap dace direcitons
 		m_captureProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
@@ -224,6 +238,21 @@ namespace test {
 		}
 		m_fbo.Unbind();
 
+
+		// pbr: LUT Texture, re-configure capture framebuffer object and render screen-space quad with BRDF shader.
+		// -----------------------------------------------------------------------------------------------------
+		m_ShaderbrdfToTexture2D->Bind();
+
+		glViewport(0, 0, m_brdfLUTTMap2DWidth, m_brdfLUTTMap2DHeight);
+		FramebufferSetup(m_brdfLUTTMap2DWidth, m_brdfLUTTMap2DHeight);
+		m_fbo.Bind();
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_brdfLUTTexture2D->GetID(), 0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		m_mesh->Draw(m_ShaderbrdfToTexture2D);
+		m_fbo.Unbind();
+
+
+
 		// then before rendering, configure the viewport to the original framebuffer's screen dimensions
 		//glfwGetFramebufferSize(window, &scrWidth, &scrHeight);
 		glViewport(0, 0, m_framebufferWidth, m_framebufferHeight);
@@ -305,12 +334,21 @@ namespace test {
 			glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			m_Shader->SetUniform1i("u_b_irradianceLighting", m_b_irradianceLighting);
-			if (m_b_irradianceLighting)
-			{
-				m_irradianceCubeMap->Bind(3);
-				m_Shader->SetUniform1i("irradianceMap", 3);
-			}
+			//m_Shader->SetUniform1i("u_b_irradianceLighting", m_b_irradianceLighting);
+			m_Shader->SetUniform1i("u_i_sel_irradianceLighting", m_i_sel_irradianceLighting);
+			
+			//if (m_b_irradianceLighting)
+			//if (m_i_sel_irradianceLighting == 1)
+			//{
+			//	m_irradianceCubeMap->Bind(3);
+			//	m_Shader->SetUniform1i("irradianceMap", 3);
+			//}
+			m_irradianceCubeMap->Bind(3);
+			m_Shader->SetUniform1i("irradianceMap", 3);
+			m_prefilteredCubeMap->Bind(4);
+			m_Shader->SetUniform1i("prefilterMap", 4);
+			m_brdfLUTTexture2D->Bind(5);
+			m_Shader->SetUniform1i("brdfLUT", 5);
 
 			// render rows* columns number of spheres with varying metallic/roughness values scaled by rows and columns respectively
 			for (int row = 0; row < m_nrRows; ++row)
@@ -320,7 +358,7 @@ namespace test {
 				{
 					// we clamp the roughness to 0.025 - 1.0 as perfectly smooth surface (roughtness of 0.0) tend to look a bit off
 					// on direct lighting
-					m_Shader->SetUniform1f("u_roughtness", glm::clamp((float)col / (float)m_nrColums, 0.05f, 1.0f));
+					m_Shader->SetUniform1f("u_roughness", glm::clamp((float)col / (float)m_nrColums, 0.05f, 1.0f));
 					model = glm::mat4(1.0f);
 					model = glm::translate(model, glm::vec3(
 						(col - (m_nrColums / 2)) * m_spacing,
@@ -408,7 +446,7 @@ namespace test {
 		ImGui::Text("Press F to fix player to ground!");
 		ImGui::SliderFloat("FOV", &m_f_fov, 20.0f, 80.0f);
 
-		ImGui::Checkbox("Irradiance Lighting", &m_b_irradianceLighting);
+		//ImGui::Checkbox("Irradiance Lighting", &m_b_irradianceLighting);
 		ImGui::Checkbox("Show HDR env.Map", &m_b_show_hdrEnvMapCube);
 
 		ImGui::Text("0 - HDR");
@@ -417,6 +455,12 @@ namespace test {
 		ImGui::SliderInt("Cube_Map:", &m_i_select_Cube_Map, 0, 2);
 
 		ImGui::SliderFloat("MipMap", &m_f_preFilterMipMap_level, 0.0f, 4.0f);
+
+		ImGui::Text("");
+		ImGui::Text("0 : Lights");
+		ImGui::Text("1 : + HDR");
+		ImGui::Text("2 : + Reflactance");
+		ImGui::SliderInt("Light:", &m_i_sel_irradianceLighting, 0, 2);
 
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
 	}

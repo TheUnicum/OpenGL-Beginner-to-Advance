@@ -82,7 +82,7 @@ namespace test {
 		std::shared_ptr<Shader> m_ShaderIrradianceToCubemap;
 		std::shared_ptr<Texture> m_irradianceCubeMap;
 		int m_irradianceMapCubeWidth, m_irradianceMapCubeHeight;
-		bool m_b_irradianceLighting, m_b_show_hdrEnvMapCube;
+		bool m_b_show_hdrEnvMapCube;	//m_b_irradianceLighting
 
 		// Pre-filtered Cubemap
 		std::shared_ptr<Shader> m_ShaderPreFilterToCubemap;
@@ -90,7 +90,13 @@ namespace test {
 		int m_preFilterMapCubeWidth, m_preFilterMapCubeHeight;
 		float m_f_preFilterMipMap_level;
 
+		// Pre-computing the BRDF
+		std::shared_ptr<Shader> m_ShaderbrdfToTexture2D;
+		std::shared_ptr<Texture> m_brdfLUTTexture2D;
+		int m_brdfLUTTMap2DWidth, m_brdfLUTTMap2DHeight;
+
 		int m_i_select_Cube_Map;
+		int m_i_sel_irradianceLighting;
 	};
 
 }
