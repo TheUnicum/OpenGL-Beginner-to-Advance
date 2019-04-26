@@ -137,6 +137,7 @@
 #include "tests/06_PBR/03_IBL/01_Diffuse_irradiance/T01_Diffuse_irradiance_02.h"
 
 #include "tests/06_PBR/03_IBL/02_Specular_IBL/T02_SpecIBL_01.h"
+#include "tests/06_PBR/03_IBL/02_Specular_IBL_2/T02_SpecIBL_02_TextureScene.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -481,6 +482,11 @@ int main(void)
 		test::TestMenu* TM_02_Specular_IBL = new test::TestMenu(currentTest, "Specular IBL");
 		TM_02_Specular_IBL->RegisterTest<test::T02_SpecIBL_01>("Spec.IBL 01 - Base");
 		TM_03_IBL->RegisterMenu(*TM_02_Specular_IBL);
+
+		// 02 Specular IBL
+		test::TestMenu* TM_02_Specular_IBL_2 = new test::TestMenu(currentTest, "Specular IBL 2");
+		TM_02_Specular_IBL_2->RegisterTest<test::T02_SpecIBL_02_TextureScene>("Spec.IBL 02 - Texture Scene");
+		TM_03_IBL->RegisterMenu(*TM_02_Specular_IBL_2);
 
 		TM_06_PBR->RegisterMenu(*TM_03_IBL);
 
