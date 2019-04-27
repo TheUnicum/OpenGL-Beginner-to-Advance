@@ -242,6 +242,7 @@
     <ClCompile Include="src\tests\06_PBR\03_IBL\01_Diffuse_irradiance\T01_Diffuse_irradiance_02.cpp" />
     <ClCompile Include="src\tests\06_PBR\03_IBL\02_Specular_IBL\T02_SpecIBL_01.cpp" />
     <ClCompile Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_2\T02_SpecIBL_02_TextureScene.cpp" />
+    <ClCompile Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_3\T02_SpecIBL_03_ModelScene.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -517,6 +518,8 @@
     <ClInclude Include="src\tests\06_PBR\03_IBL\02_Specular_IBL\T02_SpecIBL_01.h" />
     <ClInclude Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_2\E00_cube_vertices.h" />
     <ClInclude Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_2\T02_SpecIBL_02_TextureScene.h" />
+    <ClInclude Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_3\E00_cube_vertices.h" />
+    <ClInclude Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_3\T02_SpecIBL_03_ModelScene.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\Texture.h" />
