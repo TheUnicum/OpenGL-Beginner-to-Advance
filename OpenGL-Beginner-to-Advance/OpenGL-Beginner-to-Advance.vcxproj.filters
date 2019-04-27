@@ -330,6 +330,9 @@
     <ClCompile Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_3\T02_SpecIBL_03_ModelScene.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_4_tests\T02_SpecIBL_04_Tests.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
@@ -1879,6 +1882,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_3\T02_SpecIBL_03_ModelScene.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_4_tests\E00_cube_vertices.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tests\06_PBR\03_IBL\02_Specular_IBL_4_tests\T02_SpecIBL_04_Tests.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

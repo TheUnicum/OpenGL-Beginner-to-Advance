@@ -1,16 +1,16 @@
-#include "T02_SpecIBL_02_TextureScene.h"
+#include "T02_SpecIBL_04_Tests.h"
 #include "GLFW/glfw3.h"
 
 namespace test {
 
-	T02_SpecIBL_02_TextureScene::T02_SpecIBL_02_TextureScene()
+	T02_SpecIBL_04_Tests::T02_SpecIBL_04_Tests()
 		: m_f_fov(45.0f),
 		m_b_firstMouse(true),
 		m_mouse_lock(false),
 		m_b_VSync_disabled(false), m_b_VSync_disabled_i_1(false),
 		m_framebufferWidth(WINDOW_WIDTH), m_framebufferHeight(WINDOW_HEIGHT),
 
-		m_nrRows(1), m_nrColums(5), m_spacing(2.5),
+		m_nrRows(7), m_nrColums(7), m_spacing(2.5),
 
 		m_hdrEnvMapCubeWidth(512), m_hdrEnvMapCubeHeight(512),
 		m_irradianceMapCubeWidth(32), m_irradianceMapCubeHeight(32),
@@ -19,7 +19,8 @@ namespace test {
 		m_preFilterMapCubeWidth(128), m_preFilterMapCubeHeight(128), m_f_preFilterMipMap_level(0.0f), m_i_select_Cube_Map(0),
 		// brdf Lut Texture 2D
 		m_brdfLUTTMap2DWidth(512), m_brdfLUTTMap2DHeight(512),
-		m_i_sel_irradianceLighting(0)
+		m_i_sel_irradianceLighting(0),
+		m_b_show_brdfMap2D(true)
 	{
 		// Initialize camera
 		m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 30.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
@@ -81,19 +82,19 @@ namespace test {
 		m_mesh = std::make_unique<Mesh>(vertices_3v_3n_2t, indices0, msp_Textures);
 
 		m_Shader = std::make_unique<Shader>(
-			"src/tests/06_PBR/03_IBL/02_Specular_IBL_2/S02_SpecIBL_02.Shader");
+			"src/tests/06_PBR/03_IBL/02_Specular_IBL_4_tests/S02_SpecIBL_04.Shader");
 		m_ShaderEquirectangularToCubemap = std::make_unique<Shader>(
-			"src/tests/06_PBR/03_IBL/02_Specular_IBL_2/S02_SpecIBL_02_EquirectangularToCubemap.Shader");
+			"src/tests/06_PBR/03_IBL/02_Specular_IBL_4_tests/S02_SpecIBL_04_EquirectangularToCubemap.Shader");
 		m_ShaderIrradianceToCubemap = std::make_unique<Shader>(
-			"src/tests/06_PBR/03_IBL/02_Specular_IBL_2/S02_SpecIBL_02_IrradianceCubemap.Shader");
+			"src/tests/06_PBR/03_IBL/02_Specular_IBL_4_tests/S02_SpecIBL_04_IrradianceCubemap.Shader");
 		m_ShaderPreFilterToCubemap = std::make_unique<Shader>(
-			"src/tests/06_PBR/03_IBL/02_Specular_IBL_2/S02_SpecIBL_02_PreFilterCubemap.Shader");
+			"src/tests/06_PBR/03_IBL/02_Specular_IBL_4_tests/S02_SpecIBL_04_PreFilterCubemap.Shader");
 
 		m_ShaderbrdfToTexture2D = std::make_unique<Shader>(
-			"src/tests/06_PBR/03_IBL/02_Specular_IBL_2/S02_SpecIBL_02_BrdfCubemap.Shader");
+			"src/tests/06_PBR/03_IBL/02_Specular_IBL_4_tests/S02_SpecIBL_04_BrdfCubemap.Shader");
 
 		m_ShaderBackground = std::make_unique<Shader>(
-			"src/tests/06_PBR/03_IBL/02_Specular_IBL_2/S02_SpecIBL_02_Background.Shader");
+			"src/tests/06_PBR/03_IBL/02_Specular_IBL_4_tests/S02_SpecIBL_04_Background.Shader");
 
 
 		// lights
@@ -239,8 +240,8 @@ namespace test {
 		m_fbo.Unbind();
 
 
-		// pbr: LUT Texture, re-configure capture framebuffer object and render screen-space quad with BRDF shader.
-		// -----------------------------------------------------------------------------------------------------
+		//pbr: LUT Texture, re-configure capture framebuffer object and render screen-space quad with BRDF shader.
+		//-----------------------------------------------------------------------------------------------------
 		m_ShaderbrdfToTexture2D->Bind();
 		glViewport(0, 0, m_brdfLUTTMap2DWidth, m_brdfLUTTMap2DHeight);
 		FramebufferSetup(m_brdfLUTTMap2DWidth, m_brdfLUTTMap2DHeight);
@@ -259,11 +260,86 @@ namespace test {
 		//glfwGetFramebufferSize(window, &scrWidth, &scrHeight);
 		glViewport(0, 0, m_framebufferWidth, m_framebufferHeight);
 
+		m_model = std::make_unique<Model>("res/objects/Cerberus_by_Andrew_Maximov/Cerberus_LP.FBX");
+
+		m_TexAlbedo = std::make_shared<Texture>("res/objects/Cerberus_by_Andrew_Maximov/Textures/Cerberus_A.tga", TextureType::ALBEDO);
+		m_TexNormal = std::make_shared<Texture>("res/objects/Cerberus_by_Andrew_Maximov/Textures/Cerberus_N.tga", TextureType::NORMAL);
+		m_TexMetallic = std::make_shared<Texture>("res/objects/Cerberus_by_Andrew_Maximov/Textures/Cerberus_M.tga", TextureType::METALLIC);
+		m_TexRoughness = std::make_shared<Texture>("res/objects/Cerberus_by_Andrew_Maximov/Textures/Cerberus_R.tga", TextureType::ROUGHNESS);
+		m_TexAO = std::make_shared<Texture>("res/textures/pbr/rusted_iron/ao.png", TextureType::AO);
+
+
+
+		// NEW mesh-  index quad----------------------------------------------------------------------------------
+		float positions_quad[] = {
+			// positions          // normals           // texture coords	// index
+			-0.5f, -0.5f,  0.0f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,			// 0
+			 0.5f, -0.5f,  0.0f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,			// 1
+			 0.5f,  0.5f,  0.0f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,			// 2
+			-0.5f,  0.5f,  0.0f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,			// 3
+		};
+
+		unsigned int uint_quad_indices[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		std::vector<Vertex> vertices_quad_3v_3n_2t;
+		std::vector<unsigned int> vec_quad_indices;
+		i = 0;
+		for (float val : positions_quad)
+		{
+			switch (i)
+			{
+			case 0:	// Position
+				temp_pos.x = val;
+				break;
+			case 1:
+				temp_pos.y = val;
+				break;
+			case 2:
+				temp_pos.z = val;
+				break;
+			case 3:	// Normal
+				temp_norm.x = val;
+				break;
+			case 4:
+				temp_norm.y = val;
+				break;
+			case 5:
+				temp_norm.z = val;
+				break;
+			case 6:	// TexCoords
+				temp_texC.x = val;
+				break;
+			case 7:
+				temp_texC.y = val;
+				vertices_quad_3v_3n_2t.emplace_back(temp_pos, temp_norm, temp_texC);
+				i = -1; // Restart counter...
+				break;
+			default:
+				break;
+			}
+			i++;
+		}
+
+		for (unsigned int val : uint_quad_indices)
+			vec_quad_indices.push_back(val);
+		
+		msp_mTexture0 = std::make_shared<Texture>("res/textures/container2.png", TextureType::DIFFUSE);
+		msp_Quad_Textures.push_back(m_brdfLUTTexture2D);
+
+		m_mesh_quad = std::make_unique<Mesh>(vertices_quad_3v_3n_2t, vec_quad_indices, msp_Quad_Textures);
+
+
+
+
+
 		//  VSync / Enabel & Disable
 		glfwSwapInterval(1);
 	}
 
-	T02_SpecIBL_02_TextureScene::~T02_SpecIBL_02_TextureScene()
+	T02_SpecIBL_04_Tests::~T02_SpecIBL_04_Tests()
 	{
 		glfwSwapInterval(0);
 
@@ -272,11 +348,11 @@ namespace test {
 		GLCall(glFrontFace(GL_CCW));
 	}
 
-	void T02_SpecIBL_02_TextureScene::OnUpdate(float deltaTime)
+	void T02_SpecIBL_04_Tests::OnUpdate(float deltaTime)
 	{
 	}
 
-	void T02_SpecIBL_02_TextureScene::OnRender(GLFWwindow* window)
+	void T02_SpecIBL_04_Tests::OnRender(GLFWwindow* window)
 	{
 		if (m_mouse_disable != m_mouse_disable_i_1)
 		{
@@ -353,7 +429,7 @@ namespace test {
 			m_Shader->SetUniform1i("brdfLUT", 13);
 
 			// render rows* columns number of spheres with varying metallic/roughness values scaled by rows and columns respectively
-			for (int row = 0; row < m_nrRows; ++row)
+			for (int row = m_nrRows; row < m_nrRows; ++row)
 			{
 				m_Shader->SetUniform1f("u_metallic", (float)row / (float)m_nrRows);
 				for (int col = 0; col < m_nrColums; ++col)
@@ -370,34 +446,48 @@ namespace test {
 					mvp = proj * view * model;
 					m_Shader->SetUniformMat4f("u_model", model);
 					m_Shader->SetUniformMat4f("u_mvp", mvp);
-					//m_Shere_mesh->Draw(m_Shader, false, GL_TRIANGLE_STRIP);
-
-					switch (col)
-					{
-					case 0:
-						m_Shere_mesh_rusted_iron->Draw(m_Shader, false, GL_TRIANGLE_STRIP);
-						break;
-					case 1:
-						m_Shere_mesh_gold->Draw(m_Shader, false, GL_TRIANGLE_STRIP);
-						break;
-					case 2:
-						m_Shere_mesh_grass->Draw(m_Shader, false, GL_TRIANGLE_STRIP);
-						break;
-					case 3:
-						m_Shere_mesh_plastic->Draw(m_Shader, false, GL_TRIANGLE_STRIP);
-						break;
-					case 4:
-						m_Shere_mesh_wall->Draw(m_Shader, false, GL_TRIANGLE_STRIP);
-						break;
-
-					default:
-						m_Shere_mesh_rusted_iron->Draw(m_Shader, false, GL_TRIANGLE_STRIP);
-						break;
-					}
-
+					m_Shere_mesh->Draw(m_Shader, false, GL_TRIANGLE_STRIP);
 					
 				}
 			}
+
+
+			if (m_b_show_brdfMap2D)
+			{
+				model = glm::mat4(1.0f);
+				model = glm::scale(model, glm::vec3(25.0f));
+				mvp = proj * view * model;
+				m_Shader->SetUniformMat4f("u_model", model);
+				m_Shader->SetUniformMat4f("u_mvp", mvp);
+				m_mesh_quad->Draw(m_Shader);
+			}
+
+			// Render Model
+			else{
+				model = glm::mat4(1.0f);
+				model = glm::rotate(model, glm::radians(+90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+				model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+				model = glm::scale(model, glm::vec3(0.1f));
+				mvp = proj * view * model;
+				m_Shader->SetUniformMat4f("u_model", model);
+				m_Shader->SetUniformMat4f("u_mvp", mvp);
+
+				//m_TexAlbedo
+				//m_TexAlbedo->Bind(0);
+				//m_Shader->SetUniform1i("material.albedo1", 0);
+				m_TexNormal->Bind(1);
+				m_Shader->SetUniform1i("material.normal1", 1);
+				m_TexMetallic->Bind(2);
+				m_Shader->SetUniform1i("material.metallic1", 2);
+				m_TexRoughness->Bind(3);
+				m_Shader->SetUniform1i("material.roughness1", 3);
+				m_TexAO->Bind(4);
+				m_Shader->SetUniform1i("material.ao1", 4);
+
+				m_model->Draw(m_Shader);
+			}
+
+
 
 			// render light source (simply re-render sphere at light positions)
 			// this looks a bit off as we use the same shader, but it'll make their positions obvious and
@@ -455,14 +545,10 @@ namespace test {
 			m_ShaderBackground->SetUniform1i("u_environmentMap", 10);
 			m_mesh->Draw(m_ShaderBackground);
 
-
-
-
-
 		}
 	}
 
-	void T02_SpecIBL_02_TextureScene::OnImGuiRender()
+	void T02_SpecIBL_04_Tests::OnImGuiRender()
 	{
 		ImGui::Text("GLSL's built-in variables");
 		ImGui::Text("Uniform buffer objects");
@@ -475,6 +561,8 @@ namespace test {
 
 		//ImGui::Checkbox("Irradiance Lighting", &m_b_irradianceLighting);
 		ImGui::Checkbox("Show HDR env.Map", &m_b_show_hdrEnvMapCube);
+		ImGui::Checkbox("Show BRDF Map 2D", &m_b_show_brdfMap2D);
+
 
 		ImGui::Text("0 - HDR");
 		ImGui::Text("1 - Irradiance");
@@ -492,7 +580,7 @@ namespace test {
 		ImGui::Checkbox("Disable VSync", &m_b_VSync_disabled);
 	}
 
-	void T02_SpecIBL_02_TextureScene::OnProcessInput(GLFWwindow * window, float deltaTime)
+	void T02_SpecIBL_04_Tests::OnProcessInput(GLFWwindow * window, float deltaTime)
 	{
 		glm::vec3 direction(0.0f);
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -533,7 +621,7 @@ namespace test {
 			m_key_pressed = false;
 	}
 
-	void T02_SpecIBL_02_TextureScene::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+	void T02_SpecIBL_04_Tests::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 	{
 		if (!window)
 		{
@@ -545,7 +633,7 @@ namespace test {
 		FramebufferSetup(m_hdrEnvMapCubeWidth, m_hdrEnvMapCubeHeight);
 	}
 
-	void T02_SpecIBL_02_TextureScene::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+	void T02_SpecIBL_04_Tests::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	{
 		//std::cout << xpos << " " << ypos << std::endl;
 
@@ -565,7 +653,7 @@ namespace test {
 			m_camera->ProcessMouseMovement(xoffset, yoffset);
 	}
 
-	void T02_SpecIBL_02_TextureScene::fill_sphere_mesh_vertices()
+	void T02_SpecIBL_04_Tests::fill_sphere_mesh_vertices()
 	{
 		unsigned int indexCount;
 
@@ -624,21 +712,21 @@ namespace test {
 
 		m_Shere_mesh = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/plastic/"));
 
-		m_Shere_mesh_rusted_iron = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/rusted_iron/"));
-		m_Shere_mesh_gold = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/gold/"));
-		m_Shere_mesh_grass = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/grass/"));
-		m_Shere_mesh_plastic = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/plastic/"));
-		m_Shere_mesh_wall = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/wall/"));
+		//m_Shere_mesh_rusted_iron = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/rusted_iron/"));
+		//m_Shere_mesh_gold = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/gold/"));
+		//m_Shere_mesh_grass = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/grass/"));
+		//m_Shere_mesh_plastic = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/plastic/"));
+		//m_Shere_mesh_wall = std::make_unique<Mesh>(vertices_sphere_3v_3n_2t, indices, return_mesh_sp_texture("res/textures/pbr/wall/"));
 
 	}
 
-	void T02_SpecIBL_02_TextureScene::FramebufferSetup(int width, int height)
+	void T02_SpecIBL_04_Tests::FramebufferSetup(int width, int height)
 	{
 		if (!m_fbo.Initialize(width, height))
 			std::cout << "ERROR::FRAMEBUFFERS:: Framebuffer is not complete!" << std::endl;
 	}
 
-	std::vector<std::shared_ptr<Texture>> T02_SpecIBL_02_TextureScene::return_mesh_sp_texture(const std::string & path)
+	std::vector<std::shared_ptr<Texture>> T02_SpecIBL_04_Tests::return_mesh_sp_texture(const std::string & path)
 	{
 		std::vector<std::shared_ptr<Texture>> sp_Textures;
 		std::shared_ptr<Texture> TexAlbedo, TexNormal, TexMetallic, TexRoughness, TexAO;

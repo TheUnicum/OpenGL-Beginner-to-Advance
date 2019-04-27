@@ -18,6 +18,7 @@ void main()
 #shader fragment
 #version 330 core
 out vec2 FragColor;
+//out vec4 FragColor;
 
 in VS_OUT{
 	vec2 TexCoords;

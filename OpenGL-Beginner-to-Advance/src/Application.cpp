@@ -139,6 +139,7 @@
 #include "tests/06_PBR/03_IBL/02_Specular_IBL/T02_SpecIBL_01.h"
 #include "tests/06_PBR/03_IBL/02_Specular_IBL_2/T02_SpecIBL_02_TextureScene.h"
 #include "tests/06_PBR/03_IBL/02_Specular_IBL_3/T02_SpecIBL_03_ModelScene.h"
+#include "tests/06_PBR/03_IBL/02_Specular_IBL_4_tests/T02_SpecIBL_04_Tests.h"
 
 // Functions Declaration
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -490,9 +491,14 @@ int main(void)
 		TM_03_IBL->RegisterMenu(*TM_02_Specular_IBL_2);
 
 		// 02 Specular IBL <C Model Scene>
-		test::TestMenu* TM_02_Specular_IBL_3 = new test::TestMenu(currentTest, "Specular IBL 3");
+		test::TestMenu* TM_02_Specular_IBL_3 = new test::TestMenu(currentTest, "Specular IBL 3 : Model");
 		TM_02_Specular_IBL_3->RegisterTest<test::T02_SpecIBL_03_ModelScene>("Spec.IBL 03 - Model Scene");
 		TM_03_IBL->RegisterMenu(*TM_02_Specular_IBL_3);
+
+		// 02 Specular IBL <C Tests>
+		test::TestMenu* TM_02_Specular_IBL_4 = new test::TestMenu(currentTest, "Specular IBL 4 : Tests");
+		TM_02_Specular_IBL_4->RegisterTest<test::T02_SpecIBL_04_Tests>("Spec.IBL 04 - Tests");
+		TM_03_IBL->RegisterMenu(*TM_02_Specular_IBL_4);
 
 		TM_06_PBR->RegisterMenu(*TM_03_IBL);
 

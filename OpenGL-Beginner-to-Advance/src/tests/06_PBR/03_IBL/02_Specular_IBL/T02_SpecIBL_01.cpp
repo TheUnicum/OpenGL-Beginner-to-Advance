@@ -242,15 +242,17 @@ namespace test {
 		// pbr: LUT Texture, re-configure capture framebuffer object and render screen-space quad with BRDF shader.
 		// -----------------------------------------------------------------------------------------------------
 		m_ShaderbrdfToTexture2D->Bind();
-
 		glViewport(0, 0, m_brdfLUTTMap2DWidth, m_brdfLUTTMap2DHeight);
 		FramebufferSetup(m_brdfLUTTMap2DWidth, m_brdfLUTTMap2DHeight);
 		m_fbo.Bind();
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_brdfLUTTexture2D->GetID(), 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_BLEND);	// ---> Important When use a vec2 disable(GL_BLEND) or fragment will be discharged
+		//						// another solution could be change the output from vec2 to vec4 in the FragmentShader 
+		//						// and manually set the ALPHA color to 1.0f
 		m_mesh->Draw(m_ShaderbrdfToTexture2D);
+		glEnable(GL_BLEND);
 		m_fbo.Unbind();
-
 
 
 		// then before rendering, configure the viewport to the original framebuffer's screen dimensions

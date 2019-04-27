@@ -67,5 +67,14 @@ Setting up a test:SSAO (Screen-Space Ambient Occlusion)
 Setting up a test:PBR (Physically Based Rendering)
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v22.png)
 
-Setting up a test:PBR + Specular IBL
+Setting up a test:PBR + Specular IBL [Sphere scene]
 ![](/OpenGL-Beginner-to-Advance/res/previews/preview_v23.png)
+
+FIXED important issue on generate brdfLUTTexture
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v24.png)
+
+Setting up a test:PBR + Specular IBL [Textured scene]
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v25.png)
+
+Setting up a test:PBR + Specular IBL [MODEL scene]
+![](/OpenGL-Beginner-to-Advance/res/previews/preview_v26.png)
